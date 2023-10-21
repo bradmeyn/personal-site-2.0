@@ -1,0 +1,116 @@
+<section id="contact" class="contact">
+  <div class="contact__content container">
+    <h3 class="contact__heading" data-aos="fade-up" data-aos-duration="1000">
+      Contact Me
+    </h3>
+    <p class="contact__text" data-aos="fade-up" data-aos-duration="1000">
+      If you have any enquiries please use the email below.
+    </p>
+    <a
+      class="btn--contact"
+      data-aos="zoom-in"
+      data-aos-duration="1000"
+      href="mailto:bradjmeyn@gmail.com"
+    >
+      <span>Email</span><i class="fas fa-paper-plane"></i>
+    </a>
+
+    <nav class="icon-navbar" data-aos="zoom-in" data-aos-duration="1000">
+      <ul class="icon-nav contact-icon">
+        <li class="icon-nav__item">
+          <a
+            href="https://github.com/bradmeyn"
+            target="_blank"
+            class="icon-nav__link contact-icon"
+          >
+            <span class="icon-nav__icon">
+              <i class="fab fa-github"></i>
+              <div class="icon-nav__title contact-icon">GitHub</div>
+            </span>
+          </a>
+        </li>
+        <li class="icon-nav__item">
+          <a
+            href="https://codepen.io/bradmeyn"
+            target="_blank"
+            class="icon-nav__link contact-icon"
+          >
+            <span class="icon-nav__icon">
+              <i class="fab fa-codepen"></i>
+              <div class="icon-nav__title contact-icon">CodePen</div>
+            </span>
+          </a>
+        </li>
+        <li class="icon-nav__item">
+          <a
+            href="https://linkedin.com/in/bradmeyn"
+            target="_blank"
+            class="icon-nav__link contact-icon"
+          >
+            <span class="icon-nav__icon">
+              <i class="fab fa-linkedin-in"></i>
+              <div class="icon-nav__title contact-icon">LinkedIn</div>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</section>
+
+<style>
+  .contact {
+    padding: var(--mobile-padding);
+    background: var(--background-dark);
+    text-align: center;
+  }
+
+  .contact__content {
+    margin: 0 auto;
+    max-width: 55rem;
+  }
+
+  .contact__heading {
+    font-size: var(--hs-lg);
+    margin-bottom: var(--margin-xl);
+    color: var(--secondary);
+    text-align: center;
+    position: relative;
+  }
+
+  .contact__heading::before {
+    position: absolute;
+    content: "Contact Me";
+    text-align: center;
+    transform: translateX(5px);
+    color: var(--text-lightest);
+  }
+
+  /* 
+Assuming the .projects__heading::after styling here. 
+Make sure to replace it with the actual CSS styles.
+*/
+  .contact__heading::after {
+    /* Add the actual CSS styles for .projects__heading::after here */
+  }
+
+  .contact__text {
+    color: var(--text-lightest);
+    font-size: var(--fs-md);
+    line-height: 1.5;
+    padding-bottom: var(--margin-xl);
+  }
+
+  .contact__text--email {
+    display: block;
+    font-size: var(--fs-md);
+    transition: all linear 0.5s;
+    text-decoration: none;
+    color: var(--secondary);
+  }
+
+  .contact__text--email:hover {
+    color: var(--secondary-light);
+    text-decoration: underline;
+  }
+</style>

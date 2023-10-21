@@ -1,0 +1,28 @@
+<div class="header__logo">
+  <span>BM.</span>
+</div>
+
+<style>
+  .header__logo {
+    font-family: var(--font-body);
+    font-weight: 800;
+    font-size: var(--hs-md);
+    display: flex;
+    align-items: center;
+    color: var(--secondary);
+    order: -1;
+    animation: fadeDown 1s;
+    opacity: 0;
+    animation-fill-mode: both;
+    animation-delay: 0.2s;
+    letter-spacing: 1px;
+  }
+
+  .header__logo::before {
+    position: absolute;
+    content: "BM.";
+    color: var(--text-lightest);
+    left: 2px;
+    top: 1px;
+  }
+</style>

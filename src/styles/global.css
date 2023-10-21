@@ -1,0 +1,237 @@
+/*
+  The CSS in this style tag is based off of Bear Blog's default CSS.
+  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
+  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
+ */
+:root {
+  /* Colours */
+
+  --white: #ffffff;
+
+  --background-dark: #141e30;
+  --background-light: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+
+  --text-dark: rgb(121, 127, 148);
+  --text-darker: rgb(76, 87, 121);
+  --text-darkest: rgb(23, 31, 58);
+
+  --text-light: #b7c7d8;
+  --text-lighter: #f0f6fc;
+  --text-lightest: #ffffff;
+
+  --primary-light: #d4e3fa;
+  --primary: #1a2940;
+  --primary-dark: #111b2b;
+
+  --secondary: #ff5d4b;
+  --secondary-light: #f97c6f;
+
+  --gradient-primary: linear-gradient(
+    to bottom right,
+    #0f2d54 0%,
+    #53789561 100%
+  );
+
+  --gradient-secondary: linear-gradient(
+    to right,
+    #eb3349 0%,
+    var(--secondary) 51%,
+    #eb3349 100%
+  );
+
+  --padding-desktop: 5rem 10rem;
+  --padding-mobile: 5rem 2rem;
+
+  --font-body: "DM Sans", sans-serif;
+  --box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+
+  --margin-xs: 0.25rem;
+  --margin-sm: 0.5rem;
+  --margin-md: 1rem;
+  --margin-lg: 2rem;
+  --margin-xl: 4rem;
+
+  --fs--xxs: 1rem;
+  --fs-xs: 1.2rem;
+  --fs-sm: 1.4rem;
+  --fs-md: 1.6rem;
+  --fs-lg: 2.3rem;
+  --fs-xl: 3rem;
+
+  --hs-xs: 1.5rem;
+  --hs-sm: 2rem;
+  --hs-md: 3rem;
+  --hs-lg: 4.7rem;
+  --hs-xl: 6.1rem;
+}
+
+@font-face {
+  font-family: "Atkinson";
+  src: url("/fonts/atkinson-regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson";
+  src: url("/fonts/atkinson-bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+}
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+  background-color: var(--background-dark);
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 100rem;
+  padding: var(--padding-mobile);
+}
+
+.hidden {
+  display: none;
+}
+
+@media only screen and (min-width: 768px) {
+  html {
+    font-size: 70%;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    transform: translateY(30px);
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    transform: translateX(30px);
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeDown {
+  from {
+    transform: translateY(-30px);
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.container {
+  margin: 0 auto;
+  max-width: 100rem;
+  padding: var(--padding-mobile);
+}
+
+.content {
+  height: 100%;
+  width: 100%;
+  z-index: 10;
+}
+
+.icon-nav {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 6rem;
+  padding-bottom: 2rem;
+}
+
+.icon-nav__item {
+  list-style: none;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10rem;
+}
+
+.icon-nav__link {
+  font-size: var(--hs-md);
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--text-light);
+  text-align: center;
+}
+
+.icon-nav__title {
+  opacity: 0;
+  margin-top: 0.5rem;
+  text-align: center;
+  font-size: var(
+    --fs-
+  ); /* Make sure to correct this, as the variable seems incomplete */
+  font-weight: 500;
+  transform: translateY(-25px);
+  color: var(--text-lightest);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.contact-icon.icon-nav {
+  position: static;
+}
+
+.contact-icon.icon-nav__link {
+  font-size: var(--hs-md);
+}
+
+.contact-icon.icon-nav__title {
+  font-size: var(--fs-md);
+}
+
+/* Replace $screen-md with the actual pixel value */
+@media only screen and (min-width: 768px) {
+  .icon-nav {
+    display: none;
+  }
+
+  .icon-navbar .icon-nav {
+    display: flex;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .icon-nav__link:hover .icon-nav__title,
+  .icon-nav__link:focus .icon-nav__title {
+    transition: all ease 0.5s;
+    transform: translateY(10px);
+    opacity: 1;
+  }
+
+  .icon-nav__link:hover .icon-nav__icon,
+  .icon-nav__link:focus .icon-nav__icon {
+    transform: scale(1.1);
+    transition: all ease 0.5s;
+    color: var(--secondary);
+  }
+}

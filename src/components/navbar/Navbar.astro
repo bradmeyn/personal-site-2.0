@@ -1,0 +1,125 @@
+---
+import NavLink from "./NavLink.astro";
+import { links, socialLinks } from "../../data/links";
+---
+
+<nav>
+  <ul class="nav__links">
+    {
+      links.map((link) => (
+        <NavLink href={link.href} label={link.label} class="nav__item" />
+      ))
+    }
+  </ul>
+
+  <ul class="icon-nav">
+    {
+      socialLinks.map((link) => (
+        <li class="icon-nav__item">
+          <a href={link.href} target="_blank" class="icon-nav__link">
+            <span class="icon-nav__icon">
+              <i class={link.icon} />
+              <div class="icon-nav__title">{link.label}</div>
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<style>
+  nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 75%;
+    height: 100vh;
+    background: var(--background-dark);
+    transform: translateX(100vw);
+    visibility: hidden;
+    transition: all 0.1s ease-in-out;
+  }
+
+  .nav__links {
+    list-style: none;
+    padding-top: 60%;
+  }
+
+  .nav__item--icon {
+    display: none;
+  }
+
+  @media only screen and (min-width: 768px) {
+    nav {
+      opacity: 1;
+      display: flex;
+      animation: none !important;
+      transition: none !important;
+      align-items: center;
+      z-index: 2;
+      height: 100%;
+      padding-right: 5rem;
+      background-color: transparent;
+      background-image: none;
+      transform: translateX(0rem);
+      transition: none;
+      width: 100%;
+      visibility: visible;
+      transition: none;
+    }
+
+    .nav__links {
+      position: relative;
+      display: flex;
+      justify-content: flex-end;
+      height: 8rem;
+      width: 100%;
+      padding: 0;
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .nav__link:hover {
+      color: var(--text-lightest);
+    }
+
+    .nav__link:hover:after {
+      width: 60%;
+    }
+
+    .nav__link--icon:hover {
+      color: var(--secondary-light);
+    }
+
+    .hamburger__box:hover .hamburger__line {
+      background-color: var(--secondary);
+    }
+
+    .hamburger__box:hover .hamburger__line:before {
+      transform: translate(-80%, 0);
+    }
+
+    .hamburger__box:hover .hamburger__line:after {
+      transform: translate(-80%, 0);
+    }
+
+    .active .hamburger__box:hover .hamburger__line {
+      background: rgba(0, 0, 0, 0);
+    }
+
+    .active .hamburger__box:hover .hamburger__line:before {
+      transform: rotate(45deg);
+      background-color: var(--secondary);
+    }
+
+    .active .hamburger__box:hover .hamburger__line:after {
+      transform: rotate(135deg);
+      background-color: var(--secondary);
+    }
+  }
+</style>

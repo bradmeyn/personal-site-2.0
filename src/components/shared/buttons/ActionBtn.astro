@@ -1,0 +1,117 @@
+<style>
+  .btn,
+  .btn--landing,
+  .btn--contact,
+  .project__link {
+    border-radius: 50px;
+    text-align: center;
+    font-family: var(--font-body);
+    text-decoration: none;
+    cursor: pointer;
+    padding: 0.8rem 2rem;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .btn--landing {
+    animation: fadeIn 0.75s;
+    opacity: 0;
+    animation-fill-mode: both;
+    animation-delay: 1.5s;
+    margin: 0;
+    position: relative;
+    font-size: var(--hs-sm);
+    background-color: var(--secondary);
+    color: #ffffff;
+    background-size: 200% auto;
+    background-image: var(--gradient-secondary);
+  }
+
+  .btn--landing i {
+    position: relative;
+    margin-top: 3px;
+    margin-left: 8px;
+    transition: all 0.2s ease-in-out;
+    font-size: var(--hs-xs);
+  }
+
+  .btn--contact {
+    width: 13rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    position: relative;
+    font-size: var(--hs-sm);
+    background-color: var(--secondary);
+    color: #ffffff;
+    background-size: 200% auto;
+    background-image: var(--gradient-secondary);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .btn--contact i {
+    position: relative;
+    margin-left: 10px;
+    transition: all 0.2s ease-in-out;
+    font-size: var(--hs-xs);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .btn--landing:hover,
+    .btn--landing:focus {
+      background-position: right center;
+    }
+
+    .btn--landing:hover i,
+    .btn--landing:focus i {
+      transform: translateX(3px);
+    }
+
+    .btn--contact:hover,
+    .btn--contact:focus {
+      background-position: right center;
+    }
+
+    .btn--contact:hover i,
+    .btn--contact:focus i {
+      transform: translateX(3px) rotate(30deg);
+    }
+
+    .project__link:hover {
+      background-position: right center;
+    }
+
+    .project__link:hover i {
+      transform: translateX(3px);
+    }
+
+    .project__link--repo:hover span {
+      text-decoration: underline;
+    }
+  }
+
+  .btn-grad {
+    background-image: linear-gradient(
+      to right,
+      #ff512f 0%,
+      #f09819 51%,
+      #ff512f 100%
+    );
+    margin: 10px;
+    padding: 15px 45px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+    display: block;
+  }
+
+  .btn-grad:hover {
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
+  }
+</style>

@@ -1,0 +1,253 @@
+<section id="about" class="about">
+  <div class="about__content container">
+    <h2 class="about__heading" data-aos="fade-up" data-aos-duration="1000">
+      About Me
+    </h2>
+    <div class="about__text">
+      <p class="about__paragraph" data-aos="fade-up" data-aos-duration="1000">
+        I am a software developer located in Newcastle, Australia. My background
+        is finance, however a curiosity for how the web worked led me to learn
+        how to code. I enjoyed the process so much I decided to change careers
+        and get a Masters degree in Computer Science.
+      </p>
+
+      <p class="about__paragraph" data-aos="fade-up" data-aos-duration="1000">
+        My preference is front-end development w/ React & Typescript, however
+        thanks to work, study and personal projects I have experience with a
+        wide range of technologies.
+      </p>
+
+      <p class="about__paragraph" data-aos="fade-up" data-aos-duration="1000">
+        All of my work can be found on my
+        <a
+          class="about__link"
+          href="https://github.com/bradmeyn"
+          target="_blank">GitHub</a
+        >
+         which I add to regularly.
+      </p>
+    </div>
+
+    <div class="profile" data-aos="fade-up" data-aos-duration="1100">
+      <div class="profile__img">
+        <img src="./images/me_profile.jpg" alt="ugly picture of me" />
+      </div>
+      <h4 class="profile__subheading">Qualifications</h4>
+      <div class="profile__qualifications">
+        <div class="profile__detail">
+          <span class="qualification">Masters of Computer Science</span>
+        </div>
+        <div class="profile__detail">
+          <span class="qualification">Bachelor of Business</span>
+        </div>
+        <div class="profile__detail">
+          <span class="qualification">Bachelor of Commerce</span>
+        </div>
+      </div>
+      <h4 class="profile__subheading">Experience with:</h4>
+      <div class="profile__skills">
+        <ul class="skill-list">
+          <li class="skill-item"><i class="fal fa-check"></i>React</li>
+          <li class="skill-item">
+            <i class="fal fa-check"></i>CSS/SASS
+          </li>
+          <li class="skill-item">
+            <i class="fal fa-check"></i>Typescript
+          </li>
+          <li class="skill-item">
+            <i class="fal fa-check"></i>Tailwind
+          </li>
+        </ul>
+        <ul class="skill-list">
+          <li class="skill-item">
+            <i class="fal fa-check"></i>Node.js
+          </li>
+          <li class="skill-item">
+            <i class="fal fa-check"></i>Express
+          </li>
+          <li class="skill-item">
+            <i class="fal fa-check"></i>MongoDB
+          </li>
+          <li class="skill-item"><i class="fal fa-check"></i>Prisma</li>
+        </ul>
+        <ul class="skill-list">
+          <li class="skill-item"><i class="fal fa-check"></i>Python</li>
+          <li class="skill-item"><i class="fal fa-check"></i>Django</li>
+          <li class="skill-item">
+            <i class="fal fa-check"></i>ASP.NET
+          </li>
+          <li class="skill-item"><i class="fal fa-check"></i>SQL</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.about {
+  background: var(--background-dark);
+  padding: var(--mobile-padding);
+}
+
+.about__content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.about__text {
+  color: var(--text-lighter);
+  min-width: 30rem;
+  margin-bottom: var(--margin-xl);
+}
+
+.about__heading {
+  font-size: var(--hs-lg);
+  margin-bottom: var(--margin-xl);
+  position: relative;
+  color: var(--secondary);
+  flex-basis: 100%;
+}
+
+.about__heading::before {
+  position: absolute;
+  content: 'About Me';
+  color: var(--text-lightest);
+  left: 5px;
+}
+
+.about__heading::after {
+  position: absolute;
+  content: '';
+  width: 5rem;
+  top: 6.5rem;
+  height: 4px;
+  border-radius: 0 1000px 1000px 0;
+  left: 0;
+  background: var(--secondary);
+}
+
+.about__paragraph {
+  font-size: var(--fs-md);
+  line-height: 1.5;
+  margin-bottom: var(--margin-lg);
+}
+
+.about__link {
+  color: var(--secondary);
+  text-decoration: none;
+}
+
+.about__link:hover {
+  text-decoration: underline;
+}
+
+.profile {
+  padding: 4rem 2rem 2rem 2rem;
+  backdrop-filter: blur(30px);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  margin: 4rem auto;
+  width: 100%;
+  min-width: 30rem;
+  max-width: 43rem;
+  background-image: var(--gradient-primary);
+}
+
+.profile__img {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: auto 0;
+  top: -6rem;
+  border: solid 3px var(--secondary);
+  overflow: hidden;
+  object-fit: contain;
+  width: 9rem;
+  height: 9rem;
+  border-radius: 50%;
+  margin: 0 auto;
+  margin-bottom: var(--margin-md);
+}
+
+.profile__img img {
+  position: relative;
+  height: 130%;
+  width: 130%;
+  bottom: 20px;
+  object-fit: cover;
+}
+
+.profile__subheading {
+  font-size: var(--fs-md);
+  margin-bottom: var(--margin-md);
+  color: var(--text-lightest);
+}
+
+.profile__qualifications {
+  margin-bottom: var(--margin-md);
+}
+
+.profile__detail {
+  position: relative;
+  margin-left: 3rem;
+  color: var(--text-light);
+  font-size: var(--fs-md);
+  line-height: 1.5;
+}
+
+.profile__detail::after {
+  position: absolute;
+  top: 50%;
+  left: -1.75rem;
+  content: ' ';
+  height: 2px;
+  width: 8px;
+  background-color: var(--secondary);
+}
+
+.profile__skills {
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+  margin: 0 auto;
+}
+
+.profile__skills .skill-list {
+  color: var(--text-light);
+  display: inline-block;
+  list-style: none;
+}
+
+.profile__skills .skill-item {
+  font-size: var(--fs-md);
+  line-height: 1.5;
+  position: relative;
+}
+
+.profile__skills .skill-item i {
+  margin-right: 1rem;
+  display: inline-block;
+  font-size: var(--fs-md);
+  text-decoration: none;
+  color: var(--secondary);
+}
+
+/* Replace $screen-md with the actual value */
+@media only screen and (min-width: 768px) {
+  .about__text {
+    flex: 1;
+    padding-right: 4rem;
+    min-width: 45rem;
+  }
+
+  .profile {
+    margin: 0;
+  }
+}
+
+
+</style>
+```

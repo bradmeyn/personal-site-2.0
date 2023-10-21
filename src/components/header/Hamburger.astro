@@ -1,0 +1,199 @@
+<button
+  id="menu-button"
+  class="hamburger"
+  aria-haspopup="true"
+  aria-expanded="false"
+  aria-label="Open menu"
+>
+  <div class="hamburger__box">
+    <div class="hamburger__line"></div>
+  </div>
+
+  <span class="hidden">Menu</span>
+</button>
+
+<script>
+  const nav = document.querySelector(".nav");
+  const hamburgerBtn = document.querySelector(".hamburger");
+  const body = document.querySelector("body");
+  const content = document.querySelector(".content");
+
+  if (hamburgerBtn && body && content && nav) {
+    // nav.style.transition = "none";
+
+    // // remove transition property from navigation during window resizing
+    // let resizeTimer: ReturnType<typeof setTimeout>;
+    // window.addEventListener("resize", () => {
+    //   // nav.style.transition = "none";
+    //   clearTimeout(resizeTimer);
+    //   resizeTimer = setTimeout(() => {
+    //     // nav.style.transition = "all 0.4s ease-in-out";
+    //   }, 400);
+    // });
+
+    //click on hamburger opens navbar, adds blur to content & locks screen
+
+    hamburgerBtn.addEventListener("click", () => {
+      // nav.style.transition = "all 0.4s ease-in-out";
+      hamburgerBtn.classList.toggle("active");
+      body.classList.toggle("blurry");
+      body.classList.toggle("scroll-lock");
+    });
+
+    //close navbar, remove blur & unlock scroll on resize
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 760) {
+        hamburgerBtn.classList.remove("active");
+        body.classList.remove("blurry");
+        body.classList.remove("scroll-lock");
+      }
+    });
+
+    //close navbar, remove blur & unlock scroll when content is clicked
+    hamburgerBtn.addEventListener("click", () => {
+      hamburgerBtn.classList.toggle("active");
+      console.log(hamburgerBtn.classList); // Log to console
+      // body.classList.toggle("blurry");
+      // body.classList.toggle("scroll-lock");
+    });
+  }
+</script>
+
+<style>
+  .hamburger {
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+    padding-bottom: 0.5rem;
+  }
+
+  .hamburger__box {
+    order: 1;
+    z-index: 3;
+    position: relative;
+    margin: 0 auto;
+    height: 2.5rem;
+    width: 2.8rem;
+    animation: fadeDown 1s;
+    opacity: 0;
+    animation-fill-mode: both;
+    animation-delay: 0.2s;
+  }
+
+  .hamburger__line {
+    background-color: var(--text-light);
+    margin: 0 auto;
+    transition: 0.5s;
+    width: 3rem;
+    height: 2.5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 1000px;
+  }
+
+  .hamburger__line::before,
+  .hamburger__line::after {
+    background-color: var(--text-light);
+    margin: 0 auto;
+    transition: 0.5s;
+    width: 3rem;
+    height: 2.5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 1000px;
+    content: "";
+  }
+
+  .hamburger__line::before {
+    top: 9px;
+  }
+
+  .hamburger__line::after {
+    top: -9px;
+  }
+
+  .hamburger.active {
+    position: fixed;
+    right: 2rem;
+    z-index: 100;
+  }
+
+  .hamburger.active .hamburger__line {
+    background: rgba(0, 0, 0, 0);
+  }
+
+  .hamburger.active .hamburger__line::after {
+    top: 0;
+    left: 0;
+    transform: rotate(135deg);
+    background-color: var(--secondary);
+  }
+
+  .hamburger.active .hamburger__line::before {
+    top: 0;
+    left: 0;
+    transform: rotate(45deg);
+    background-color: var(--secondary);
+  }
+
+  .hamburger.active ~ .nav {
+    transform: translateX(0);
+    visibility: visible;
+  }
+
+  .hamburger.active ~ .header__logo {
+    filter: blur(5px) brightness(0.6);
+    overflow-y: hidden;
+  }
+
+  /* Replace "$screen-md" with the actual breakpoint value you want, like "768px" */
+  @media only screen and (min-width: 768px) {
+    .hamburger {
+      display: none;
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .nav__link:hover {
+      color: var(--text-lightest);
+    }
+
+    .nav__link:hover:after {
+      width: 60%;
+    }
+
+    .nav__link--icon:hover {
+      color: var(--secondary-light);
+    }
+
+    .hamburger__box:hover .hamburger__line {
+      background-color: var(--secondary);
+    }
+
+    .hamburger__box:hover .hamburger__line:before {
+      transform: translate(-80%, 0);
+    }
+
+    .hamburger__box:hover .hamburger__line:after {
+      transform: translate(-80%, 0);
+    }
+
+    .active .hamburger__box:hover .hamburger__line {
+      background: rgba(0, 0, 0, 0);
+    }
+
+    .active .hamburger__box:hover .hamburger__line:before {
+      transform: rotate(45deg);
+      background-color: var(--secondary);
+    }
+
+    .active .hamburger__box:hover .hamburger__line:after {
+      transform: rotate(135deg);
+      background-color: var(--secondary);
+    }
+  }
+</style>
