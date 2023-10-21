@@ -1,0 +1,47 @@
+---
+interface Props {
+  showHeading?: boolean;
+  name: string;
+}
+import Container from "./Container.astro";
+const { name, showHeading = false } = Astro.props;
+const captialised = name.charAt(0).toUpperCase() + name.slice(1);
+---
+
+<section id={name}>
+  <Container>
+    {showHeading ? <h2>{captialised}</h2> : null}
+    <slot />
+  </Container>
+</section>
+
+<style>
+  section {
+    padding: 4rem 0;
+  }
+
+  h2 {
+    font-size: var(--hs-lg);
+    margin-bottom: var(--margin-xl);
+    position: relative;
+    color: #fff;
+    flex-basis: 100%;
+  }
+
+  h2::after {
+    position: absolute;
+    content: "";
+    width: 5rem;
+    top: 6rem;
+    height: 5px;
+    border-radius: 0 1000px 1000px 0;
+    left: 0;
+    background: var(--secondary);
+  }
+
+  @media (min-width: 768px) {
+    section {
+      padding: 6rem 0;
+    }
+  }
+</style>

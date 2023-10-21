@@ -14,7 +14,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
   <body>
-    <div class="stack backgrounds">
+    <div>
       <Header />
       <slot />
       <Footer />
@@ -28,36 +28,5 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
     </script>
 
     <script src="../scripts/index.js"></script>
-
-    <style>
-      .backgrounds {
-        min-height: 100%;
-        isolation: isolate;
-        background:
-					/*noise*/
-          url("/assets/backgrounds/noise.png") top center/220px repeat,
-          /*footer*/ var(--bg-image-footer) bottom
-            center/var(--bg-gradient-size) no-repeat,
-          /*header1*/ var(--bg-image-main-curves) top
-            center/var(--bg-gradient-size) no-repeat,
-          /*header2*/ var(--bg-image-main) top center/var(--bg-gradient-size)
-            no-repeat,
-          /*base*/ var(--gray-999);
-        background-blend-mode: /*noise*/
-          overlay,
-          /*footer*/ var(--bg-blend-mode),
-          /*header1*/ var(--bg-svg-blend-mode),
-          /*header2*/ normal,
-          /*base*/ normal;
-      }
-      @media (forced-colors: active) {
-        /* Deactivate custom backgrounds for high contrast users. */
-        .backgrounds {
-          background: none;
-          background-blend-mode: none;
-          --bg-gradient-size: none;
-        }
-      }
-    </style>
   </body>
 </html>

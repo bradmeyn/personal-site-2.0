@@ -1,0 +1,45 @@
+---
+import Section from '../../shared/Section.astro'
+import Project from './Project.astro'
+import {projects}  from '../../../data/projects'
+---
+
+<Section name="projects"> 
+    <div>
+        <h2>Projects</h2>
+        {projects.map(project => <Project {project} />)}
+    </div>
+</Section>
+
+
+<style>
+
+h2 {
+  font-size: var(--hs-lg);
+  margin-bottom: var(--margin-xl);
+  color: #ffffff;
+  text-align: center;
+  position: relative;
+}
+
+h2::after {
+  text-align: center;
+  position: absolute;
+  content: "";
+  width: 5rem;
+  top: 6rem;
+  height: 5px;
+  border-radius: 0 1000px 1000px 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--secondary);
+  }
+
+    div {
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+</style>

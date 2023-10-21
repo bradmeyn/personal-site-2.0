@@ -7,14 +7,14 @@ const links = document.querySelectorAll(".nav__item");
 nav.style.transition = "none";
 
 //remove transition property from navigation during window resizing
-let resizeTimer;
-window.addEventListener("resize", () => {
-  nav.style.transition = "none";
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(() => {
-    nav.style.transition = "all 0.4s ease-in-out";
-  }, 400);
-});
+// let resizeTimer;
+// window.addEventListener("resize", () => {
+//   nav.style.transition = "none";
+//   clearTimeout(resizeTimer);
+//   resizeTimer = setTimeout(() => {
+//     nav.style.transition = "all 0.4s ease-in-out";
+//   }, 400);
+// });
 
 //click on hamburger opens navbar, adds blur to content & locks screen
 ham.addEventListener("click", () => {

@@ -1,25 +1,92 @@
 ---
 const today = new Date();
+import Container from './shared/Container.astro'
+import {links} from '.././data/links'
 ---
 
-<footer class="footer">
-  <div class="footer__container">
-    <p class="footer__copyright">
-      &#x24B8; Copyright {today.getFullYear()} Brad Meyn. All rights reserved.
-    </p>
-  </div>
+<footer>
+<Container>
+
+<div class="footer__content">
+  <p class="footer__copyright">
+    &#x24B8; Copyright {today.getFullYear()} Brad Meyn. All rights reserved.
+  </p>
+
+  <nav>
+    <ul>
+    {
+        links.map(link => (
+            <li>
+                <a href={link.url} target="_blank" rel="noopener noreferrer">
+                    <i class={link.icon}></i>
+                </a>
+            </li>
+        ))
+    }
+    </ul>
+  </nav>
+</div>
+</Container>
 </footer>
+
+
 <style>
-  .footer {
-    text-align: center;
-    padding: 4rem 2rem;
-    background-color: var(--primary-dark);
+
+footer {
+  border-top: .1px solid var(--text-dark);
+  padding: 2rem 0;
+}
+
+.footer__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.footer__copyright {
+  color: var(--primary-light);
+  font-size: var(--fs-xs);
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+ul {
+  display: flex;
+  align-items: center;
+}
+
+li {
+  list-style: none;
+  text-align: center;
+  margin-left: 2rem
+}
+
+a {
+  font-size: var(--fs-lg);
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--text-light);
+  text-align: center;
+}
+
+a:hover {
+  color: var(--secondary);
+}
+
+@media (min-width: 768px) {
+    .footer__content {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+    }
+
+    .footer__copyright {
+      margin-bottom: 0;
+    }
+
+  
   }
 
-  .footer__copyright {
-    color: var(--primary-light);
-    font-size: var(--fs-md);
-    width: 100%;
-    text-align: center;
-  }
 </style>
