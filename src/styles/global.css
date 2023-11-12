@@ -82,10 +82,6 @@ html {
   background-color: var(--background-dark);
 }
 
-.hidden {
-  display: none;
-}
-
 @media only screen and (min-width: 768px) {
   html {
     font-size: 70%;
@@ -123,4 +119,12 @@ html {
     transform: translateY(0);
     opacity: 1;
   }
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  list-style: none;
 }

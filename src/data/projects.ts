@@ -1,3 +1,13 @@
+export interface Project {
+  title: string;
+  description: string;
+  link: string;
+  tech: string[];
+  repo: string;
+  mobileImage?: string;
+  desktopImage: string;
+}
+
 export const projects = [
   {
     title: "Workshop",

@@ -1,42 +1,250 @@
 ---
-import Navbar from "./Navbar.astro";
-import HeaderLogo from "./HeaderLogo.astro";
-import Hamburger from "./Hamburger.astro";
 import Container from "../shared/Container.astro";
+import Logo from "./Logo.astro";
+import { links } from "../../data/links";
 ---
 
-<header>
-  <div>
-    <Container>
-      <!-- <HeaderLogo />
-      <Navbar />
-      <Hamburger /> -->
-    </Container>
-  </div>
+<header class="header" id="header">
+  <Container>
+    <nav class="navbar">
+      <Logo />
+
+      <div class="navbar__links">
+        <ul>
+          {
+            links.map((link) => (
+              <li class="navbar__item">
+                <a href="{{ link.url }}" class="navbar__link">
+                  {link.name}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <button class="hamburger">
+        <div class="hamburger__line"></div>
+        <div class="hamburger__line"></div>
+        <div class="hamburger__line"></div>
+      </button>
+    </nav>
+  </Container>
 </header>
 
-<style>
+<style is:global>
   header {
+    position: fixed;
+    z-index: 100;
     width: 100%;
   }
-  /* header {
-    /* position: absolute; */
-    background-color: transparent;
 
+  .navbar {
+    padding: 1rem 0;
     display: flex;
-    align-items: center;
+    width: 100%;
     justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+  }
 
-    border: solid 1px red;
-  } */
+  .navbar__links {
+    height: 100vh;
+    width: 75%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 100;
+    transform: translateX(100%);
+    visibility: hidden;
+    transition: transform 0.3s ease-in-out;
+    background-color: var(--primary);
+  }
 
-  /* Desktop */
-  @media only screen and (min-width: 768px) {
-    div {
+  .navbar__links ul {
+    margin-top: 200px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .navbar__links li,
+  .navbar__links li a {
+    width: 100%;
+  }
+
+  body.navbar--active {
+    overflow: hidden;
+  }
+
+  .navbar--active .navbar__links {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .navbar__link {
+    display: block;
+    text-align: left;
+    color: var(--text-light);
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    width: 100%;
+    font-size: var(--fs-lg);
+    padding: 2rem 4rem;
+    background-position: right;
+    cursor: pointer;
+    transition: background 0.5s linear;
+  }
+
+  .navbar__link:hover {
+    color: #fff;
+    background-position: left;
+    background-size: 200%;
+    background-image: var(--gradient-secondary);
+  }
+
+  .hamburger {
+    z-index: 1000;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: transparent;
+  }
+
+  .hamburger__line {
+    background-color: var(--text-light);
+    height: 2px;
+    width: 25px;
+    margin: 5px 0;
+    transition: 0.2s ease-in-out;
+  }
+
+  .navbar--active .hamburger__line:nth-child(1) {
+    transform: translatey(7px) rotate(45deg);
+    background-color: var(--secondary);
+  }
+
+  .navbar--active main,
+  .navbar--active footer {
+    filter: blur(200px);
+  }
+
+  .navbar--active .hamburger__line:nth-child(2),
+  .navbar--active .hamburger:hover .hamburger__line:nth-child(2) {
+    background: rgba(0, 0, 0, 0);
+  }
+
+  .navbar--active .hamburger__line:nth-child(3) {
+    transform: translatey(-7px) rotate(-45deg);
+    background-color: var(--secondary);
+  }
+
+  .navbar--active .hamburger:hover .hamburger__line {
+    background-color: var(--secondary);
+  }
+
+  .hamburger:hover .hamburger__line {
+    background-color: var(--secondary);
+  }
+
+  /* DESKTOP------------------------------------------------------------ */
+
+  @media (min-width: 768px) {
+    .hamburger {
+      display: none;
+    }
+
+    .navbar__links ul {
+      margin-top: auto;
+      position: relative;
+      height: auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      gap: 1rem;
       align-items: center;
+    }
+
+    .navbar__links {
+      position: relative;
+      width: auto;
+      height: auto;
+      visibility: visible;
+      transform: translateX(0);
       transition: none;
-      left: 50%;
-      transform: translateX(-50%);
+      background-color: transparent;
+    }
+
+    .navbar__link {
+      font-size: var(--fs-sm);
+      padding: 1rem;
+      text-align: center;
+      border-radius: 5px;
+
+      animation: fadeDown 1s;
+      opacity: 0;
+      animation-fill-mode: both;
+    }
+
+    .navbar__item:nth-child(3) {
+      animation-delay: 2s;
     }
   }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Get the header after the DOM is fully loaded
+    const header = document.querySelector("header");
+    const hamburger = document.querySelector(".hamburger");
+    const nav = document.querySelector(".navbar");
+    const navLinks = document.querySelectorAll(".nav__link");
+
+    function toggleMenu() {
+      document.body.classList.toggle("navbar--active");
+    }
+
+    function deactivateMenu() {
+      document.body.classList.remove("navbar--active");
+    }
+
+    hamburger?.addEventListener("click", toggleMenu);
+
+    // Close navbar when a nav link is clicked
+    navLinks.forEach((link) => {
+      link.addEventListener("click", deactivateMenu);
+    });
+
+    // Close navbar when clicking outside
+    document.addEventListener("click", (e) => {
+      const isClickInsideNav =
+        nav?.contains(e.target as Node) ||
+        hamburger?.contains(e.target as Node);
+
+      if (!isClickInsideNav) {
+        deactivateMenu();
+      }
+    });
+
+    // // Background color change on scroll
+    // window.addEventListener("scroll", () => {
+    //   if (header) {
+    //     if (window.scrollY > 0) {
+    //       header.classList.add("header-scrolled", "bg-slate-900");
+    //     } else {
+    //       header.classList.remove("header-scrolled", "bg-slate-900");
+    //     }
+    //   }
+    // });
+
+    // Close mobile menu on resize
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 760) {
+        hamburger?.classList.remove("hamburger--active");
+        nav?.classList.remove("navbar--active");
+      }
+    });
+  });
+</script>

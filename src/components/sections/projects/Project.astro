@@ -1,45 +1,44 @@
 ---
-const { title, description, link, tech, repo, mobileImage, desktopImage } = Astro.props.project;
+import type { Project } from "../../../data/projects";
+interface Props {
+  project: Project;
+}
+
+const { title, description, link, tech, repo, mobileImage, desktopImage } =
+  Astro.props.project;
 ---
 
 <article class="project">
-  <a
-    target="_blank"
-    href={link}
-    class="project__img-container"
-  >
+  <a target="_blank" href={link} class="project__img-container">
     <img
       class="project__img--desktop"
       src={desktopImage}
       alt={`${title} desktop view`}
     />
-   { mobileImage && <img
-      class="project__img--mobile"
-      src={mobileImage}
-      alt={`${title} mobile view`}
-    />}
+    {
+      mobileImage && (
+        <img
+          class="project__img--mobile"
+          src={mobileImage}
+          alt={`${title} mobile view`}
+        />
+      )
+    }
   </a>
   <div class="project__text-container">
-    <h3 class="project__heading">{ title }</h3>
+    <h3 class="project__heading">{title}</h3>
     <p class="project__description">
-      { description }
+      {description}
     </p>
     <div class="project__badge-container">
-      {tech.map(tech => <span class="badge">{ tech }</span>)}
+      {tech.map((tech) => <span class="badge">{tech}</span>)}
     </div>
     <div class="project__links">
-      <a
-        class="project__link project__link--live"
-        target="_blank"
-        href={link}
-        
+      <a class="project__link project__link--live" target="_blank" href={link}
         ><span>View Live</span>
         <i class="fas fa-chevron-right"></i></a
       >
-      <a
-        class="project__link project__link--repo"
-        target="_blank"
-        href={ repo }
+      <a class="project__link project__link--repo" target="_blank" href={repo}
         ><span>Repository</span>
         <i class="fas fa-chevron-right"></i></a
       >
@@ -126,7 +125,7 @@ const { title, description, link, tech, repo, mobileImage, desktopImage } = Astr
     margin-bottom: 1rem;
   }
 
-.badge {
+  .badge {
     font-size: var(--fs-xs);
     font-weight: 700;
     background-color: var(--primary-light);
@@ -150,12 +149,12 @@ const { title, description, link, tech, repo, mobileImage, desktopImage } = Astr
 
   .project__link {
     border-radius: 50px;
-  text-align: center;
-  font-family: var(--font-body);
-  text-decoration: none;
-  cursor: pointer;
-  padding: .6rem 1.8rem;
-  transition: all 0.3s ease-in-out;
+    text-align: center;
+    font-family: var(--font-body);
+    text-decoration: none;
+    cursor: pointer;
+    padding: 0.6rem 1.8rem;
+    transition: all 0.3s ease-in-out;
     color: var(--text-lightest);
     display: flex;
     align-items: center;
@@ -207,26 +206,21 @@ const { title, description, link, tech, repo, mobileImage, desktopImage } = Astr
     }
   }
 
+  @media (hover: hover) and (pointer: fine) {
+    .project__link {
+      transition: 0.5s;
+    }
 
-@media (hover: hover) and (pointer: fine) {
-  
-  .project__link {
-    transition: 0.5s;
+    .project__link:hover {
+      background-position: right center;
+    }
+
+    .project__link:hover i {
+      transform: translateX(3px);
+    }
+
+    .project__link--repo:hover span {
+      text-decoration: underline;
+    }
   }
-
-  .project__link:hover {
-    background-position: right center;
-  }
-
-  .project__link:hover i {
-    transform: translateX(3px);
-  }
-
-  .project__link--repo:hover span {
-    text-decoration: underline;
-  }
-
-
-}
 </style>
-
