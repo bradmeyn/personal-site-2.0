@@ -10,7 +10,7 @@ const captialised = name.charAt(0).toUpperCase() + name.slice(1);
 
 <section id={name}>
   <Container>
-    {showHeading ? <h2>{captialised}</h2> : null}
+    {showHeading ? <h2 class="animated--fade-in">{captialised}</h2> : null}
     <slot />
   </Container>
 </section>

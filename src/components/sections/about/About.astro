@@ -1,12 +1,11 @@
 ---
-import Section from '../../shared/Section.astro'
+import Section from "../../shared/Section.astro";
 ---
 
-<Section name="about" showHeading=true>
+<Section name="about" showHeading="true">
   <div class="about__content">
-
     <div class="about__text">
-      <p class="about__paragraph" >
+      <p class="about__paragraph animated--fade-in">
         I am a software developer located in Newcastle, Australia. My background
         is finance, however a curiosity for how the web worked led me to learn
         how to code. I enjoyed the process so much I decided to change careers
@@ -14,7 +13,7 @@ import Section from '../../shared/Section.astro'
       </p>
     </div>
 
-    <div class="profile">
+    <div class="profile animated--fade-in">
       <div class="profile__img">
         <img src="./assets/me_profile.jpg" alt="ugly picture of me" />
       </div>
@@ -32,144 +31,140 @@ import Section from '../../shared/Section.astro'
       </div>
     </div>
   </div>
-  </Section>
+</Section>
 
 <style>
+  .about__content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+  }
 
-.about__content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.about__text {
-  color: var(--slate-300);
-  min-width: 30rem;
-  margin-bottom: var(--margin-xl);
-}
-
-
-.about__paragraph {
-  font-size: var(--fs-md);
-  line-height: 1.5;
-  margin-bottom: var(--margin-lg);
-}
-
-.about__link {
-  color: var(--secondary);
-  text-decoration: none;
-}
-
-.about__link:hover {
-  text-decoration: underline;
-}
-
-.profile {
-  padding: 4rem 2rem 2rem 2rem;
-  backdrop-filter: blur(30px);
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 10px;
-  margin: 4rem auto;
-  width: 100%;
-  min-width: 30rem;
-  max-width: 43rem;
-  background-image: var(--gradient-primary);
-}
-
-.profile__img {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  margin: auto 0;
-  top: -6rem;
-  border: solid 3px var(--secondary);
-  overflow: hidden;
-  object-fit: contain;
-  width: 9rem;
-  height: 9rem;
-  border-radius: 50%;
-  margin: 0 auto;
-  margin-bottom: var(--margin-md);
-}
-
-.profile__img img {
-  position: relative;
-  height: 130%;
-  width: 130%;
-  bottom: 20px;
-  object-fit: cover;
-}
-
-.profile__subheading {
-  font-size: var(--fs-md);
-  margin-bottom: var(--margin-md);
-  color: var(--text-lightest);
-}
-
-.profile__qualifications {
-  margin-bottom: var(--margin-md);
-}
-
-.profile__detail {
-  position: relative;
-  margin-left: 3rem;
-  color: var(--text-light);
-  font-size: var(--fs-md);
-  line-height: 1.5;
-}
-
-.profile__detail::after {
-  position: absolute;
-  top: 50%;
-  left: -1.75rem;
-  content: ' ';
-  height: 2px;
-  width: 8px;
-  background-color: var(--secondary);
-}
-
-.profile__skills {
-  flex: 1;
-  display: flex;
-  justify-content: space-around;
-  margin: 0 auto;
-}
-
-.profile__skills .skill-list {
-  color: var(--text-light);
-  display: inline-block;
-  list-style: none;
-}
-
-.profile__skills .skill-item {
-  font-size: var(--fs-md);
-  line-height: 1.5;
-  position: relative;
-}
-
-.profile__skills .skill-item i {
-  margin-right: 1rem;
-  display: inline-block;
-  font-size: var(--fs-md);
-  text-decoration: none;
-  color: var(--secondary);
-}
-
-/* Replace $screen-md with the actual value */
-@media only screen and (min-width: 768px) {
   .about__text {
-    flex: 1;
-    padding-right: 4rem;
-    min-width: 45rem;
+    color: var(--slate-300);
+    min-width: 30rem;
+    margin-bottom: var(--margin-xl);
+  }
+
+  .about__paragraph {
+    font-size: var(--fs-md);
+    line-height: 1.5;
+    margin-bottom: var(--margin-lg);
+  }
+
+  .about__link {
+    color: var(--secondary);
+    text-decoration: none;
+  }
+
+  .about__link:hover {
+    text-decoration: underline;
   }
 
   .profile {
-    margin: 0;
+    padding: 4rem 2rem 2rem 2rem;
+    backdrop-filter: blur(30px);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    margin: 4rem auto;
+    width: 100%;
+    min-width: 30rem;
+    max-width: 43rem;
+    background-image: var(--gradient-primary);
   }
-}
 
+  .profile__img {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: auto 0;
+    top: -6rem;
+    border: solid 3px var(--secondary);
+    overflow: hidden;
+    object-fit: contain;
+    width: 9rem;
+    height: 9rem;
+    border-radius: 50%;
+    margin: 0 auto;
+    margin-bottom: var(--margin-md);
+  }
 
+  .profile__img img {
+    position: relative;
+    height: 130%;
+    width: 130%;
+    bottom: 20px;
+    object-fit: cover;
+  }
+
+  .profile__subheading {
+    font-size: var(--fs-md);
+    margin-bottom: var(--margin-md);
+    color: var(--text-lightest);
+  }
+
+  .profile__qualifications {
+    margin-bottom: var(--margin-md);
+  }
+
+  .profile__detail {
+    position: relative;
+    margin-left: 3rem;
+    color: var(--text-light);
+    font-size: var(--fs-md);
+    line-height: 1.5;
+  }
+
+  .profile__detail::after {
+    position: absolute;
+    top: 50%;
+    left: -1.75rem;
+    content: " ";
+    height: 2px;
+    width: 8px;
+    background-color: var(--secondary);
+  }
+
+  .profile__skills {
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
+  }
+
+  .profile__skills .skill-list {
+    color: var(--text-light);
+    display: inline-block;
+    list-style: none;
+  }
+
+  .profile__skills .skill-item {
+    font-size: var(--fs-md);
+    line-height: 1.5;
+    position: relative;
+  }
+
+  .profile__skills .skill-item i {
+    margin-right: 1rem;
+    display: inline-block;
+    font-size: var(--fs-md);
+    text-decoration: none;
+    color: var(--secondary);
+  }
+
+  /* Replace $screen-md with the actual value */
+  @media only screen and (min-width: 768px) {
+    .about__text {
+      flex: 1;
+      padding-right: 4rem;
+      min-width: 45rem;
+    }
+
+    .profile {
+      margin: 0;
+    }
+  }
 </style>
-```
+ ```

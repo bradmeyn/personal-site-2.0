@@ -182,14 +182,21 @@ import { links } from "../../data/links";
       padding: 1rem;
       text-align: center;
       border-radius: 5px;
-
       animation: fadeDown 1s;
       opacity: 0;
       animation-fill-mode: both;
     }
 
-    .navbar__item:nth-child(3) {
-      animation-delay: 2s;
+    .navbar__item:nth-child(1) .navbar__link {
+      animation-delay: 1.2s;
+    }
+
+    .navbar__item:nth-child(2) .navbar__link {
+      animation-delay: 1.4s;
+    }
+
+    .navbar__item:nth-child(3) .navbar__link {
+      animation-delay: 1.6s;
     }
   }
 </style>

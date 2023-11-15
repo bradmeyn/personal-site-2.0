@@ -1,66 +1,58 @@
 ---
-import {links} from '../../../data/links'
+import { links } from "../../../data/links";
 ---
 
-
 <nav>
-    <ul>
+  <ul>
     {
-        links.map(link => (
-            <li>
-                <a href={link.url} target="_blank" rel="noopener noreferrer">
-                    <i class={link.icon}></i>
-                </a>
-            </li>
-        ))
+      links.map((link) => (
+        <li>
+          <a href={link.url} target="_blank" rel="noopener noreferrer">
+            <i class={link.icon} />
+          </a>
+        </li>
+      ))
     }
-    </ul>
+  </ul>
 </nav>
 
 <style>
-    nav {
-        margin-bottom: 4rem;
-    }
+  nav {
+    margin-bottom: 4rem;
+  }
 
-    ul {
+  ul {
     display: flex;
     align-items: center;
+  }
 
-    }
+  li {
+    animation: fadeDown 1s;
+    opacity: 0;
+    animation-fill-mode: both;
+    animation-delay: 1.4s;
+    list-style: none;
+    text-align: center;
+    margin-right: 2rem;
+  }
 
-    li {
-        animation: fadeDown 1s;
-        opacity: 0;
-        animation-fill-mode: both;
-        animation-delay: 1.4s;
-        list-style: none;
-        text-align: center;
-        margin-right: 2rem
-
- }
-
-   a {
+  a {
     font-size: var(--fs-lg);
     cursor: pointer;
     text-decoration: none;
     color: var(--text-light);
     text-align: center;
+  }
 
-
-    }
-
-    li:nth-child(2) {
+  li:nth-child(2) {
     animation-delay: 1.6s;
-    }
+  }
 
-    li:nth-child(3) {
+  li:nth-child(3) {
     animation-delay: 1.8s;
-    }
+  }
 
-
-    a:hover {
+  a:hover {
     color: #fff;
-    }
-
-
- </style>
+  }
+</style>

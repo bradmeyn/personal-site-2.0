@@ -128,3 +128,22 @@ ul {
 li {
   list-style: none;
 }
+
+.animated--fade-in {
+  opacity: 0;
+}
+
+.fade-in {
+  animation: fadeInUpAnimation 0.6s ease-in-out forwards;
+}
+
+@keyframes fadeInUpAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(50px); /* Start position, adjust as needed */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* End position, adjust as needed */
+  }
+}
