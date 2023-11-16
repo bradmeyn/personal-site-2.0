@@ -48,6 +48,10 @@ import { links } from "../../data/links";
     z-index: 1000;
   }
 
+  .header--scrolled {
+    background-color: var(--primary-dark-transparent);
+  }
+
   .navbar__links {
     height: 100vh;
     width: 75%;
@@ -80,6 +84,7 @@ import { links } from "../../data/links";
     transform: translateX(0);
     opacity: 1;
     visibility: visible;
+    background: var(--primary-dark);
   }
 
   .navbar__link {
@@ -236,15 +241,15 @@ import { links } from "../../data/links";
     });
 
     // // Background color change on scroll
-    // window.addEventListener("scroll", () => {
-    //   if (header) {
-    //     if (window.scrollY > 0) {
-    //       header.classList.add("header-scrolled", "bg-slate-900");
-    //     } else {
-    //       header.classList.remove("header-scrolled", "bg-slate-900");
-    //     }
-    //   }
-    // });
+    window.addEventListener("scroll", () => {
+      if (header) {
+        if (window.scrollY > 0) {
+          header.classList.add("header--scrolled");
+        } else {
+          header.classList.remove("header--scrolled");
+        }
+      }
+    });
 
     // Close mobile menu on resize
     window.addEventListener("resize", () => {

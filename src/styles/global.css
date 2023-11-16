@@ -1,37 +1,35 @@
 :root {
-  /* Colours */
+  --font-primary: "Poppins", sans-serif;
+  --font-secondary: "Inter", sans-serif;
+  /* --font-tertiary: */
 
-  --slate-50: #f8fafc;
-  --slate-100: #f1f5f9;
-  --slate-200: #e2e8f0;
-  --slate-300: #cbd5e1;
-  --slate-400: #94a3b8;
-  --slate-500: #64748b;
-  --slate-600: #475569;
-  --slate-700: #334155;
-  --slate-800: #1e293b;
-  --slate-900: #0f172a;
-  --slate-950: #020617;
+  /* Text Colors */
+  --text-light: #9eadbc;
+  --text-lighter: #bed0e3;
+  --text-lightest: #d9ecff;
 
-  --background-dark: #07162f;
-  --background-light: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  /* Primary Colors */
+  --primary-lightest: #e1eaf3;
+  --primary-light: #b8cbe8;
+  --primary: #0e284e;
+  --primary-dark: #0f1a2a;
 
-  --text-dark: rgb(121, 127, 148);
-  --text-darker: rgb(76, 87, 121);
-  --text-darkest: rgb(23, 31, 58);
+  --primary-dark-transparent: rgba(15, 26, 42, 0.8);
 
-  --text-light: #b7c7d8;
-  --text-lighter: #f0f6fc;
-  --text-lightest: #ffffff;
-
-  --primary-light: #d4e3fa;
-  --primary: #152236;
-  --primary-dark: #111b2b;
-
+  /* Secondary Colors */
   --secondary: #ff5d4b;
-  --secondary-light: #f97c6f;
+  --secondary-light: #ff8970;
+  --secondary-dark: #e04632;
 
-  --gradient-primary: linear-gradient(to bottom, #0e284e 0%, #3a5b7561 100%);
+  /* Accent Colors */
+  --accent1: #82b1ff;
+  --accent2: #ffd166;
+
+  --gradient-primary: linear-gradient(
+    to bottom right,
+    #0e284e 0%,
+    #3a5b7561 100%
+  );
 
   --gradient-secondary: linear-gradient(
     to right,
@@ -40,7 +38,6 @@
     #eb3349 100%
   );
 
-  --font-body: "inter", sans-serif;
   --box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
 
   --margin-xs: 0.25rem;
@@ -72,14 +69,14 @@
 }
 
 body {
-  font-family: var(--font-body);
+  font-family: var(--font-primary);
 }
 
 html {
   box-sizing: border-box;
   font-size: 62.5%;
   scroll-behavior: smooth;
-  background-color: var(--background-dark);
+  background-color: var(--primary-dark);
 }
 
 @media only screen and (min-width: 768px) {
@@ -91,28 +88,6 @@ html {
 @keyframes fadeIn {
   from {
     transform: translateY(30px);
-  }
-
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes fadeInRight {
-  from {
-    transform: translateX(30px);
-  }
-
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes fadeDown {
-  from {
-    transform: translateY(-30px);
   }
 
   to {
@@ -134,16 +109,54 @@ li {
 }
 
 .fade-in {
-  animation: fadeInUpAnimation 0.6s ease-in-out forwards;
+  animation: fadeUp 0.6s ease-in-out forwards;
 }
 
-@keyframes fadeInUpAnimation {
+@keyframes fadeUp {
   0% {
     opacity: 0;
-    transform: translateY(50px); /* Start position, adjust as needed */
+    transform: translateY(50px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0); /* End position, adjust as needed */
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes backgroundMove {
+  0% {
+    background-position: left center;
+  }
+
+  50% {
+    background-position: center right;
+  }
+
+  100% {
+    background-position: left center;
   }
 }

@@ -1,8 +1,8 @@
 ---
-import Section from "../../shared/Section.astro";
+import Section from "../shared/Section.astro";
 ---
 
-<Section name="about" showHeading="true">
+<Section name="about" showHeading={true}>
   <div class="about__content">
     <div class="about__text">
       <p class="about__paragraph animated--fade-in">
@@ -48,6 +48,7 @@ import Section from "../../shared/Section.astro";
   }
 
   .about__paragraph {
+    color: var(--primary-lightest);
     font-size: var(--fs-md);
     line-height: 1.5;
     margin-bottom: var(--margin-lg);

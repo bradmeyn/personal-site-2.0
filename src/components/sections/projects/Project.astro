@@ -8,7 +8,7 @@ const { title, description, link, tech, repo, mobileImage, desktopImage } =
   Astro.props.project;
 ---
 
-<article class="project">
+<article class="project animated--fade-in">
   <a target="_blank" href={link} class="project__img-container">
     <img
       class="project__img--desktop"
@@ -75,13 +75,14 @@ const { title, description, link, tech, repo, mobileImage, desktopImage } =
     order: 2;
   }
 
-  .project__text-container .project__heading {
+  .project__heading {
     font-size: var(--hs-md);
     margin-bottom: var(--margin-md);
-    color: var(--text-lightest);
+    color: #fff;
+    font-weight: 500;
   }
 
-  .project__text-container .project__description {
+  .project__description {
     font-size: var(--fs-md);
     line-height: 1.5;
     margin-bottom: var(--margin-lg);
@@ -99,20 +100,19 @@ const { title, description, link, tech, repo, mobileImage, desktopImage } =
     margin: 2rem auto 0;
     border-radius: 10px;
     box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
-    border: solid 8px var(--primary);
+    border: solid 6px var(--primary-dark-transparent);
   }
 
-  .project__img-container .project__img--desktop {
+  .project__img--desktop {
     position: relative;
     width: 100%;
-    transition: all 0.6s ease;
   }
 
-  .project__img-container .project__img--mobile {
+  .project__img--mobile {
     transition: all 0.6s ease;
     border-radius: 10px;
     position: absolute;
-    border: solid 4px var(--primary);
+    border: solid 3px var(--primary-dark-transparent);
     width: 20%;
     right: -1.5rem;
     bottom: -1.5rem;
@@ -122,17 +122,18 @@ const { title, description, link, tech, repo, mobileImage, desktopImage } =
   .project__badge-container {
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: 1rem;
+    gap: 1rem;
+    margin-bottom: 2rem;
   }
 
   .badge {
     font-size: var(--fs-xs);
-    font-weight: 700;
+    font-family: var(--font-secondary);
+    font-weight: 600;
     background-color: var(--primary-light);
-    color: var(--text-darker);
+    color: var(--primary-dark);
     border-radius: 5px;
-    padding: 0.5rem;
-    margin: 0 1rem 1rem 0;
+    padding: 0.3rem;
   }
 
   .project__links {
@@ -150,7 +151,7 @@ const { title, description, link, tech, repo, mobileImage, desktopImage } =
   .project__link {
     border-radius: 50px;
     text-align: center;
-    font-family: var(--font-body);
+    font-family: var(--font-primary);
     text-decoration: none;
     cursor: pointer;
     padding: 0.6rem 1.8rem;
@@ -172,6 +173,7 @@ const { title, description, link, tech, repo, mobileImage, desktopImage } =
   }
 
   .project__link--live {
+    color: #fff;
     background-image: var(--gradient-secondary);
     margin-right: 2rem;
   }
@@ -180,6 +182,7 @@ const { title, description, link, tech, repo, mobileImage, desktopImage } =
     background-color: transparent;
     background-image: none;
     padding-left: 0;
+    color: var(--text-lightest);
   }
   /* Replace 768px with the actual pixel value for $screen-md */
   @media only screen and (min-width: 768px) {
@@ -217,10 +220,12 @@ const { title, description, link, tech, repo, mobileImage, desktopImage } =
 
     .project__link:hover i {
       transform: translateX(3px);
+      color: #fff;
     }
 
     .project__link--repo:hover span {
-      text-decoration: underline;
+      color: #fff;
+      box-shadow: inset 0 -2px 0 var(--secondary);
     }
   }
 </style>
