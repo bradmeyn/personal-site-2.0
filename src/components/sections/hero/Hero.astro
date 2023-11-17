@@ -1,35 +1,33 @@
 ---
-import Container from "../../shared/Container.astro";
 import IconNav from "./IconNav.astro";
 import HeroImage from "./HeroImage.astro";
+import Section from "../../shared/Section.astro";
 ---
 
 <HeroImage>
-  <Container>
-    <section>
-      <h1>BRAD MEYN</h1>
-      <p class="subheading">Software Developer</p>
-      <IconNav />
-      <a href="#projects" class="btn btn--landing">
-        <span>Projects</span>
-        <i class="fas fa-chevron-right"></i>
-      </a>
-    </section>
-  </Container>
+  <Section name="hero" showHeading={false}>
+    <h1>BRAD MEYN</h1>
+    <p class="subtitle">Pretty. Good.</p>
+    <p class="intro">
+      I build high quality websites and applications with modern technologies.
+    </p>
+    <IconNav />
+    <a href="#projects" class="btn btn--landing">
+      <span>Projects</span>
+      <i class="fas fa-arrow-right"></i>
+    </a>
+  </Section>
 </HeroImage>
 
 <style>
-  section {
-    padding: 12rem 0;
-  }
   h1 {
+    margin-top: 10rem;
     font-size: 6rem;
     font-weight: 500;
     animation: fadeDown 0.6s ease-in-out;
     animation-fill-mode: both;
     animation-delay: 0.5s;
     display: block;
-    margin-bottom: var(--margin-sm);
     color: var(--secondary);
   }
 
@@ -37,19 +35,31 @@ import HeroImage from "./HeroImage.astro";
     position: absolute;
     content: "BRAD MEYN";
     color: #fff;
-    left: 0.5rem;
-    top: 0.25rem;
+    left: 0.4rem;
+    top: 0.3rem;
   }
 
-  .subheading {
+  .subtitle {
     font-size: 2rem;
-    font-weight: 500;
-    color: var(--text-lightest);
-    margin-bottom: var(--margin-lg);
+    font-weight: 300;
+    margin-bottom: 1rem;
+    color: var(--primary-lightest);
     animation: fadeRight 0.6s ease-in-out;
     opacity: 0;
     animation-fill-mode: both;
     animation-delay: 1s;
+  }
+
+  .intro {
+    font-size: var(--fs-md);
+    font-weight: 300;
+    max-width: 40rem;
+    color: var(--primary-light);
+    animation: fadeRight 0.6s ease-in-out;
+    opacity: 0;
+    animation-fill-mode: both;
+    animation-delay: 1.2s;
+    margin-bottom: 2rem;
   }
 
   .btn {
@@ -72,8 +82,8 @@ import HeroImage from "./HeroImage.astro";
     text-decoration: none;
   }
 
-  .btn:hover i {
-    transform: translateX(5px);
+  .btn:hover .fa-arrow-right {
+    transform: rotate(90deg);
   }
 
   .btn--landing {
@@ -88,12 +98,11 @@ import HeroImage from "./HeroImage.astro";
     background-image: var(--gradient-secondary);
   }
 
-  i {
+  .fa-arrow-right {
     position: relative;
-    margin-top: 3px;
     margin-left: 10px;
     transition: all 0.2s ease-in-out;
-    font-size: var(--hs-xs);
+    font-size: 4rem;
   }
 
   @media only screen and (min-width: 768px) {
@@ -101,8 +110,8 @@ import HeroImage from "./HeroImage.astro";
       font-size: 9rem;
     }
 
-    .subheading {
-      font-size: 4rem;
+    .subtitle {
+      font-size: 3rem;
     }
   }
 </style>

@@ -36,11 +36,11 @@ const { title, description, link, tech, repo, mobileImage, desktopImage } =
     <div class="project__links">
       <a class="project__link project__link--live" target="_blank" href={link}
         ><span>View Live</span>
-        <i class="fas fa-chevron-right"></i></a
+        <i class="fas fa-arrow-right"></i></a
       >
       <a class="project__link project__link--repo" target="_blank" href={repo}
         ><span>Repository</span>
-        <i class="fas fa-chevron-right"></i></a
+        <i class="fas fa-arrow-right"></i></a
       >
     </div>
   </div>
@@ -83,10 +83,10 @@ const { title, description, link, tech, repo, mobileImage, desktopImage } =
   }
 
   .project__description {
-    font-size: var(--fs-md);
+    color: var(--primary-lightest);
+    font-size: var(--fs-sm);
     line-height: 1.5;
     margin-bottom: var(--margin-lg);
-    color: var(--text-light);
   }
 
   .project__img-container {
@@ -166,7 +166,7 @@ const { title, description, link, tech, repo, mobileImage, desktopImage } =
     background-image: var(--gradient-secondary);
   }
 
-  .project__link i {
+  .project__link .fa-arrow-right {
     transition: all 0.3s ease;
     font-size: 1rem;
     margin-left: 0.6rem;
@@ -182,7 +182,7 @@ const { title, description, link, tech, repo, mobileImage, desktopImage } =
     background-color: transparent;
     background-image: none;
     padding-left: 0;
-    color: var(--text-lightest);
+    color: var(--primary-light);
   }
   /* Replace 768px with the actual pixel value for $screen-md */
   @media only screen and (min-width: 768px) {
@@ -218,7 +218,7 @@ const { title, description, link, tech, repo, mobileImage, desktopImage } =
       background-position: right center;
     }
 
-    .project__link:hover i {
+    .project__link:hover .fa-arrow-right {
       transform: translateX(3px);
       color: #fff;
     }

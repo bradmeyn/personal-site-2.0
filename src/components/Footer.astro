@@ -1,92 +1,86 @@
 ---
 const today = new Date();
-import Container from './shared/Container.astro'
-import {links} from '.././data/links'
+import Container from "./shared/Container.astro";
+import { externalLinks } from ".././data/links";
 ---
 
 <footer>
-<Container>
+  <Container>
+    <div class="footer__content animated--fade-in">
+      <p class="footer__copyright">
+        &#x24B8; Copyright {today.getFullYear()} Brad Meyn. All rights reserved.
+      </p>
 
-<div class="footer__content">
-  <p class="footer__copyright">
-    &#x24B8; Copyright {today.getFullYear()} Brad Meyn. All rights reserved.
-  </p>
-
-  <nav>
-    <ul>
-    {
-        links.map(link => (
-            <li>
+      <nav>
+        <ul>
+          {
+            externalLinks.map((link) => (
+              <li>
                 <a href={link.url} target="_blank" rel="noopener noreferrer">
-                    <i class={link.icon}></i>
+                  <i class={link.icon} />
                 </a>
-            </li>
-        ))
-    }
-    </ul>
-  </nav>
-</div>
-</Container>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+  </Container>
 </footer>
 
-
 <style>
+  footer {
+    border-top: 0.1px solid var(--text-dark);
+    padding: 2rem 0;
+  }
 
-footer {
-  border-top: .1px solid var(--text-dark);
-  padding: 2rem 0;
-}
+  .footer__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
 
-.footer__content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
+  .footer__copyright {
+    color: var(--primary-light);
+    font-size: var(--fs-xs);
+    width: 100%;
+    margin-bottom: 2rem;
+  }
 
-.footer__copyright {
-  color: var(--primary-light);
-  font-size: var(--fs-xs);
-  width: 100%;
-  margin-bottom: 2rem;
-}
+  ul {
+    display: flex;
+    align-items: center;
+  }
 
-ul {
-  display: flex;
-  align-items: center;
-}
+  li {
+    list-style: none;
+    text-align: center;
+    margin-left: 2rem;
+  }
 
-li {
-  list-style: none;
-  text-align: center;
-  margin-left: 2rem
-}
+  a {
+    font-size: var(--fs-lg);
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--primary-light);
+    text-align: center;
+  }
 
-a {
-  font-size: var(--fs-lg);
-  cursor: pointer;
-  text-decoration: none;
-  color: var(--text-light);
-  text-align: center;
-}
+  a:hover {
+    color: var(--secondary);
+  }
 
-a:hover {
-  color: var(--secondary);
-}
-
-@media (min-width: 768px) {
+  @media (min-width: 768px) {
     .footer__content {
-        flex-direction: row;
-        justify-content: space-between;
-        text-align: left;
+      flex-direction: row;
+      justify-content: space-between;
+      text-align: left;
     }
 
     .footer__copyright {
       margin-bottom: 0;
     }
-
-  
   }
-
 </style>

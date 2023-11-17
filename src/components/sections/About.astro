@@ -1,57 +1,66 @@
 ---
+import TechIcons from "../TechIcons.astro";
 import Section from "../shared/Section.astro";
 ---
 
 <Section name="about" showHeading={true}>
-  <div class="about__content">
-    <div class="about__text">
+  <div class="parent">
+    <div class="about">
       <p class="about__paragraph animated--fade-in">
-        I am a software developer located in Newcastle, Australia. My background
-        is finance, however a curiosity for how the web worked led me to learn
-        how to code. I enjoyed the process so much I decided to change careers
-        and get a Masters degree in Computer Science.
+        Hi, I'm Brad, a software developer based in Australia. I enjoy building
+        software applications that look great and solve real world problems.
       </p>
+
+      <p class="about__paragraph animated--fade-in">
+        As a result of my work, study & personal projects I have experience with
+        a wide range of languages, frameworks and tools.
+      </p>
+      <TechIcons />
     </div>
+    <!-- <TechIcons /> -->
 
     <div class="profile animated--fade-in">
       <div class="profile__img">
         <img src="./assets/me_profile.jpg" alt="ugly picture of me" />
       </div>
       <h4 class="profile__subheading">Qualifications</h4>
-      <div class="profile__qualifications">
-        <div class="profile__detail">
-          <span class="qualification">Masters of Computer Science</span>
-        </div>
-        <div class="profile__detail">
-          <span class="qualification">Bachelor of Business</span>
-        </div>
-        <div class="profile__detail">
-          <span class="qualification">Bachelor of Commerce</span>
-        </div>
-      </div>
+      <ul>
+        <li><i class="fa-regular fa-dash"></i>Masters of Computer Science</li>
+        <li>
+          <i class="fa-regular fa-dash"></i>AWS Certified Cloud Practitioner
+        </li>
+        <li><i class="fa-regular fa-dash"></i>Bachelor of Business</li>
+        <li><i class="fa-regular fa-dash"></i>Bachelor of Commerce</li>
+      </ul>
     </div>
   </div>
 </Section>
 
 <style>
-  .about__content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
+  .parent {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 2rem;
+    margin: 0 auto;
+    max-width: 1200px;
   }
-
-  .about__text {
-    color: var(--slate-300);
-    min-width: 30rem;
-    margin-bottom: var(--margin-xl);
-  }
-
   .about__paragraph {
-    color: var(--primary-lightest);
+    color: var(--primary-light);
+    font-weight: 300;
     font-size: var(--fs-md);
     line-height: 1.5;
     margin-bottom: var(--margin-lg);
+  }
+
+  li {
+    color: var(--primary-light);
+    font-size: var(--fs-sm);
+    margin-left: 1rem;
+  }
+
+  .fa-dash {
+    color: var(--secondary);
+    margin-right: 1rem;
   }
 
   .about__link {
@@ -64,7 +73,7 @@ import Section from "../shared/Section.astro";
   }
 
   .profile {
-    padding: 4rem 2rem 2rem 2rem;
+    padding: 3rem 2rem 2rem 2rem;
     backdrop-filter: blur(30px);
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
@@ -103,56 +112,7 @@ import Section from "../shared/Section.astro";
   .profile__subheading {
     font-size: var(--fs-md);
     margin-bottom: var(--margin-md);
-    color: var(--text-lightest);
-  }
-
-  .profile__qualifications {
-    margin-bottom: var(--margin-md);
-  }
-
-  .profile__detail {
-    position: relative;
-    margin-left: 3rem;
-    color: var(--text-light);
-    font-size: var(--fs-md);
-    line-height: 1.5;
-  }
-
-  .profile__detail::after {
-    position: absolute;
-    top: 50%;
-    left: -1.75rem;
-    content: " ";
-    height: 2px;
-    width: 8px;
-    background-color: var(--secondary);
-  }
-
-  .profile__skills {
-    flex: 1;
-    display: flex;
-    justify-content: space-around;
-    margin: 0 auto;
-  }
-
-  .profile__skills .skill-list {
-    color: var(--text-light);
-    display: inline-block;
-    list-style: none;
-  }
-
-  .profile__skills .skill-item {
-    font-size: var(--fs-md);
-    line-height: 1.5;
-    position: relative;
-  }
-
-  .profile__skills .skill-item i {
-    margin-right: 1rem;
-    display: inline-block;
-    font-size: var(--fs-md);
-    text-decoration: none;
-    color: var(--secondary);
+    color: #fff;
   }
 
   /* Replace $screen-md with the actual value */
@@ -168,4 +128,3 @@ import Section from "../shared/Section.astro";
     }
   }
 </style>
- ```

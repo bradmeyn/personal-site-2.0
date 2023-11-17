@@ -1,11 +1,11 @@
 ---
-import { links } from "../../../data/links";
+import { externalLinks } from "../../../data/links";
 ---
 
 <nav>
   <ul>
     {
-      links.map((link) => (
+      externalLinks.map((link) => (
         <li>
           <a href={link.url} target="_blank" rel="noopener noreferrer">
             <i class={link.icon} />
@@ -18,7 +18,7 @@ import { links } from "../../../data/links";
 
 <style>
   nav {
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
   }
 
   ul {
@@ -40,7 +40,7 @@ import { links } from "../../../data/links";
     font-size: var(--fs-lg);
     cursor: pointer;
     text-decoration: none;
-    color: var(--text-light);
+    color: var(--primary-light);
     text-align: center;
   }
 
