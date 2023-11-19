@@ -1,5 +1,6 @@
 ---
 import type { Project } from "../../../data/projects";
+import TechBadge from "./TechBadge.astro";
 interface Props {
   project: Project;
 }
@@ -9,7 +10,7 @@ const { title, description, link, tech, repo, mobileImage, desktopImage } =
 ---
 
 <article class="project animated--fade-in">
-  <a target="_blank" href={link} class="project__img-container">
+  <div class="project__img">
     <img
       class="project__img--desktop"
       src={desktopImage}
@@ -24,14 +25,14 @@ const { title, description, link, tech, repo, mobileImage, desktopImage } =
         />
       )
     }
-  </a>
-  <div class="project__text-container">
+  </div>
+  <div class="project__text">
     <h3 class="project__heading">{title}</h3>
     <p class="project__description">
       {description}
     </p>
-    <div class="project__badge-container">
-      {tech.map((tech) => <span class="badge">{tech}</span>)}
+    <div class="project__badges">
+      {tech.map((tech) => <TechBadge name={tech} />)}
     </div>
     <div class="project__links">
       <a class="project__link project__link--live" target="_blank" href={link}
@@ -50,28 +51,26 @@ const { title, description, link, tech, repo, mobileImage, desktopImage } =
   .project {
     position: relative;
     display: flex;
+    gap: 3rem;
     flex-direction: column;
     justify-content: center;
-    margin-bottom: var(--margin-xl);
-    width: 100%;
-    max-width: 50rem;
+
     overflow: hidden;
-    border-radius: 15px;
+    border-radius: 5px;
     backdrop-filter: blur(10px);
     background: rgba(255, 255, 255, 0.1);
     padding: 2rem;
     background-image: var(--gradient-primary);
+    max-width: 50rem;
   }
 
-  .project__text-container {
+  .project__text {
     width: 100%;
-    max-width: 40rem;
     border-radius: 10px;
     order: 1;
-    padding-bottom: 2rem;
   }
 
-  .project__text-container:nth-of-type(even) {
+  .project__text-:nth-of-type(even) {
     order: 2;
   }
 
@@ -83,22 +82,21 @@ const { title, description, link, tech, repo, mobileImage, desktopImage } =
   }
 
   .project__description {
-    color: var(--primary-lightest);
+    color: var(--primary-light);
     font-size: var(--fs-sm);
     line-height: 1.5;
     margin-bottom: var(--margin-lg);
   }
 
-  .project__img-container {
+  .project__img {
     order: 2;
-    width: 100%;
-    max-width: 42rem;
+
     display: flex;
     position: relative;
     justify-content: center;
     align-items: center;
-    margin: 2rem auto 0;
-    border-radius: 10px;
+
+    border-radius: 5px;
     box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
     border: solid 6px var(--primary-dark-transparent);
   }
@@ -119,26 +117,17 @@ const { title, description, link, tech, repo, mobileImage, desktopImage } =
     box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
   }
 
-  .project__badge-container {
+  .project__badges {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
     margin-bottom: 2rem;
   }
 
-  .badge {
-    font-size: var(--fs-xs);
-    font-family: var(--font-secondary);
-    font-weight: 600;
-    background-color: var(--primary-light);
-    color: var(--primary-dark);
-    border-radius: 5px;
-    padding: 0.3rem;
-  }
-
   .project__links {
     display: flex;
     justify-content: flex-start;
+    gap: 1rem;
     align-items: center;
   }
 
@@ -152,60 +141,66 @@ const { title, description, link, tech, repo, mobileImage, desktopImage } =
     border-radius: 50px;
     text-align: center;
     font-family: var(--font-primary);
+    color: var(--primary-lightest);
     text-decoration: none;
     cursor: pointer;
-    padding: 0.6rem 1.8rem;
-    transition: all 0.3s ease-in-out;
-    color: var(--text-lightest);
+    padding: 0.4rem 1.4rem;
+
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
     font-size: var(--fs-md);
     font-weight: 500;
-    background-size: 200% auto;
-    background-image: var(--gradient-secondary);
   }
 
-  .project__link .fa-arrow-right {
+  .fa-arrow-right {
     transition: all 0.3s ease;
-    font-size: 1rem;
+    font-size: var(--fs-sm);
     margin-left: 0.6rem;
   }
 
   .project__link--live {
     color: #fff;
     background-image: var(--gradient-secondary);
-    margin-right: 2rem;
+
+    transition: background-image 0.3s ease-in-out;
+    background-size: 200% auto;
+    background-image: var(--gradient-secondary);
   }
 
   .project__link--repo {
     background-color: transparent;
     background-image: none;
-    padding-left: 0;
-    color: var(--primary-light);
   }
   /* Replace 768px with the actual pixel value for $screen-md */
   @media only screen and (min-width: 768px) {
     .project {
+      display: flex;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
-      max-width: 120rem;
+      flex-wrap: wrap;
       padding: 4rem;
+      gap: 4rem;
+      max-width: 100%;
     }
 
-    .project__img-container {
-      margin: 0;
+    .project__img,
+    .project__text {
+      flex: 1;
     }
 
-    .project__text-container {
-      padding: 2rem 2rem 0 0;
-      margin-bottom: auto;
+    .project__img {
+      min-width: 30rem;
+      margin: 0 auto;
     }
 
-    .project:nth-of-type(even) .project__text-container {
+    .project__text {
+      min-width: 30rem;
+    }
+
+    .project:nth-of-type(even) .project__text {
       order: 2;
-      padding: 2rem 0 0 4rem;
     }
   }
 

@@ -1,130 +1,195 @@
 ---
-import TechIcons from "../TechIcons.astro";
 import Section from "../shared/Section.astro";
+const qualifications = [
+  {
+    name: "Masters of Computer Science",
+  },
+  {
+    name: "AWS Certified Cloud Practitioner",
+  },
+  {
+    name: "Bachelors of Business & Commerce",
+  },
+];
 ---
 
 <Section name="about" showHeading={true}>
   <div class="parent">
     <div class="about">
       <p class="about__paragraph animated--fade-in">
-        Hi, I'm Brad, a software developer based in Australia. I enjoy building
-        software applications that look great and solve real world problems.
+        My journey into software development started in 2018 when I began
+        learning to code with the intention to build some tools for my finance
+        job. I enjoyed the creativity and problem solving to the extent of
+        changing careers. Today I work as a full stack developer with experience
+        building a variety of applications for an agency and a large enterprise.
       </p>
 
       <p class="about__paragraph animated--fade-in">
-        As a result of my work, study & personal projects I have experience with
-        a wide range of languages, frameworks and tools.
+        Even now I still like building things and use side-projects as a way to
+        improve my skills and try out newer technologies. All of my code is
+        available on <a href="https://github.com/bradmeyn" target="_blank"
+          >GitHub</a
+        > and some live projects can also be found below.
       </p>
-      <TechIcons />
+
+      <p class="about__paragraph
+          animated--fade-in">
+        Away from the computer I enjoy playing guitar, walking the dog and
+        travelling with my wife.
+      </p>
+      <!-- <TechIcons /> -->
     </div>
-    <!-- <TechIcons /> -->
 
     <div class="profile animated--fade-in">
       <div class="profile__img">
         <img src="./assets/me_profile.jpg" alt="ugly picture of me" />
       </div>
-      <h4 class="profile__subheading">Qualifications</h4>
+
+      <h4 class="profile__subheading">Brad Meyn</h4>
+      <p class="attribute">
+        <i class="fa-solid fa-briefcase icon"></i>
+        <span>Full Stack Developer</span>
+      </p>
+      <p class="attribute">
+        <i class="fa-solid fa-location-dot icon"></i><span
+          >Newcastle, Australia</span
+        >
+      </p>
+
+      <h5>Qualifications</h5>
       <ul>
-        <li><i class="fa-regular fa-dash"></i>Masters of Computer Science</li>
-        <li>
-          <i class="fa-regular fa-dash"></i>AWS Certified Cloud Practitioner
-        </li>
-        <li><i class="fa-regular fa-dash"></i>Bachelor of Business</li>
-        <li><i class="fa-regular fa-dash"></i>Bachelor of Commerce</li>
+        {
+          qualifications.map((qualification) => (
+            <li class="attribute">
+              <i class="fa-solid fa-dash icon" />
+              <span>{qualification.name}</span>
+            </li>
+          ))
+        }
       </ul>
     </div>
   </div>
-</Section>
 
-<style>
-  .parent {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-gap: 2rem;
-    margin: 0 auto;
-    max-width: 1200px;
-  }
-  .about__paragraph {
-    color: var(--primary-light);
-    font-weight: 300;
-    font-size: var(--fs-md);
-    line-height: 1.5;
-    margin-bottom: var(--margin-lg);
-  }
+  <style>
+    a {
+      font-weight: 500;
+      color: var(--primary-lightest);
+      text-decoration: none;
+    }
 
-  li {
-    color: var(--primary-light);
-    font-size: var(--fs-sm);
-    margin-left: 1rem;
-  }
+    a:hover {
+      color: #fff;
+      box-shadow: inset 0 -2px 0 var(--secondary);
+    }
+    .about__paragraph {
+      /* font-family: var(--font-secondary); */
+      color: var(--primary-light);
+      font-weight: 300;
+      font-size: var(--fs-sm);
+      line-height: 1.5;
+      margin-bottom: var(--margin-lg);
+    }
 
-  .fa-dash {
-    color: var(--secondary);
-    margin-right: 1rem;
-  }
+    .attribute {
+      color: var(--primary-light);
+      font-size: var(--fs-sm);
+      margin-left: 1rem;
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
 
-  .about__link {
-    color: var(--secondary);
-    text-decoration: none;
-  }
+    .icon {
+      color: var(--secondary);
+      margin-right: 1rem;
+      display: block;
+      min-width: 1.5rem;
+    }
 
-  .about__link:hover {
-    text-decoration: underline;
-  }
+    .parent {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 3rem;
+    }
 
-  .profile {
-    padding: 3rem 2rem 2rem 2rem;
-    backdrop-filter: blur(30px);
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 10px;
-    margin: 4rem auto;
-    width: 100%;
-    min-width: 30rem;
-    max-width: 43rem;
-    background-image: var(--gradient-primary);
-  }
-
-  .profile__img {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: auto 0;
-    top: -6rem;
-    border: solid 3px var(--secondary);
-    overflow: hidden;
-    object-fit: contain;
-    width: 9rem;
-    height: 9rem;
-    border-radius: 50%;
-    margin: 0 auto;
-    margin-bottom: var(--margin-md);
-  }
-
-  .profile__img img {
-    position: relative;
-    height: 130%;
-    width: 130%;
-    bottom: 20px;
-    object-fit: cover;
-  }
-
-  .profile__subheading {
-    font-size: var(--fs-md);
-    margin-bottom: var(--margin-md);
-    color: #fff;
-  }
-
-  /* Replace $screen-md with the actual value */
-  @media only screen and (min-width: 768px) {
-    .about__text {
+    .about {
+      min-width: 35rem;
       flex: 1;
-      padding-right: 4rem;
-      min-width: 45rem;
     }
 
     .profile {
-      margin: 0;
+      padding: 2rem;
+      backdrop-filter: blur(30px);
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 5px;
+      margin: 0 auto;
+      min-width: 38rem;
+      height: fit-content;
+      max-width: 50rem;
+      background-image: var(--gradient-primary);
     }
-  }
-</style>
+
+    .profile__img {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: auto 0;
+      top: -4rem;
+      border: solid 3px var(--secondary);
+      overflow: hidden;
+      object-fit: contain;
+      width: 8rem;
+      height: 8rem;
+      border-radius: 50%;
+      margin: 0 auto;
+    }
+
+    .profile__img img {
+      position: relative;
+      height: 130%;
+      width: 130%;
+      bottom: 20px;
+      object-fit: cover;
+    }
+
+    h4 {
+      font-size: var(--fs-lg);
+      font-weight: 500;
+      margin-bottom: var(--margin-sm);
+      color: #fff;
+    }
+
+    h5 {
+      margin-top: 1rem;
+      font-size: var(--fs-md);
+      font-weight: 500;
+      margin-bottom: var(--margin-sm);
+      color: #fff;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      margin-bottom: 1rem;
+    }
+
+    /* Replace $screen-md with the actual value */
+    @media only screen and (min-width: 768px) {
+      .parent {
+        flex-direction: row;
+
+        gap: 2rem;
+      }
+
+      .about {
+        /* flex-grow: 1; */
+      }
+
+      .profile {
+      }
+    }
+  </style>
+</Section>

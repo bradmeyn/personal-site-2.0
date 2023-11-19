@@ -1,0 +1,26 @@
+---
+const { name } = Astro.props;
+const svgPath = `/assets/svg/${name.toLowerCase()}.svg`;
+---
+
+<span class="badge">
+  <img src={svgPath} alt="${name}" />
+  <span>{name}</span>
+</span>
+
+<style>
+  .badge {
+    font-size: var(--fs-xs);
+    font-family: var(--font-secondary);
+    font-weight: 600;
+
+    border-radius: 5px;
+    padding: 0.4rem;
+    background-color: var(--primary-dark);
+    color: var(--primary-light);
+
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+</style>

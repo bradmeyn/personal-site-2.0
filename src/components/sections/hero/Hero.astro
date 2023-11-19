@@ -7,12 +7,13 @@ import Section from "../../shared/Section.astro";
 <HeroImage>
   <Section name="hero" showHeading={false}>
     <h1>BRAD MEYN</h1>
-    <p class="subtitle">Pretty. Good.</p>
+    <p class="subtitle">Decent Software Developer</p>
     <p class="intro">
-      I build high quality websites and applications with modern technologies.
+      I build high quality, great looking websites and applications using modern
+      technologies.
     </p>
     <IconNav />
-    <a href="#projects" class="btn btn--landing">
+    <a href="#projects" class="btn">
       <span>Projects</span>
       <i class="fas fa-arrow-right"></i>
     </a>
@@ -53,7 +54,7 @@ import Section from "../../shared/Section.astro";
   .intro {
     font-size: var(--fs-md);
     font-weight: 300;
-    max-width: 40rem;
+    max-width: 38rem;
     color: var(--primary-light);
     animation: fadeRight 0.6s ease-in-out;
     opacity: 0;
@@ -63,17 +64,23 @@ import Section from "../../shared/Section.astro";
   }
 
   .btn {
+    color: #ffffff;
+    background-image: var(--gradient-secondary);
+    background-size: 200% auto;
     border-radius: 50px;
-    text-align: center;
-    font-family: var(--font-primary);
     text-decoration: none;
-    cursor: pointer;
-    font-weight: 500;
+    font-size: var(--fs-md);
+
+    align-items: center;
+    width: fit-content;
     padding: 0.7rem 2rem;
     transition: background 0.7s ease-in-out;
     display: flex;
-    align-items: center;
-    width: fit-content;
+
+    animation: fadeUp 0.5s;
+    animation-fill-mode: both;
+    animation-delay: 1.5s;
+    position: relative;
   }
 
   .btn:hover {
@@ -86,23 +93,10 @@ import Section from "../../shared/Section.astro";
     transform: rotate(90deg);
   }
 
-  .btn--landing {
-    animation: fadeUp 0.5s;
-    animation-fill-mode: both;
-    animation-delay: 1.5s;
-    position: relative;
-    font-size: var(--hs-sm);
-    background-color: var(--secondary);
-    color: #ffffff;
-    background-size: 200% auto;
-    background-image: var(--gradient-secondary);
-  }
-
   .fa-arrow-right {
     position: relative;
     margin-left: 10px;
-    transition: all 0.2s ease-in-out;
-    font-size: 4rem;
+    transition: transform 0.2s ease-in-out;
   }
 
   @media only screen and (min-width: 768px) {

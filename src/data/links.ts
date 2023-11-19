@@ -10,6 +10,11 @@ export const externalLinks = [
     url: "https://codepen.io/bradmeyn",
     icon: "fab fa-codepen",
   },
+  {
+    name: "Instagram",
+    url: "https://www.instagram.com/bradjmeyn/",
+    icon: "fab fa-instagram",
+  },
 ];
 
 export const navLinks = [
