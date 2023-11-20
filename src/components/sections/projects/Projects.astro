@@ -13,24 +13,19 @@ import { projects } from "../../../data/projects";
 
 <style>
   h2 {
-    font-size: var(--hs-lg);
-    margin-bottom: var(--margin-xl);
-    color: #ffffff;
     text-align: center;
-    position: relative;
   }
 
   h2::after {
-    text-align: center;
-    position: absolute;
-    content: "";
-    width: 5rem;
-    top: 6rem;
-    height: 5px;
-    border-radius: 0 1000px 1000px 0;
-    left: 50%;
+    content: "Projects";
     transform: translateX(-50%);
-    background: var(--secondary);
+    left: calc(50% + 0.3rem);
+    top: 0.2rem;
+  }
+
+  h2::before {
+    transform: translateX(-50%);
+    left: 50%;
   }
 
   div {

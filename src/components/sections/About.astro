@@ -14,6 +14,7 @@ const qualifications = [
 ---
 
 <Section name="about" showHeading={true}>
+  <h2 class="animated--fade-in">About</h2>
   <div class="parent">
     <div class="about">
       <p class="about__paragraph animated--fade-in">
@@ -37,7 +38,6 @@ const qualifications = [
         Away from the computer I enjoy playing guitar, walking the dog and
         travelling with my wife.
       </p>
-      <!-- <TechIcons /> -->
     </div>
 
     <div class="profile animated--fade-in">
@@ -45,7 +45,7 @@ const qualifications = [
         <img src="./assets/me_profile.jpg" alt="ugly picture of me" />
       </div>
 
-      <h4 class="profile__subheading">Brad Meyn</h4>
+      <h3 class="profile__subheading">Brad Meyn</h3>
       <p class="attribute">
         <i class="fa-solid fa-briefcase icon"></i>
         <span>Full Stack Developer</span>
@@ -56,7 +56,7 @@ const qualifications = [
         >
       </p>
 
-      <h5>Qualifications</h5>
+      <h4>Qualifications</h4>
       <ul>
         {
           qualifications.map((qualification) => (
@@ -80,14 +80,6 @@ const qualifications = [
     a:hover {
       color: #fff;
       box-shadow: inset 0 -2px 0 var(--secondary);
-    }
-    .about__paragraph {
-      /* font-family: var(--font-secondary); */
-      color: var(--primary-light);
-      font-weight: 300;
-      font-size: var(--fs-sm);
-      line-height: 1.5;
-      margin-bottom: var(--margin-lg);
     }
 
     .attribute {
@@ -154,26 +146,30 @@ const qualifications = [
       object-fit: cover;
     }
 
-    h4 {
-      font-size: var(--fs-lg);
-      font-weight: 500;
-      margin-bottom: var(--margin-sm);
-      color: #fff;
-    }
-
-    h5 {
-      margin-top: 1rem;
-      font-size: var(--fs-md);
-      font-weight: 500;
-      margin-bottom: var(--margin-sm);
-      color: #fff;
-    }
-
     ul {
       list-style: none;
       margin: 0;
       padding: 0;
       margin-bottom: 1rem;
+    }
+
+    h2 {
+      text-align: left;
+    }
+
+    h2::after {
+      content: "About";
+    }
+
+    h2::before {
+      position: absolute;
+      content: "";
+      width: 5rem;
+      top: 5rem;
+      height: 5px;
+      border-radius: 0 1000px 1000px 0;
+      left: 0;
+      background: var(--secondary);
     }
 
     /* Replace $screen-md with the actual value */

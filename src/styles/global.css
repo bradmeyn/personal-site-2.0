@@ -1,7 +1,5 @@
 :root {
-  --font-primary: "Poppins", sans-serif;
-  --font-secondary: "Inter", sans-serif;
-  /* --font-tertiary: */
+  --font-primary: "Inter", sans-serif;
 
   /* Primary Colors */
   --primary-lightest: #e1eaf3;
@@ -36,24 +34,20 @@
 
   --box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
 
-  --margin-xs: 0.25rem;
-  --margin-sm: 0.5rem;
-  --margin-md: 1rem;
-  --margin-lg: 2rem;
-  --margin-xl: 4rem;
+  /* SPACING */
+  --sp-xs: 0.25rem;
+  --sp-sm: 0.5rem;
+  --sp-md: 1rem;
+  --sp-lg: 1rem;
+  --sp-xl: 4rem;
 
+  /* FONT SIZES */
   --fs-xxs: 1rem;
-  --fs-xs: 1.2rem;
-  --fs-sm: 1.4rem;
-  --fs-md: 1.6rem;
-  --fs-lg: 2.3rem;
-  --fs-xl: 3rem;
-
-  --hs-xs: 1.5rem;
-  --hs-sm: 2rem;
-  --hs-md: 3rem;
-  --hs-lg: 4rem;
-  --hs-xl: 6rem;
+  --fs-xs: 0.6rem;
+  --fs-sm: 0.8rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.4rem;
+  --fs-xl: 2rem;
 }
 
 *,
@@ -67,12 +61,59 @@
 body {
   font-family: var(--font-primary);
 }
+p {
+  color: var(--primary-light);
+  margin-bottom: var(--sp-md);
+  font-size: var(--fs-md);
+  font-weight: 300;
+  line-height: 1.5;
+}
 
 html {
   box-sizing: border-box;
-  font-size: 62.5%;
   scroll-behavior: smooth;
   background-color: var(--primary-dark);
+}
+
+h2 {
+  font-size: var(--fs-xl);
+  position: relative;
+  color: var(--secondary);
+  font-weight: 500;
+  margin-bottom: var(--sp-xl);
+  text-align: center;
+}
+
+h2::after {
+  color: #fff;
+  position: absolute;
+  left: 0.2rem;
+  top: 0.2rem;
+}
+
+h2::before {
+  position: absolute;
+  content: "";
+  width: 5rem;
+  top: 3.5rem;
+  height: 3px;
+  border-radius: 0 1000px 1000px 0;
+  left: 0;
+  background: var(--secondary);
+}
+
+h3 {
+  font-size: var(--fs-lg);
+  margin-bottom: var(--sp-md);
+  color: #fff;
+  font-weight: 500;
+}
+
+h4 {
+  margin-bottom: var(--sp-sm);
+  font-size: var(--fs-md);
+  margin-bottom: var(--sp-md);
+  color: #fff;
 }
 
 @media only screen and (min-width: 768px) {

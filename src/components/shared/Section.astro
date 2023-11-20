@@ -10,7 +10,6 @@ const captialised = name.charAt(0).toUpperCase() + name.slice(1);
 
 <section id={name}>
   <Container>
-    {showHeading ? <h2 class="animated--fade-in">{captialised}</h2> : null}
     <slot />
   </Container>
 </section>
@@ -19,25 +18,5 @@ const captialised = name.charAt(0).toUpperCase() + name.slice(1);
   section {
     padding: 4rem 0;
     height: 100%;
-  }
-
-  h2 {
-    font-size: var(--hs-lg);
-    margin-bottom: var(--margin-xl);
-    position: relative;
-    color: #fff;
-    flex-basis: 100%;
-    font-weight: 500;
-  }
-
-  h2::after {
-    position: absolute;
-    content: "";
-    width: 5rem;
-    top: 6rem;
-    height: 5px;
-    border-radius: 0 1000px 1000px 0;
-    left: 0;
-    background: var(--secondary);
   }
 </style>
