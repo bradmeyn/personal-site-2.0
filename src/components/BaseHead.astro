@@ -10,8 +10,7 @@ interface Props {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const description = "Newcastle software developer Brad Meyn's personal site";
 const title = "B Meyn | Developer";
-const previewImage = "https://www.bradmeyn.com/assets/link-preview.jpg";
-console.log(previewImage);
+const previewImage = Astro.url.href + "assets/link-preview.jpg";
 ---
 
 <!-- Global Metadata -->
