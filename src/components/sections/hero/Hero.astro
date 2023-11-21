@@ -15,7 +15,7 @@ import Section from "../../shared/Section.astro";
     <IconNav />
     <a href="#projects" class="btn">
       <span>Projects</span>
-      <i class="fas fa-arrow-right"></i>
+      <i class="fas fa-arrow-right icon"></i>
     </a>
   </Section>
 </HeroImage>
@@ -23,7 +23,8 @@ import Section from "../../shared/Section.astro";
 <style>
   h1 {
     margin-top: 10rem;
-    font-size: 6rem;
+    margin-bottom: var(--sp-lg);
+    font-size: 4rem;
     font-weight: 500;
     animation: fadeDown 0.6s ease-in-out;
     animation-fill-mode: both;
@@ -36,14 +37,14 @@ import Section from "../../shared/Section.astro";
     position: absolute;
     content: "BRAD MEYN";
     color: #fff;
-    left: 0.5rem;
-    top: 0.5rem;
+    left: 0.25rem;
+    top: 0.25rem;
   }
 
   .subtitle {
-    font-size: 2rem;
+    font-size: var(--fs-lg);
     font-weight: 300;
-    margin-bottom: 1rem;
+    margin-bottom: var(--sp-sm);
     color: var(--primary-lightest);
     animation: fadeRight 0.6s ease-in-out;
     opacity: 0;
@@ -52,15 +53,10 @@ import Section from "../../shared/Section.astro";
   }
 
   .intro {
-    font-size: var(--fs-md);
-    font-weight: 300;
-    max-width: 38rem;
-    color: var(--primary-light);
     animation: fadeRight 0.6s ease-in-out;
     opacity: 0;
     animation-fill-mode: both;
     animation-delay: 1.2s;
-    margin-bottom: 2rem;
   }
 
   .btn {
@@ -69,18 +65,18 @@ import Section from "../../shared/Section.astro";
     background-size: 200% auto;
     border-radius: 50px;
     text-decoration: none;
-    font-size: var(--fs-md);
-
+    font-size: 1.2rem;
+    padding: 0.6rem 1.3rem;
+    gap: var(--sp-sm);
     align-items: center;
     width: fit-content;
-    padding: 0.7rem 2rem;
+
     transition: background 0.7s ease-in-out;
     display: flex;
 
     animation: fadeUp 0.5s;
     animation-fill-mode: both;
     animation-delay: 1.5s;
-    position: relative;
   }
 
   .btn:hover {
@@ -89,17 +85,17 @@ import Section from "../../shared/Section.astro";
     text-decoration: none;
   }
 
-  .btn:hover .fa-arrow-right {
+  .btn:hover .icon {
     transform: rotate(90deg);
   }
 
-  .fa-arrow-right {
+  .icon {
     position: relative;
-    margin-left: 10px;
+    font-size: var(--fs-md);
     transition: transform 0.2s ease-in-out;
   }
 
-  @media only screen and (min-width: 768px) {
+  /* @media only screen and (min-width: 768px) {
     h1 {
       font-size: 9rem;
     }
@@ -107,5 +103,5 @@ import Section from "../../shared/Section.astro";
     .subtitle {
       font-size: 3rem;
     }
-  }
+  } */
 </style>

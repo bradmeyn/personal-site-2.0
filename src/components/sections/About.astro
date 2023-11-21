@@ -84,18 +84,16 @@ const qualifications = [
 
     .attribute {
       color: var(--primary-light);
-      font-size: var(--fs-sm);
-      margin-left: 1rem;
+      font-size: var(--fs-md);
       display: flex;
       align-items: center;
-      margin-bottom: 0.5rem;
+      margin-bottom: var(--sp-xs);
     }
 
     .icon {
       color: var(--secondary);
-      margin-right: 1rem;
       display: block;
-      min-width: 1.5rem;
+      min-width: 2rem;
     }
 
     .parent {
@@ -106,21 +104,23 @@ const qualifications = [
     }
 
     .about {
-      min-width: 35rem;
+      min-width: 23rem;
       flex: 1;
     }
 
     .profile {
       padding: 2rem;
       backdrop-filter: blur(30px);
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
+      flex: 1;
       border-radius: 5px;
       margin: 0 auto;
-      min-width: 40rem;
+      min-width: 20rem;
       height: fit-content;
-      max-width: 55rem;
+      max-width: 26rem;
       background-image: var(--gradient-primary);
+    }
+    h4 {
+      margin-top: 1.5rem;
     }
 
     .profile__img {
@@ -128,12 +128,12 @@ const qualifications = [
       left: 50%;
       transform: translateX(-50%);
       margin: auto 0;
-      top: -4rem;
+      top: -3rem;
       border: solid 3px var(--secondary);
       overflow: hidden;
       object-fit: contain;
-      width: 8rem;
-      height: 8rem;
+      width: 5.5rem;
+      height: 5.5rem;
       border-radius: 50%;
       margin: 0 auto;
     }
@@ -150,7 +150,6 @@ const qualifications = [
       list-style: none;
       margin: 0;
       padding: 0;
-      margin-bottom: 1rem;
     }
 
     h2 {
@@ -159,17 +158,6 @@ const qualifications = [
 
     h2::after {
       content: "About";
-    }
-
-    h2::before {
-      position: absolute;
-      content: "";
-      width: 5rem;
-      top: 5rem;
-      height: 5px;
-      border-radius: 0 1000px 1000px 0;
-      left: 0;
-      background: var(--secondary);
     }
 
     /* Replace $screen-md with the actual value */
@@ -185,7 +173,7 @@ const qualifications = [
       }
 
       .profile {
-        min-width: 33rem;
+        min-width: 23rem;
       }
     }
   </style>

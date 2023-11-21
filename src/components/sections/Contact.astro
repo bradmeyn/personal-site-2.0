@@ -21,8 +21,7 @@ import Section from "../shared/Section.astro";
   h2::after {
     content: "Contact";
     transform: translateX(-50%);
-    left: calc(50% + 0.3rem);
-    top: 0.2rem;
+    left: calc(50% + 0.1rem);
   }
 
   h2::before {
@@ -41,25 +40,25 @@ import Section from "../shared/Section.astro";
     background-size: 200% auto;
     border-radius: 50px;
     text-decoration: none;
-    font-size: var(--fs-md);
-    margin: 0 auto;
+    font-size: 1.2rem;
+    padding: 0.6rem 1.4rem;
+    width: fit-content;
     display: flex;
     align-items: center;
-    gap: 1rem;
-    width: fit-content;
-    padding: 0.7rem 2rem;
+    justify-content: center;
+
+    gap: var(--sp-sm);
+    margin: 0 auto;
   }
 
   .icon {
     transition: transform 0.3s ease;
+    font-size: var(--fs-md);
   }
 
   p {
-    color: var(--primary-light);
-    font-size: var(--fs-md);
-    line-height: 1.5;
     text-align: center;
-    padding-bottom: var(--margin-xl);
+    margin-bottom: var(--sp-xl);
   }
 
   @media (hover: hover) and (pointer: fine) {

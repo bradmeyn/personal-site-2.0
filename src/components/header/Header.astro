@@ -63,9 +63,9 @@ import Hamburger from "./Hamburger.astro";
   }
 
   .navbar__links ul {
-    margin-top: 200px;
     display: flex;
     flex-direction: column;
+    margin-top: 15rem;
   }
 
   .navbar__links li,
@@ -92,7 +92,7 @@ import Hamburger from "./Hamburger.astro";
     font-weight: 300;
     text-decoration: none;
     width: 100%;
-    padding: 1.5rem 3rem;
+    padding: 1rem 2rem;
     background-position: right;
     cursor: pointer;
     transition: background 0.5s linear;
@@ -120,7 +120,7 @@ import Hamburger from "./Hamburger.astro";
       display: flex;
       flex-direction: row;
       justify-content: flex-end;
-      gap: 1rem;
+
       align-items: center;
     }
 
@@ -135,12 +135,11 @@ import Hamburger from "./Hamburger.astro";
     }
 
     .navbar__link {
-      font-size: var(--fs-sm);
-      padding: 0.8rem 1rem;
+      font-size: var(--fs-md);
+      padding: 0.6rem 1rem;
       text-align: center;
       border-radius: 5px;
       animation: fadeDown 1s;
-
       animation-fill-mode: both;
     }
 
