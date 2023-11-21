@@ -8,9 +8,10 @@ interface Props {
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-console.log(`${Astro.site}/assets/link-preview.jpg`);
 const description = "Newcastle software developer Brad Meyn's personal site";
 const title = "B Meyn | Developer";
+const previewImage = "https://www.bradmeyn.com/assets/link-preview.jpg";
+console.log(previewImage);
 ---
 
 <!-- Global Metadata -->
@@ -42,17 +43,11 @@ const title = "B Meyn | Developer";
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta
-  property="og:image"
-  content={`${Astro.site}/public/assets/link-preview.jpg`}
-/>
+<meta property="og:image" content={previewImage} />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={Astro.url} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
-<!-- <meta
-  property="twitter:image"
-  content={`${Astro.site}/assets/link-preview.jpg`}
-/> -->
+<meta property="twitter:image" content={previewImage} />
