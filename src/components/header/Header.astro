@@ -98,16 +98,18 @@ import Hamburger from "./Hamburger.astro";
     transition: background 0.5s linear;
   }
 
-  .navbar__link:hover {
-    color: #fff;
-    background-position: left;
-    background-size: 200%;
-    background-image: var(--gradient-secondary);
-  }
-
   .navbar--active main,
   .navbar--active footer {
     filter: blur(200px);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .navbar__link:hover {
+      color: #fff;
+      background-position: left;
+      background-size: 200%;
+      background-image: var(--gradient-secondary);
+    }
   }
 
   /* DESKTOP------------------------------------------------------------ */
