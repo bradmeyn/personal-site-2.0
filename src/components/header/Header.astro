@@ -93,9 +93,8 @@ import Hamburger from "./Hamburger.astro";
     text-decoration: none;
     width: 100%;
     padding: 1rem 2rem;
-    background-position: right;
+    background-position: left;
     cursor: pointer;
-    transition: background 0.5s linear;
   }
 
   .navbar--active main,
@@ -106,9 +105,10 @@ import Hamburger from "./Hamburger.astro";
   @media (hover: hover) and (pointer: fine) {
     .navbar__link:hover {
       color: #fff;
-      background-position: left;
-      background-size: 200%;
+      background-position: right;
+      transition: background 0.5s ease-in-out;
       background-image: var(--gradient-secondary);
+      background-size: 200%;
     }
   }
 
@@ -122,7 +122,6 @@ import Hamburger from "./Hamburger.astro";
       display: flex;
       flex-direction: row;
       justify-content: flex-end;
-
       align-items: center;
     }
 
