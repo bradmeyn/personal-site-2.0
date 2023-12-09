@@ -10,11 +10,21 @@ export interface Project {
 
 export const projects = [
   {
+    title: "WealthKit",
+    description:
+      "A collection of financial tools for managing money & investments. ",
+    tech: ["SvelteKit", "Tailwind", "Typescript"],
+    desktopImage: "/assets/wealthkit-desktop.jpg",
+    mobileImage: "/assets/wealthkit-mobile.jpg",
+    link: "https://wealthkit-git-main-bradmeyn.vercel.app/",
+    repo: "https://github.com/bradmeyn/wealthkit",
+  },
+  {
     title: "Workshop",
     description:
       "A trello-esq kanban app for managing side-project tasks. Goal was to demonstrate a grasp of React and build a Typescript API I can use for trying other frameworks.",
     tech: ["React", "Typescript", "Tailwind", "Node", "Prisma", "PostgreSQL"],
-    desktopImage: "/assets/workshop-desktop.png",
+    desktopImage: "/assets/workshop-desktop.jpg",
     mobileImage: null, // No mobile image provided in the HTML
     link: "https://workshopbrad.netlify.app/",
     repo: "https://github.com/bradmeyn/workshop",
