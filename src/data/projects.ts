@@ -30,20 +30,28 @@ export const projects = [
     repo: "https://github.com/bradmeyn/workshop",
   },
   {
-    title: "Clientbook",
+    title: "ClientBook",
     description:
-      "The first fullstack application I built, showing it's age a bit now. A CRM for managing clients and related jobs. Serve will take a bit to spin up as it's hosted for free.",
+      "A CRM for managing clients and related jobs. Server will take a bit to spin up as it's hosted for free.",
     tech: ["Typescript", "Bootstrap", "Node", "MongoDB"],
     desktopImage: "/assets/clientbook-desktop.jpg",
     mobileImage: "/assets/clientbook-mobile.jpg",
-    link: "https://client-book.herokuapp.com", // Provided link seems to be incorrect, check the actual live site URL
+    link: "https://clientbook.onrender.com/",
     repo: "https://github.com/bradmeyn/clientBook",
   },
   {
-    title: "Watchflix",
+    title: "Trackflix",
     description:
-      "Movie search app using the TMDB API featuring some cool carousels. Built to try out Next.js. Backend coming eventually.",
-    tech: ["NextJS", "Tailwind", "Typescript"],
+      "Track movies you've watched and get recommendations based on your ratings. ",
+    tech: [
+      "NextJS",
+      "Tailwind",
+      "Typescript",
+      "Node",
+      "MySQL",
+      "Drizzle",
+      "PlanetScale",
+    ],
     desktopImage: "/assets/watchflix-desktop.jpg",
     mobileImage: "/assets/watchflix-mobile.jpg",
     link: "https://watchflix-five.vercel.app/",
