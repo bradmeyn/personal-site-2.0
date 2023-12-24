@@ -13,7 +13,7 @@ export const projects = [
     title: "WealthKit",
     description:
       "A collection of financial tools for managing money & investments. ",
-    tech: ["SvelteKit", "Tailwind", "Typescript"],
+    tech: ["SvelteKit", "Tailwind", "Typescript", "Node"],
     desktopImage: "/assets/wealthkit-desktop.jpg",
     mobileImage: "/assets/wealthkit-mobile.jpg",
     link: "https://wealthkit-git-main-bradmeyn.vercel.app/",
