@@ -1,6 +1,7 @@
 export interface Project {
   title: string;
   description: string;
+
   link: string;
   tech: string[];
   repo: string;
@@ -21,8 +22,7 @@ export const projects = [
   },
   {
     title: "Workshop",
-    description:
-      "A trello-esq kanban app for managing side-project tasks. Goal was to demonstrate a grasp of React and build a Typescript API I can use for trying other frameworks.",
+    description: "A trello-esq kanban app for managing side-project tasks. ",
     tech: ["React", "Typescript", "Tailwind", "Node", "Prisma", "PostgreSQL"],
     desktopImage: "/assets/workshop-desktop.jpg",
     mobileImage: null, // No mobile image provided in the HTML
@@ -41,8 +41,8 @@ export const projects = [
   },
   {
     title: "Trackflix",
-    description:
-      "Track movies you've watched and get recommendations based on your ratings. ",
+    description: "Track movies you've watched and want to watch. ",
+
     tech: [
       "NextJS",
       "Tailwind",
@@ -52,9 +52,9 @@ export const projects = [
       "Drizzle",
       "PlanetScale",
     ],
-    desktopImage: "/assets/watchflix-desktop.jpg",
-    mobileImage: "/assets/watchflix-mobile.jpg",
-    link: "https://watchflix-five.vercel.app/",
-    repo: "https://github.com/bradmeyn/watchflix",
+    desktopImage: "/assets/trackflix-desktop.jpg",
+    mobileImage: "/assets/trackflix-mobile.jpg",
+    link: "https://bradmeyn-trackflix.vercel.app/",
+    repo: "https://github.com/bradmeyn/trackflix",
   },
 ];
