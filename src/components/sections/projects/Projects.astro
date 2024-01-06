@@ -1,13 +1,29 @@
 ---
 import Section from "../../shared/Section.astro";
+import FeaturedProject from "./FeaturedProject.astro";
 import Project from "./Project.astro";
 import { projects } from "../../../data/projects";
 ---
 
 <Section name="projects">
   <h2 class="animated--fade-in">Projects</h2>
-  <div>
-    {projects.map((project) => <Project {project} />)}
+
+  <div class="projects">
+    <div class="projects__featured">
+      {
+        projects
+          .filter((project) => project.featured)
+          .map((project) => <FeaturedProject {project} />)
+      }
+    </div>
+
+    <div class="projects__non-featured">
+      {
+        projects
+          .filter((project) => !project.featured)
+          .map((project) => <Project {project} />)
+      }
+    </div>
   </div>
 </Section>
 
@@ -27,7 +43,14 @@ import { projects } from "../../../data/projects";
     left: 50%;
   }
 
-  div {
+  .projects {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  .projects__featured,
+  .projects__non-featured {
     gap: 4rem;
     margin: 0 auto;
     display: flex;
