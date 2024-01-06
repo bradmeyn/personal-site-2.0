@@ -1,4 +1,4 @@
-export interface Project {
+export type Project = {
   title: string;
   description: string;
   featured: boolean;
@@ -7,7 +7,7 @@ export interface Project {
   repo: string;
   mobileImage?: string;
   desktopImage?: string;
-}
+};
 
 export const projects = [
   {
