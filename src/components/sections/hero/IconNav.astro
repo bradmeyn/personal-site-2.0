@@ -7,7 +7,12 @@ import { externalLinks } from "../../../data/links";
     {
       externalLinks.map((link) => (
         <li>
-          <a href={link.url} target="_blank" rel="noopener noreferrer">
+          <a
+            aria-label={`Link to Brad Meyn's ${link.name}`}
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <i class={link.icon} />
           </a>
         </li>
