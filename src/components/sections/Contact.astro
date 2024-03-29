@@ -3,13 +3,17 @@ import Section from "../shared/Section.astro";
 ---
 
 <Section name="contact">
-  <h2 class="animated--fade-in">Contact</h2>
+  <h2 class="animated--fade-in">Get in touch</h2>
 
   <p class="animated--fade-in">
-    If you have any enquiries please use the email below.
+    If you have any enquiries please message me via LinkedIn.
   </p>
-  <a class="btn animated--fade-in" href="mailto:bradjmeyn@gmail.com">
-    <span>Email</span><i class="fas fa-paper-plane icon"></i>
+  <a
+    class="btn animated--fade-in"
+    target="_blank"
+    href="https://www.linkedin.com/in/bradmeyn/"
+  >
+    <span>Message</span><i class="fas fa-paper-plane icon"></i>
   </a>
 </Section>
 
@@ -19,7 +23,7 @@ import Section from "../shared/Section.astro";
   }
 
   h2::after {
-    content: "Contact";
+    content: "Get in touch";
     transform: translateX(-50%);
     left: calc(50% + 0.1rem);
   }

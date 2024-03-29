@@ -6,7 +6,7 @@ interface Props {
   project: Project;
 }
 
-const { title, description, link, tech, repo } = Astro.props.project;
+const { title, description, link, tech, repository } = Astro.props.project;
 ---
 
 <article class="project animated--fade-in">
@@ -24,8 +24,11 @@ const { title, description, link, tech, repo } = Astro.props.project;
         ><span>Live</span>
         <i class="fas fa-arrow-right"></i></a
       >
-      <a class="project__link project__link--repo" target="_blank" href={repo}
-        ><span>Repo</span>
+      <a
+        class="project__link project__link--repo"
+        target="_blank"
+        href={repository}
+        ><span>Repository</span>
         <i class="fas fa-arrow-right"></i></a
       >
     </div>

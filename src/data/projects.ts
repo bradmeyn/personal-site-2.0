@@ -4,7 +4,7 @@ export type Project = {
   featured: boolean;
   link: string;
   tech: string[];
-  repo: string;
+  repository: string;
   mobileImage?: string;
   desktopImage?: string;
 };
@@ -18,7 +18,7 @@ export const projects = [
     desktopImage: "/assets/wealthkit-desktop.jpg",
     mobileImage: "/assets/wealthkit-mobile.jpg",
     link: "https://bradmeyn-wealthkit.vercel.app/",
-    repo: "https://github.com/bradmeyn/wealthkit",
+    repository: "https://github.com/bradmeyn/wealthkit",
     featured: true,
   },
 
@@ -38,7 +38,7 @@ export const projects = [
     desktopImage: "/assets/trackflix-desktop.jpg",
     mobileImage: "/assets/trackflix-mobile.jpg",
     link: "https://bradmeyn-trackflix.vercel.app/",
-    repo: "https://github.com/bradmeyn/trackflix",
+    repository: "https://github.com/bradmeyn/trackflix",
     featured: true,
   },
   {
@@ -49,7 +49,7 @@ export const projects = [
     desktopImage: "/assets/clientbook-desktop.jpg",
     mobileImage: "/assets/clientbook-mobile.jpg",
     link: "https://clientbook.onrender.com/",
-    repo: "https://github.com/bradmeyn/clientBook",
+    repository: "https://github.com/bradmeyn/clientBook",
     featured: true,
   },
   {
@@ -57,7 +57,7 @@ export const projects = [
     description: "Testing dnd kit with a Trello-style drag & drop app.",
     tech: ["React", "Tailwind", "Typescript", "Node"],
     link: "https://bradmeyn-drag-and-drop.netlify.app",
-    repo: "https://github.com/bradmeyn/react-drag--drop",
+    repository: "https://github.com/bradmeyn/react-drag--drop",
     featured: false,
   },
 ];
