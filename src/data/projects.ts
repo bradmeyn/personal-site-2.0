@@ -23,22 +23,14 @@ export const projects = [
   },
 
   {
-    title: "Trackflix",
+    title: "Nextflik",
     description:
-      "A project to learn React Server Components. Track movies you've watched and want to watch. ",
-    tech: [
-      "NextJS",
-      "Tailwind",
-      "Typescript",
-      "Node",
-      "MySQL",
-      "Drizzle",
-      "PlanetScale",
-    ],
+      "A simple movie discovery app using the TMDB API & React w/Tanstack Router.",
+    tech: ["React", "Tailwind", "Typescript", "Node"],
     desktopImage: "/assets/trackflix-desktop.jpg",
     mobileImage: "/assets/trackflix-mobile.jpg",
-    link: "https://bradmeyn-trackflix.vercel.app/",
-    repository: "https://github.com/bradmeyn/trackflix",
+    link: "https://bradmeyn-nextflik.netlify.app/",
+    repository: "https://github.com/bradmeyn/nextflik",
     featured: true,
   },
   {
