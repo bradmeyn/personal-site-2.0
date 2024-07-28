@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+const articles = await getCollection("articles");
+---
+
+<BaseLayout>
+  <main class="py-4 container">
+    <h1 class="text-white text-8xl mb-10">Articles</h1>
+    <ul class="text-white">
+      {
+        articles.map((a) => (
+          <li class="bg-slate-800 border border-slate-500 max-w-2xl p-4">
+            <a href={`/articles/${a.slug}`}>{a.data.title}</a>
+            <time datetime={a.data.publishDate.toISOString()}>
+              {a.data.publishDate.toDateString()}
+            </time>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</BaseLayout>
