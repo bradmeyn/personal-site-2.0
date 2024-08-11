@@ -1,139 +1,23 @@
-:root {
-  --font-primary: "Inter", sans-serif;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  /* Primary Colors */
-  --primary-lightest: #e1eaf3;
-  --primary-light: #b8cbe8;
-  --primary: #0e284e;
-  --primary-dark: #0f1a2a;
-  --primary-darker: #0e1624;
-
-  --primary-dark-transparent: rgba(15, 26, 42, 0.8);
-
-  /* Secondary Colors */
-  --secondary: #ff5d4b;
-  --secondary-light: #ff8970;
-  --secondary-dark: #e04632;
-
-  --gradient-primary: linear-gradient(
-    to bottom right,
-    #0e284e 0%,
-    #3a5b7561 100%
-  );
-
-  --gradient-secondary: linear-gradient(
-    to right,
-    rgba(235, 51, 51, 0.6) 0%,
-    var(--secondary) 51%,
-    var(--secondary-dark) 100%
-  );
-
-  --box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
-
-  /* SPACING */
-  --sp-xs: 0.5rem;
-  --sp-sm: 0.75rem;
-  --sp-md: 1rem;
-  --sp-lg: 1.5rem;
-  --sp-xl: 2.5rem;
-
-  /* FONT SIZES */
-
-  --fs-xs: 0.75rem;
-  --fs-sm: 0.8rem;
-  --fs-md: 1rem;
-  --fs-lg: 1.5rem;
-  --fs-xl: 2rem;
-}
-
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  box-sizing: border-box;
-  scroll-behavior: smooth;
-  background-color: var(--primary-dark);
-}
-
-body {
-  font-family: var(--font-primary);
-}
-
-p {
-  color: var(--primary-light);
-  margin-bottom: var(--sp-md);
-  font-size: var(--fs-md);
-  font-weight: 300;
-  line-height: 1.5;
-}
-
-h2 {
-  font-size: var(--fs-xl);
-  position: relative;
-  color: var(--secondary);
-  font-weight: 500;
-  margin-bottom: var(--sp-xl);
-  text-align: center;
-}
-
-h2::after {
-  color: #fff;
-  position: absolute;
-  left: 0.1rem;
-  top: 0.1rem;
-}
-
-h2::before {
-  position: absolute;
-  content: "";
-  width: 5rem;
-  top: 3rem;
-  height: 3px;
-  border-radius: 0 1000px 1000px 0;
-  left: 0;
-  background-image: var(--gradient-secondary);
-}
-
-h3 {
-  font-size: var(--fs-lg);
-  margin-bottom: var(--sp-sm);
-  color: #fff;
-  font-weight: 500;
-}
-
-h4 {
-  font-weight: 300;
-  margin-bottom: var(--sp-sm);
-  font-size: var(--fs-md);
-
-  color: #fff;
-}
-
-@keyframes fadeIn {
-  from {
-    transform: translateY(30px);
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-white;
   }
 
-  to {
-    transform: translateY(0);
-    opacity: 1;
+  p {
+    @apply text-slate-400;
   }
 }
 
-ul {
-  list-style: none;
-}
-
-li {
-  list-style: none;
-}
-
-.animated--fade-in {
+/* .animated--fade-in {
   opacity: 0;
 }
 
@@ -188,4 +72,4 @@ li {
   100% {
     background-position: left center;
   }
-}
+} */

@@ -1,0 +1,23 @@
+---
+import { externalLinks } from "../data/links";
+---
+
+<nav>
+  <ul class="flex gap-4 items-center mb-2 text-white">
+    {
+      externalLinks.map((link, i) => (
+        <li>
+          <a
+            aria-label={`Link to Brad Meyn's ${link.name}`}
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-2xl block py-4 hover:text-orange-500"
+          >
+            <i class={link.icon} />
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>

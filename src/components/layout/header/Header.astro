@@ -1,157 +1,39 @@
 ---
-import Logo from "./Logo.astro";
+const { pathname } = Astro.url;
+let links = [
+  { name: "Home", href: "/", active: false },
+  { name: "Articles", href: "/articles", active: false },
+];
 
-const links = [{ name: "Articles", href: "/articles" }];
+links = links.map((link) => {
+  if (link.href === pathname) {
+    return { ...link, active: true };
+  }
+  return link;
+});
 ---
 
-<header class="header" id="header">
-  <div class="container">
-    <nav class="navbar">
-      <Logo />
-
-      <div class="navbar__links">
-        <ul>
-          {
-            links.map((link) => (
-              <li class="navbar__item">
-                <a href={link.href} class="navbar__link">
-                  {link.name}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-
-      <!-- <Hamburger /> -->
-    </nav>
+<header>
+  <div class="container py-4">
+    <!-- <nav
+      class="flex justify-center items-center w-fit text-sm mx-auto gap-20 rounded-full border border-slate-800 p-3 bg-slate-800"
+    >
+      <ul class="flex justify-center items-center gap-8">
+        {
+          links.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class={`${
+                  link.active ? "text-white" : "text-slate-400"
+                } hover:text-white transition duration-300`}
+              >
+                {link.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav> -->
   </div>
 </header>
-
-<style is:global>
-  header {
-    z-index: 100;
-    width: 100%;
-  }
-
-  .navbar {
-    padding: 1rem 0;
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 1000;
-  }
-
-  .header--scrolled {
-    background-color: var(--primary-dark-transparent);
-  }
-
-  .navbar__links {
-    height: 100vh;
-    width: 75%;
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 100;
-    transform: translateX(100%);
-    visibility: hidden;
-    transition: transform 0.3s ease-in-out;
-    background-color: var(--primary);
-  }
-
-  .navbar__links ul {
-    display: flex;
-    flex-direction: column;
-    margin-top: 15rem;
-  }
-
-  .navbar__links li,
-  .navbar__links li a {
-    width: 100%;
-  }
-
-  body.navbar--active {
-    overflow: hidden;
-  }
-
-  .navbar--active .navbar__links {
-    transform: translateX(0);
-    opacity: 1;
-    visibility: visible;
-    background: var(--primary-dark);
-  }
-
-  .navbar__link {
-    display: block;
-    text-align: left;
-    color: var(--primary-light);
-    font-size: var(--fs-md);
-    font-weight: 300;
-    text-decoration: none;
-    width: 100%;
-    padding: 1rem 2rem;
-    background-position: left;
-    cursor: pointer;
-  }
-
-  .navbar--active main,
-  .navbar--active footer {
-    filter: blur(200px);
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .navbar__link:hover {
-      color: #fff;
-      background-position: right;
-      transition: background 0.5s ease-in-out;
-      background-image: var(--gradient-secondary);
-      background-size: 200%;
-    }
-  }
-
-  /* DESKTOP------------------------------------------------------------ */
-
-  @media (min-width: 768px) {
-    .navbar__links ul {
-      margin-top: auto;
-      position: relative;
-      height: auto;
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-end;
-      align-items: center;
-    }
-
-    .navbar__links {
-      position: relative;
-      width: auto;
-      height: auto;
-      visibility: visible;
-      transform: translateX(0);
-      transition: none;
-      background-color: transparent;
-    }
-
-    .navbar__link {
-      font-size: var(--fs-md);
-      padding: 0.6rem 1rem;
-      text-align: center;
-      border-radius: 5px;
-      animation: fadeDown 1s;
-      animation-fill-mode: both;
-    }
-
-    .navbar__item:nth-child(1) .navbar__link {
-      animation-delay: 1.2s;
-    }
-
-    .navbar__item:nth-child(2) .navbar__link {
-      animation-delay: 1.4s;
-    }
-
-    .navbar__item:nth-child(3) .navbar__link {
-      animation-delay: 1.6s;
-    }
-  }
-</style>

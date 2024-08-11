@@ -1,0 +1,11 @@
+---
+const { name } = Astro.props;
+const svgPath = `/assets/svg/${name.toLowerCase()}.svg`;
+---
+
+<span
+  class="text-sm bg-slate-900 border border-slate-700 rounded-lg p-1 px-2 flex gap-2 items-center"
+>
+  <img src={svgPath} alt="${name}" />
+  <span>{name}</span>
+</span>
