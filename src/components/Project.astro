@@ -1,0 +1,22 @@
+---
+const { title, description, link, repo } = Astro.props.project;
+---
+
+<a
+  class="relative flex items-center border border-slate-500 hover:border-white justify-center rounded-lg p-4 bg-slate-800 animate-fade-in w-fit group transition-all duration-500"
+  target="_blank"
+  href={link}
+>
+  <div class="relative z-10">
+    <h3 class="text-lg font-semibold mb-2">{title}</h3>
+    <p class="mb-2 text-slate-300 max-w-md">
+      {description}
+    </p>
+  </div>
+
+  <div class="p-2 relative">
+    <i
+      class="fas fa-arrow-right transition-all duration-300 group-hover:translate-x-1 group-hover:rotate-[-45deg] group-hover:text-white"
+    ></i>
+  </div>
+</a>

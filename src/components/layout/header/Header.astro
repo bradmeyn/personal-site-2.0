@@ -1,0 +1,39 @@
+---
+const { pathname } = Astro.url;
+let links = [
+  { name: "Home", href: "/", active: false },
+  { name: "Articles", href: "/articles", active: false },
+];
+
+links = links.map((link) => {
+  if (link.href === pathname) {
+    return { ...link, active: true };
+  }
+  return link;
+});
+---
+
+<header>
+  <div class="container py-4">
+    <!-- <nav
+      class="flex justify-center items-center w-fit text-sm mx-auto gap-20 rounded-full border border-slate-800 p-3 bg-slate-800"
+    >
+      <ul class="flex justify-center items-center gap-8">
+        {
+          links.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class={`${
+                  link.active ? "text-white" : "text-slate-400"
+                } hover:text-white transition duration-300`}
+              >
+                {link.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav> -->
+  </div>
+</header>
