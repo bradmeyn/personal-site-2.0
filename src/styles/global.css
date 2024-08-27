@@ -12,64 +12,19 @@
     @apply text-white;
   }
 
+  h1 {
+    @apply text-4xl !important;
+  }
+
+  h2 {
+    @apply text-xl font-semibold !important;
+  }
+
+  h3 {
+    @apply text-lg font-semibold !important;
+  }
+
   p {
     @apply text-slate-400;
   }
 }
-
-/* .animated--fade-in {
-  opacity: 0;
-}
-
-.fade-in {
-  animation: fadeUp 0.6s ease-in-out forwards;
-}
-
-@keyframes fadeUp {
-  0% {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeDown {
-  from {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes fadeRight {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes backgroundMove {
-  0% {
-    background-position: left center;
-  }
-
-  50% {
-    background-position: center right;
-  }
-
-  100% {
-    background-position: left center;
-  }
-} */

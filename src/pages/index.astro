@@ -4,18 +4,31 @@ import IconNav from "../components/IconNav.astro";
 import { projects } from "../data/projects";
 import Project from "../components/Project.astro";
 import Badge from "../components/Badge.astro";
+
+const stack = [
+  "Typescript",
+  "Python",
+  "React",
+  "Nextjs",
+  "Node",
+  "Django",
+  "Sveltekit",
+  "Tailwind",
+  "PostgreSQL",
+  "MongoDB",
+];
 ---
 
 <BaseLayout>
   <section class="container mt-10 py-2">
     <h1
-      class="text-4xl mb-2 text-white animate-[fadeDown_0.6s_ease-in-out_forwards] opacity-0"
+      class="mb-2 text-white animate-[fadeDown_0.6s_ease-in-out_forwards] opacity-0"
     >
       <span class=""> Hi, I'm </span><span
         class="relative text-white after:content-['Brad.'] after:absolute after:top-[4px] after:right-[3px] after:z-[-1] after:text-transparent after:bg-gradient-to-r after:from-orange-500 after:to-rose-500 after:bg-clip-text"
         >Brad.</span
       >
-      <span class=""> & this is my site.</span>
+      <span> & this is my site.</span>
     </h1>
 
     <div class="animate-[fadeUp_0.6s_ease-in-out_forwards_0.5s] opacity-0">
@@ -33,25 +46,16 @@ import Badge from "../components/Badge.astro";
   <section
     class="container py-2 animate-[fadeUp_0.6s_ease-in-out_forwards_0.7s] opacity-0"
   >
-    <h2 class="text-white text-xl font-semibold mb-2">Stack</h2>
+    <h2 class="mb-2">Stack</h2>
     <div class="flex gap-2 flex-wrap mb-4">
-      <Badge name="Typescript" />
-      <Badge name="React" />
-      <Badge name="Sveltekit" />
-      <Badge name="Node" />
-      <Badge name="Nextjs" />
-      <Badge name="Tailwind" />
-      <Badge name="Python" />
-      <Badge name="Django" />
-      <Badge name="PostgreSQL" />
-      <Badge name="MongoDB" />
+      {stack.map((tech) => <Badge name={tech} />)}
     </div>
   </section>
 
   <section
     class="container py-2 animate-[fadeUp_0.6s_ease-in-out_forwards_0.8s] opacity-0"
   >
-    <h2 class="text-white text-xl font-semibold mb-2">Projects</h2>
+    <h2 class="mb-2">Projects</h2>
     <div class="space-y-8">
       {projects.map((project) => <Project {project} />)}
     </div>

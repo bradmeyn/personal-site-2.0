@@ -2,8 +2,6 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getEntry } from "astro:content";
 
-const graceHopperProfile = await getEntry("articles", "grace-hopper");
-
 import { getCollection } from "astro:content";
 // 1. Generate a new path for every collection entry
 export async function getStaticPaths() {
@@ -20,7 +18,7 @@ const { Content } = await entry.render();
 
 <BaseLayout>
   <main class="py-4 container">
-    <h1 class="text-white text-6xl mb-10">{entry.data.title}</h1>
+    <h1 class="mb-4">{entry.data.title}</h1>
     <time
       datetime={entry.data.publishDate.toISOString()}
       class="block text-lg text-slate-400"

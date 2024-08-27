@@ -1,14 +1,14 @@
 ---
-const { title, description, link, repo } = Astro.props.project;
+const { title, description, link } = Astro.props.project;
 ---
 
 <a
-  class="relative flex items-center border border-slate-500 hover:border-white justify-center rounded-lg p-4 bg-slate-800 animate-fade-in w-fit group transition-all duration-500"
+  class="relative flex items-center border border-slate-600 hover:border-white justify-center rounded-lg p-4 bg-slate-900 animate-fade-in w-fit group transition-all duration-500"
   target="_blank"
   href={link}
 >
   <div class="relative z-10">
-    <h3 class="text-lg font-semibold mb-2">{title}</h3>
+    <h3 class="mb-2">{title}</h3>
     <p class="mb-2 text-slate-300 max-w-md">
       {description}
     </p>
