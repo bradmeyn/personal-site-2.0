@@ -3,16 +3,15 @@ import { defineCollection, z } from "astro:content";
 const articlesCollection = defineCollection({
   type: "content",
   schema: z.object({
-    isDraft: z.boolean(),
     title: z.string(),
-    image: z.object({
-      src: z.string(),
-      alt: z.string(),
-    }).optional(),
+    image: z
+      .object({
+        src: z.string(),
+        alt: z.string(),
+      })
+      .optional(),
 
     tags: z.array(z.string()),
-    // An optional frontmatter property. Very common!
-    footnote: z.string().optional(),
     // In frontmatter, dates written without quotes around them are interpreted as Date objects
     publishDate: z.date(),
     // You can also transform a date string (e.g. "2022-07-08") to a Date object
@@ -25,3 +24,5 @@ const articlesCollection = defineCollection({
 export const collections = {
   articles: articlesCollection,
 };
+
+// export type Article = z.infer<typeof articlesCollection.schema>;

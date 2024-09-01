@@ -9,22 +9,34 @@
   h4,
   h5,
   h6 {
-    @apply text-white;
+    @apply text-white mb-2;
   }
 
   h1 {
-    @apply text-4xl !important;
+    @apply text-5xl mb-6 !important;
   }
 
   h2 {
-    @apply text-xl font-semibold !important;
+    @apply text-xl  mb-2 !important;
   }
 
   h3 {
-    @apply text-lg font-semibold !important;
+    @apply text-lg mb-1 !important;
   }
 
   p {
-    @apply text-slate-400;
+    @apply text-neutral-300 mb-2 leading-relaxed;
+  }
+}
+
+@layer components {
+  .card {
+    @apply relative border border-zinc-700 rounded-lg p-4 bg-zinc-800;
+  }
+  .card--link {
+    @apply hover:border-white justify-between cursor-pointer;
+  }
+  .card--link:hover {
+    @apply border-white;
   }
 }

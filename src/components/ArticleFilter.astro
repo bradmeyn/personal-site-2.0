@@ -1,0 +1,93 @@
+---
+
+type Props = {
+  tags?: string[];
+};
+
+
+const { tags } = Astro.props;
+---
+
+<aside class="w-fit">
+  <ul class="space-y-2">
+    <li>
+      <a
+        href="/articles"
+        class="block py-1 px-4 rounded text-zinc-400 hover:text-white"
+        data-tag=""
+      >
+        All
+      </a>
+    </li>
+    {
+      tags.map((tag:) => (
+        <li>
+          <a
+            href={`/articles?tag=${encodeURIComponent(tag)}`}
+            class="block py-1 px-2 rounded text-zinc-400 hover:text-white "
+            data-tag={tag}
+          >
+            {tag}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</aside>
+
+<script>
+  function filterArticles(tag) {
+    const articles = document.querySelectorAll("ul li[data-tags]");
+    const noArticlesMessage = document.getElementById("no-articles");
+    let visibleCount = 0;
+
+    articles.forEach((article) => {
+      const tags = article.dataset.tags.split(",");
+      if (!tag || tags.includes(tag)) {
+        article.style.display = "";
+        visibleCount++;
+      } else {
+        article.style.display = "none";
+      }
+    });
+
+    noArticlesMessage.style.display = visibleCount === 0 ? "" : "none";
+
+    // Update active tag styling
+    document.querySelectorAll("aside a").forEach((link) => {
+      if (link.dataset.tag === tag) {
+        link.classList.add("card");
+        link.classList.remove("text-zinc-400", "hover:text-white");
+      } else {
+        link.classList.remove("card");
+        link.classList.add("text-zinc-400", "hover:text-white");
+      }
+    });
+  }
+
+  // Initial filter on page load
+  const urlParams = new URLSearchParams(window.location.search);
+  const initialTag = urlParams.get("tag") || "";
+  filterArticles(initialTag);
+
+  // Add click event listeners to tag links
+  document.querySelectorAll("aside a").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const tag = link.dataset.tag;
+      history.pushState(
+        null,
+        "",
+        tag ? `?tag=${encodeURIComponent(tag)}` : "/articles"
+      );
+      filterArticles(tag);
+    });
+  });
+
+  // Handle browser back/forward
+  window.addEventListener("popstate", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tag = urlParams.get("tag") || "";
+    filterArticles(tag);
+  });
+</script>

@@ -1,45 +1,33 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import BaseLayout from "../../components/layouts/BaseLayout.astro";
+import Article from "../../components/Article.astro";
 import { getCollection } from "astro:content";
 const articles = await getCollection("articles");
+
+// Get all unique tags
+const tags = [...new Set(articles.flatMap((article) => article.data.tags))];
 ---
 
 <BaseLayout>
-  <section class="container mt-10 py-2">
-    <h1 class="text-4xl mb-4 text-white">Articles</h1>
-    <ul class="text-white space-y-4">
-      {
-        articles.map((a) => (
-          <li class="max-w-2xl">
-            <a
-              href={`/articles/${a.slug}`}
-              class="block bg-slate-800 border border-slate-500 p-4 rounded-lg hover:bg-slate-700 transition duration-300"
-            >
-              <h2 class="text-lg font-semibold">{a.data.title}</h2>
-              <time
-                datetime={a.data.publishDate.toISOString()}
-                class="block mt-2 text-sm text-slate-400"
-              >
-                {a.data.publishDate.toDateString()}
-              </time>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
+  <div class="container mt-10 py-2">
+    <main>
+      <h1
+        class="text-white text-3xl font-bold mb-6 animate-[fadeDown_0.6s_ease-in-out_forwards] opacity-0"
+      >
+        Articles
+      </h1>
+      <ul class="text-white space-y-4">
+        {
+          articles.map((article) => (
+            <li data-tags={article.data.tags.join(",")}>
+              <Article article={article} />
+            </li>
+          ))
+        }
+      </ul>
+      <p class="text-zinc-400 hidden" id="no-articles">
+        No articles found for this tag.
+      </p>
+    </main>
+  </div>
 </BaseLayout>
-
-<section class="container mt-10 py-2">
-  <h1 class="text-4xl mb-2 text-white animated--fade-in">
-    <span> Hi, I'm </span><span
-      class="relative text-white after:content-['Brad.'] after:absolute after:top-[4px] after:right-[3px] after:z-[-1] after:text-transparent after:bg-gradient-to-r after:from-orange-500 after:to-rose-500 after:bg-clip-text"
-      >Brad.</span
-    > & this is my site.
-  </h1>
-
-  <p class="animated--fade-in text-slate-300 mb-4">
-    I'm a full-stack software developer with a Masters of Computer Science &
-    background in finance.
-  </p>
-</section>

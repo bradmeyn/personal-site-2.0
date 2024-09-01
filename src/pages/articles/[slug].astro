@@ -1,6 +1,5 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import { getEntry } from "astro:content";
+import BaseLayout from "../../components/layouts/BaseLayout.astro";
 
 import { getCollection } from "astro:content";
 // 1. Generate a new path for every collection entry
@@ -18,13 +17,25 @@ const { Content } = await entry.render();
 
 <BaseLayout>
   <main class="py-4 container">
-    <h1 class="mb-4">{entry.data.title}</h1>
+    <a
+      class="mb-4 block text-zinc-500 hover:text-white transition-colors duration-300"
+      href="/articles"
+    >
+      <i class="fa-solid fa-arrow-left"></i>
+    </a>
+    <h1>{entry.data.title}</h1>
     <time
       datetime={entry.data.publishDate.toISOString()}
-      class="block text-lg text-slate-400"
+      class="block text-sm mb-2 text-zinc-500"
     >
-      {entry.data.publishDate.toDateString()}
+      {
+        new Date(entry.data.publishDate).toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        })
+      }
     </time>
+    <Content />
   </main>
 </BaseLayout>
-<Content />

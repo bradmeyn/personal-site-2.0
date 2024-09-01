@@ -1,0 +1,41 @@
+---
+const { article } = Astro.props;
+---
+
+<a
+  href={`/articles/${article.slug}`}
+  class="card card--link group w-full flex items-center animate-fade-in transition-all duration-500"
+>
+  <div class="relative z-10">
+    <time
+      datetime={article.data.publishDate.toISOString()}
+      class="block mb-2 text-sm text-zinc-400"
+    >
+      {
+        new Date(article.data.publishDate).toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        })
+      }
+    </time>
+    <h2 class="text-lg font-semibold mb-2">{article.data.title}</h2>
+    <p class="text-zinc-300">{article.data.description}</p>
+    {
+      article.data.tags && (
+        <div class="flex gap-2 mt-2">
+          {article.data.tags.map((tag: string) => (
+            <span class="text-sm p-1 flex items-center text-zinc-400">
+              <span># {tag}</span>
+            </span>
+          ))}
+        </div>
+      )
+    }
+  </div>
+  <div class="p-2 relative">
+    <i
+      class="fas fa-arrow-right transition-all duration-300 group-hover:translate-x-2 group-hover:text-white"
+    ></i>
+  </div>
+</a>
