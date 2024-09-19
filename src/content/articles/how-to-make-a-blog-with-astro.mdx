@@ -7,8 +7,6 @@ tags: ["Astro", "Collections", "Tutorial"]
 publishDate: 2023-10-01
 ---
 
-import CodeBlock from "../../components/CodeBlock.astro";
-
 Astro collections are a powerful way to manage your content. In this article, we will explore how to define and use collections in Astro.
 
 #
@@ -25,41 +23,16 @@ To define a collection in Astro, you typically create a directory in the `src/co
 
 #
 
-<CodeBlock
-  language="plaintext"
-  code={`
-src/
-└── content/
-    └── blog/
-        ├── post1.md
-        ├── post2.md
-        └── post3.md
-  `}
-/>
+```typescript
+const someFunction = () => {
+  console.log("Hello World");
+};
+```
 
 ## Using Collections in Code
 
 Here's a simple example of how you might query and use a collection in an Astro component:
 
 #
-
-<CodeBlock
-  language="astro"
-  code={`
----
-import { getCollection } from 'astro:content';
-
-## const allBlogPosts = await getCollection('blog');
-
----
-
-<ul>
-  {allBlogPosts.map((post) => (
-    <li>
-      <a href={"/blog/" + post.slug}>{post.data.title}</a>
-    </li>
-  ))}
-</ul>
-`} />
 
 This code fetches all entries from the 'blog' collection and renders them as a list of links.

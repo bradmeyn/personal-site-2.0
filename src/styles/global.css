@@ -25,7 +25,7 @@
   }
 
   p {
-    @apply text-neutral-300 mb-2 leading-relaxed;
+    @apply text-neutral-400 mb-2 leading-relaxed;
   }
 }
 
@@ -39,4 +39,39 @@
   .card--link:hover {
     @apply border-white;
   }
+}
+
+pre,
+code {
+  color: #d4d4d4;
+  font-size: 14px !important;
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  line-height: 1.5;
+  direction: ltr;
+  white-space: pre;
+  text-align: left;
+  text-shadow: none;
+  word-break: normal;
+  word-spacing: normal;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+pre {
+  margin: 0.5rem 0 16px;
+  padding: 0.8rem 1rem 0.9rem;
+  overflow: auto;
+  background: #282a36;
+  position: relative;
+
+  @apply mb-4  rounded-lg border border-zinc-600 !important;
+}
+
+.copy-button {
+  @apply absolute top-2 right-2 px-2 py-1 cursor-pointer card text-xs;
 }

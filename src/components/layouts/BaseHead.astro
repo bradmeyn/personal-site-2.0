@@ -1,6 +1,5 @@
 ---
-import "../styles/global.css";
-import "../styles/prism.css";
+import "../../styles/global.css";
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const description =
@@ -18,11 +17,12 @@ const previewImage = "https://www.bradmeyn.com/" + "assets/link-preview.jpg";
 <!-- Font preloads -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
 <link
   href="https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Poppins:wght@300;400;600;700&display=swap"
   rel="stylesheet"
 />
-
+<script src="/codeCopy.js" type="module"></script>
 <script src="https://kit.fontawesome.com/06496a0555.js" crossorigin="anonymous"
 ></script>
 
