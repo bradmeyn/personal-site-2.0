@@ -9,22 +9,69 @@
   h4,
   h5,
   h6 {
-    @apply text-white;
+    @apply text-white mb-2;
   }
 
   h1 {
-    @apply text-4xl !important;
+    @apply text-5xl mb-6 !important;
   }
 
   h2 {
-    @apply text-xl font-semibold !important;
+    @apply text-xl  mb-2 !important;
   }
 
   h3 {
-    @apply text-lg font-semibold !important;
+    @apply text-lg mb-1 !important;
   }
 
   p {
-    @apply text-slate-400;
+    @apply text-neutral-400 mb-2 leading-relaxed;
   }
+}
+
+@layer components {
+  .card {
+    @apply relative border border-zinc-700 rounded-lg p-4 bg-zinc-800;
+  }
+  .card--link {
+    @apply hover:border-white justify-between cursor-pointer;
+  }
+  .card--link:hover {
+    @apply border-white;
+  }
+}
+
+pre,
+code {
+  color: #d4d4d4;
+  font-size: 14px !important;
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  line-height: 1.5;
+  direction: ltr;
+  white-space: pre;
+  text-align: left;
+  text-shadow: none;
+  word-break: normal;
+  word-spacing: normal;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+pre {
+  margin: 0.5rem 0 16px;
+  padding: 0.8rem 1rem 0.9rem;
+  overflow: auto;
+  background: #282a36;
+  position: relative;
+
+  @apply mb-4  rounded-lg border border-zinc-600 !important;
+}
+
+.copy-button {
+  @apply absolute top-2 right-2 px-2 py-1 cursor-pointer card text-xs;
 }

@@ -1,7 +1,7 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import BaseLayout from "../components/layouts/BaseLayout.astro";
 import IconNav from "../components/IconNav.astro";
-import { projects } from "../data/projects";
+import { PROJECTS, type Project as ProjectType } from "../constants";
 import Project from "../components/Project.astro";
 import Badge from "../components/Badge.astro";
 
@@ -14,50 +14,50 @@ const stack = [
   "Django",
   "Sveltekit",
   "Tailwind",
+  "Astro",
   "PostgreSQL",
-  "MongoDB",
+  "Prisma",
+  "Drizzle",
 ];
 ---
 
 <BaseLayout>
-  <section class="container mt-10 py-2">
-    <h1
-      class="mb-2 text-white animate-[fadeDown_0.6s_ease-in-out_forwards] opacity-0"
-    >
-      <span class=""> Hi, I'm </span><span
-        class="relative text-white after:content-['Brad.'] after:absolute after:top-[4px] after:right-[3px] after:z-[-1] after:text-transparent after:bg-gradient-to-r after:from-orange-500 after:to-rose-500 after:bg-clip-text"
-        >Brad.</span
+  <main class="container max-w-[600px]">
+    <section class="mt-10 py-2">
+      <h1 class="animate-[fadeDown_0.6s_ease-in-out_forwards] opacity-0">
+        <span> Hi, I'm </span><span
+          class="relative after:content-['Brad.'] after:absolute after:top-[8px] after:right-[5px] after:z-[-1] after:text-transparent after:bg-gradient-to-r after:from-orange-600 after:to-rose-600 after:bg-clip-text"
+          >Brad.</span
+        >
+      </h1>
+
+      <div class="animate-[fadeUp_0.6s_ease-in-out_forwards_0.5s] opacity-0">
+        <IconNav />
+      </div>
+
+      <p
+        class="animate-[fadeUp_0.6s_ease-in-out_forwards_0.6s] opacity-0 text-neutral-300"
       >
-      <span> & this is my site.</span>
-    </h1>
+        I'm a full-stack software developer with a Masters of Computer Science.
+      </p>
+    </section>
 
-    <div class="animate-[fadeUp_0.6s_ease-in-out_forwards_0.5s] opacity-0">
-      <IconNav />
-    </div>
-
-    <p
-      class="text-slate-300 mb-4 animate-[fadeUp_0.6s_ease-in-out_forwards_0.6s] opacity-0"
+    <section
+      class="py-2 animate-[fadeUp_0.6s_ease-in-out_forwards_0.7s] opacity-0"
     >
-      I'm a full-stack software developer with a Masters of Computer Science &
-      background in finance.
-    </p>
-  </section>
+      <h2>Stack</h2>
+      <div class="flex gap-2 flex-wrap mb-4">
+        {stack.map((tech) => <Badge name={tech} />)}
+      </div>
+    </section>
 
-  <section
-    class="container py-2 animate-[fadeUp_0.6s_ease-in-out_forwards_0.7s] opacity-0"
-  >
-    <h2 class="mb-2">Stack</h2>
-    <div class="flex gap-2 flex-wrap mb-4">
-      {stack.map((tech) => <Badge name={tech} />)}
-    </div>
-  </section>
-
-  <section
-    class="container py-2 animate-[fadeUp_0.6s_ease-in-out_forwards_0.8s] opacity-0"
-  >
-    <h2 class="mb-2">Projects</h2>
-    <div class="space-y-8">
-      {projects.map((project) => <Project {project} />)}
-    </div>
-  </section>
+    <section
+      class="py-2 animate-[fadeUp_0.6s_ease-in-out_forwards_0.8s] opacity-0"
+    >
+      <h2>Projects</h2>
+      <div class="space-y-8">
+        {PROJECTS.map((project: ProjectType) => <Project {project} />)}
+      </div>
+    </section>
+  </main>
 </BaseLayout>
