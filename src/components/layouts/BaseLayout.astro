@@ -1,28 +1,15 @@
 ---
 import BaseHead from "./BaseHead.astro";
-import Header from "./header/Header.astro";
+import Header from "./Header.astro";
 import Footer from "./Footer.astro";
 ---
 
 <html lang="en">
   <head>
     <BaseHead />
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YZLX4826PK"
-    ></script><script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
+  </head>
 
-      gtag("config", "G-YZLX4826PK");
-    </script></head
-  >
-  <!-- Google tag (gtag.js) -->
-
-  <!-- ts -->
-
-  <body>
+  <body class="antialiased font-mono">
     <div class="flex flex-col min-h-screen bg-zinc-900 text-white">
       <Header />
       <div class="flex-grow">

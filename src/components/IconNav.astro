@@ -1,18 +1,35 @@
 ---
-import { externalLinks } from "../constants";
+export const links = [
+  { name: "GitHub", url: "https://github.com/bradmeyn", icon: "fab fa-github" },
+  {
+    name: "LinkedIn",
+    url: "https://www.linkedin.com/in/bradmeyn/",
+    icon: "fab fa-linkedin",
+  },
+  {
+    name: "Codepen",
+    url: "https://codepen.io/bradmeyn",
+    icon: "fab fa-codepen",
+  },
+  {
+    name: "Instagram",
+    url: "https://www.instagram.com/brad_meyn/",
+    icon: "fab fa-instagram",
+  },
+];
 ---
 
 <nav>
   <ul class="flex gap-4 items-center text-zinc-400 mb-4">
     {
-      externalLinks.map((link, i) => (
+      links.map((link) => (
         <li>
           <a
             aria-label={`Link to Brad Meyn's ${link.name}`}
             href={link.url}
             target="_blank"
             rel="noopener noreferrer"
-            class="text-xl block hover:text-white transition-colors duration-300"
+            class="text-xl block hover:text-accent text-white transition-colors duration-300"
           >
             <i class={link.icon} />
           </a>

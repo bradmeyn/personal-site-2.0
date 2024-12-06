@@ -1,22 +1,16 @@
 ---
+import LinkCard from "./LinkCard.astro";
+
 const { title, description, link } = Astro.props.project;
 ---
 
-<a
-  class="relative flex items-center card card--link animate-fade-in w-fit group transition-all duration-500"
-  target="_blank"
-  href={link}
->
-  <div class="relative z-10">
-    <h3 class="mb-2">{title}</h3>
-    <p class="mb-2 text-neutral-400 max-w-md">
-      {description}
-    </p>
-  </div>
-
-  <div class="p-2 relative">
-    <i
-      class="fas fa-arrow-right transition-all duration-300 group-hover:translate-x-1 group-hover:rotate-[-45deg] group-hover:text-white text-zinc-400"
-    ></i>
-  </div>
-</a>
+<LinkCard href={link}>
+  <h3
+    class="mb-3 group-hover:underline underline-offset-4 transition-all duration-500 decoration-accent"
+  >
+    {title}
+  </h3>
+  <p class="text-sm max-w-md">
+    {description}
+  </p>
+</LinkCard>

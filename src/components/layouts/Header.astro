@@ -2,7 +2,7 @@
 const { pathname } = Astro.url;
 let links = [
   { name: "Home", href: "/", active: false },
-  { name: "Articles", href: "/articles", active: false },
+  { name: "Posts", href: "/posts", active: false },
 ];
 
 links = links.map((link) => {
@@ -14,11 +14,9 @@ links = links.map((link) => {
 ---
 
 <header>
-  <div class="container py-4">
-    <nav
-      class="items-center w-fit text-sm mx-auto gap-20 rounded-full border border-zinc-700 p-3 bg-zinc-800"
-    >
-      <ul class="flex justify-center items-center gap-8">
+  <div class="container py-8">
+    <nav>
+      <ul class="flex justify-center items-start gap-8">
         {
           links.map((link) => (
             <li>

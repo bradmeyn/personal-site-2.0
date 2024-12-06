@@ -4,29 +4,34 @@ import IconNav from "../components/IconNav.astro";
 import { PROJECTS, type Project as ProjectType } from "../constants";
 import Project from "../components/Project.astro";
 import Badge from "../components/Badge.astro";
+import Post from "../components/Post.astro";
+import { getCollection } from "astro:content";
+import LinkCard from "../components/LinkCard.astro";
+
+// Get articles and sort by date (assuming you have a date field)
+const recentPosts = await getCollection("posts");
 
 const stack = [
-  "Typescript",
-  "Python",
+  "TypeScript",
   "React",
   "Nextjs",
   "Node",
+  "Python",
   "Django",
-  "Sveltekit",
+  "Svelte",
   "Tailwind",
   "Astro",
   "PostgreSQL",
-  "Prisma",
-  "Drizzle",
 ];
 ---
 
 <BaseLayout>
-  <main class="container max-w-[600px]">
-    <section class="mt-10 py-2">
-      <h1 class="animate-[fadeDown_0.6s_ease-in-out_forwards] opacity-0">
+  <main class="container max-w-[600px] space-y-6">
+    <!-- INTRO -->
+    <section class="mt-16">
+      <h1 class="title animate-[fadeDown_0.6s_ease-in-out_forwards] opacity-0">
         <span> Hi, I'm </span><span
-          class="relative after:content-['Brad.'] after:absolute after:top-[8px] after:right-[5px] after:z-[-1] after:text-transparent after:bg-gradient-to-r after:from-orange-600 after:to-rose-600 after:bg-clip-text"
+          class="relative after:content-['Brad.'] after:absolute after:top-[8px] after:right-[5px] after:z-[-1] after:text-transparent after:bg-accent after:bg-clip-text"
           >Brad.</span
         >
       </h1>
@@ -35,29 +40,87 @@ const stack = [
         <IconNav />
       </div>
 
-      <p
-        class="animate-[fadeUp_0.6s_ease-in-out_forwards_0.6s] opacity-0 text-neutral-300"
-      >
-        I'm a full-stack software developer with a Masters of Computer Science.
+      <p class="animate-[fadeUp_0.6s_ease-in-out_forwards_0.6s] opacity-0">
+        I'm a full-stack software developer with a background in finance. I also
+        have a Masters in Computer Science.
       </p>
     </section>
 
-    <section
-      class="py-2 animate-[fadeUp_0.6s_ease-in-out_forwards_0.7s] opacity-0"
-    >
-      <h2>Stack</h2>
+    <!-- STACK -->
+    <section class="animate-[fadeUp_0.6s_ease-in-out_forwards_0.7s] opacity-0">
+      <h2 class="heading-secondary">Stack</h2>
       <div class="flex gap-2 flex-wrap mb-4">
         {stack.map((tech) => <Badge name={tech} />)}
       </div>
     </section>
 
-    <section
-      class="py-2 animate-[fadeUp_0.6s_ease-in-out_forwards_0.8s] opacity-0"
-    >
-      <h2>Projects</h2>
+    <!-- PROJECTS -->
+    <section class="animate-[fadeUp_0.6s_ease-in-out_forwards_0.8s] opacity-0">
+      <h2 class="heading-secondary">Projects</h2>
       <div class="space-y-8">
         {PROJECTS.map((project: ProjectType) => <Project {project} />)}
       </div>
+    </section>
+
+    <!-- POSTS -->
+    <section class="animate-[fadeUp_0.6s_ease-in-out_forwards_0.9s] opacity-0">
+      <h2 class="heading-secondary">Posts</h2>
+      {
+        (
+          <div class="space-y-4">
+            {recentPosts.map((post) => (
+              <LinkCard href={`/posts/${post.slug}`}>
+                <h3 class="mb-2 group-hover:underline underline-offset-4 transition-all duration-500 decoration-accent">
+                  {post.data.title}
+                </h3>
+                <time
+                  datetime={post.data.date.toISOString()}
+                  class="text-xs text-zinc-400 font-mono mb-2 block"
+                >
+                  {new Date(post.data.date).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
+                </time>
+
+                {post.data.tags && (
+                  <div class="flex flex-wrap gap-2">
+                    {post.data.tags.map((tag: string) => (
+                      <span class="text-xs text-zinc-400 italic">#{tag}</span>
+                    ))}
+                  </div>
+                )}
+              </LinkCard>
+            ))}
+            <div class="pt-8 w-fit">
+              <a
+                href="/posts"
+                class="text-white group hover:underline underline-offset-4 decoration-accent transition-all duration-500 flex items-center gap-2 group-hover:decoration-accent"
+              >
+                <span> View all posts</span>
+                <span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="transform group-hover:translate-x-1 transition-transform"
+                  >
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg>
+                </span>
+              </a>
+            </div>
+          </div>
+        )
+      }
     </section>
   </main>
 </BaseLayout>

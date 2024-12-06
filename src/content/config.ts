@@ -1,6 +1,6 @@
 import { defineCollection, z } from "astro:content";
 
-const articlesCollection = defineCollection({
+const posts = defineCollection({
   type: "content",
   schema: z.object({
     title: z.string(),
@@ -13,7 +13,7 @@ const articlesCollection = defineCollection({
 
     tags: z.array(z.string()),
     // In frontmatter, dates written without quotes around them are interpreted as Date objects
-    publishDate: z.date(),
+    date: z.date(),
     // You can also transform a date string (e.g. "2022-07-08") to a Date object
     // publishDate: z.string().transform((str) => new Date(str)),
     // Advanced: Validate that the string is also an email
@@ -22,7 +22,7 @@ const articlesCollection = defineCollection({
 
 // This key should match your collection directory name in "src/content"
 export const collections = {
-  articles: articlesCollection,
+  posts,
 };
 
 // export type Article = z.infer<typeof articlesCollection.schema>;

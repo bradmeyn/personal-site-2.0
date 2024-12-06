@@ -3,41 +3,16 @@
 @tailwind utilities;
 
 @layer base {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply text-white mb-2;
+  .title {
+    @apply text-5xl mb-6 font-mono text-white;
   }
 
-  h1 {
-    @apply text-5xl mb-6 !important;
-  }
-
-  h2 {
-    @apply text-xl  mb-2 !important;
-  }
-
-  h3 {
-    @apply text-lg mb-1 !important;
+  .heading-secondary {
+    @apply text-2xl font-mono text-white  mb-1;
   }
 
   p {
-    @apply text-neutral-400 mb-2 leading-relaxed;
-  }
-}
-
-@layer components {
-  .card {
-    @apply relative border border-zinc-700 rounded-lg p-4 bg-zinc-800;
-  }
-  .card--link {
-    @apply hover:border-white justify-between cursor-pointer;
-  }
-  .card--link:hover {
-    @apply border-white;
+    @apply text-zinc-400  mb-2 leading-relaxed;
   }
 }
 
@@ -73,5 +48,5 @@ pre {
 }
 
 .copy-button {
-  @apply absolute top-2 right-2 px-2 py-1 cursor-pointer card text-xs;
+  @apply absolute top-2 right-2 px-2 py-1 cursor-pointer  text-xs;
 }

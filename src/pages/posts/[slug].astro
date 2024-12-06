@@ -2,10 +2,11 @@
 import BaseLayout from "../../components/layouts/BaseLayout.astro";
 
 import { getCollection } from "astro:content";
+
 // 1. Generate a new path for every collection entry
 export async function getStaticPaths() {
-  const articles = await getCollection("articles");
-  return articles.map((entry) => ({
+  const posts = await getCollection("posts");
+  return posts.map((entry) => ({
     params: { slug: entry.slug },
     props: { entry },
   }));
@@ -18,18 +19,23 @@ const { Content } = await entry.render();
 <BaseLayout>
   <main class="py-4 container">
     <a
-      class="mb-4 block text-zinc-500 hover:text-white transition-colors duration-300"
-      href="/articles"
+      class="mb-4 block text-zinc-500 transition-colors duration-300 hover:text-accent"
+      href="/posts"
     >
       <i class="fa-solid fa-arrow-left"></i>
     </a>
-    <h1>{entry.data.title}</h1>
+    <h1 class="title animate-[fadeDown_0.6s_ease-in-out_forwards] opacity-0">
+      <span
+        class=`relative  after:absolute after:top-[8px] after:right-[5px] after:z-[-1] after:text-transparent after:bg-gradient-to-b after:from-rose-600 after:to-rose-600 after:bg-clip-text`
+        >{entry.data.title}</span
+      >
+    </h1>
     <time
-      datetime={entry.data.publishDate.toISOString()}
+      datetime={entry.data.date.toISOString()}
       class="block text-sm mb-2 text-zinc-500"
     >
       {
-        new Date(entry.data.publishDate).toLocaleDateString("en-US", {
+        new Date(entry.data.date).toLocaleDateString("en-US", {
           month: "short",
           day: "numeric",
           year: "numeric",
