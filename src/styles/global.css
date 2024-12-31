@@ -4,15 +4,27 @@
 
 @layer base {
   .title {
-    @apply text-5xl mb-6 font-mono text-white;
+    @apply text-6xl mb-6  text-white;
   }
 
   .heading-secondary {
-    @apply text-2xl font-mono text-white  mb-1;
+    @apply text-white text-xl mb-2 font-semibold;
+  }
+
+  .title-affect {
+    @apply after:absolute after:top-[10px] after:right-[5px] after:z-[-1] after:text-accent;
+  }
+
+  .heading-card {
+    @apply decoration-accent underline-offset-4 mb-1 group-hover:underline transition-all duration-500;
+  }
+
+  .secondary-affect {
+    @apply relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-[25px] after:bg-accent after:content-[''] pb-2;
   }
 
   p {
-    @apply text-zinc-400  mb-2 leading-relaxed;
+    @apply text-zinc-300  mb-2 leading-relaxed;
   }
 }
 

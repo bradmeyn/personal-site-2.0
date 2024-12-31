@@ -13,18 +13,16 @@ const tags = [...new Set(posts.flatMap((post) => post.data.tags))];
   <div class="container mt-10 py-2 max-w-[600px]">
     <main>
       <h1 class="title animate-[fadeDown_0.6s_ease-in-out_forwards] opacity-0">
-        <span
-          class="relative after:content-['Posts'] after:absolute after:top-[8px] after:right-[5px] after:z-[-1] after:text-transparent after:bg-gradient-to-b after:from-rose-600 after:to-rose-600 after:bg-clip-text"
-          >Posts</span
+        <span class="relative after:content-['Posts.'] title-affect"
+          >Posts.</span
         >
       </h1>
-      <ul class="text-white space-y-4">
+      <ul
+        class="text-white space-y-4 animate-[fadeDown_0.6s_ease-in-out_forwards_0.5s] opacity-0"
+      >
         {
           posts.map((post) => (
-            <li
-              class="animate-[fadeDown_1s_ease-in-out_forwards] opacity-0"
-              data-tags={post.data.tags.join(",")}
-            >
+            <li data-tags={post.data.tags.join(",")}>
               <LinkCard href={`/posts/${post.slug}`}>
                 <h2 class="mb-2 group-hover:underline underline-offset-4 transition-all duration-500 decoration-accent">
                   {post.data.title}
@@ -39,14 +37,6 @@ const tags = [...new Set(posts.flatMap((post) => post.data.tags))];
                     year: "numeric",
                   })}
                 </time>
-
-                {post.data.tags && (
-                  <div class="flex flex-wrap gap-2">
-                    {post.data.tags.map((tag: string) => (
-                      <span class="text-xs text-zinc-400 italic">#{tag}</span>
-                    ))}
-                  </div>
-                )}
               </LinkCard>
             </li>
           ))

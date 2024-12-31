@@ -1,59 +1,32 @@
 ---
+import LinkCard from "./LinkCard.astro";
 const { post } = Astro.props;
 ---
 
-<a
-  href={`/posts/${post.slug}`}
-  class="group block p-4 hover:bg-zinc-800/50 transition-all duration-300 -mx-4 px-4"
->
-  <article class="flex justify-between items-start gap-4">
-    <div class="flex-1">
-      <time
-        datetime={post.data.date.toISOString()}
-        class="text-sm text-zinc-400 font-mono mb-2 block"
-      >
-        {
-          new Date(post.data.date).toLocaleDateString("en-US", {
-            month: "short",
-            day: "numeric",
-            year: "numeric",
-          })
-        }
-      </time>
-
-      <h2
-        class="text-lg font-medium text-white mb-2 font-mono group-hover:text-orange-500 transition-colors"
-      >
-        {post.data.title}
-      </h2>
-
-      {
-        post.data.tags && (
-          <div class="flex flex-wrap gap-2">
-            {post.data.tags.map((tag: string) => (
-              <span class="text-xs text-zinc-400 font-mono">#{tag}</span>
-            ))}
-          </div>
-        )
-      }
-    </div>
-
-    <div class="text-zinc-500 group-hover:text-orange-500 transition-colors">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="transform group-hover:translate-x-1 transition-transform"
-      >
-        <path d="M5 12h14"></path>
-        <path d="m12 5 7 7-7 7"></path>
-      </svg>
-    </div>
-  </article>
-</a>
+<LinkCard href={`/posts/${post.slug}`}>
+  <h3 class="mb-2 heading-card">
+    {post.data.title}
+  </h3>
+  <time
+    datetime={post.data.date.toISOString()}
+    class="text-xs text-zinc-400 mb-2 block"
+  >
+    {
+      new Date(post.data.date).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      })
+    }
+  </time>
+  <!-- 
+  {
+    post.data.tags && (
+      <div class="flex flex-wrap gap-2">
+        {post.data.tags.map((tag: string) => (
+          <span class="text-xs text-zinc-400 italic">#{tag}</span>
+        ))}
+      </div>
+    )
+  } -->
+</LinkCard>

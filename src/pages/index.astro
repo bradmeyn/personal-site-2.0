@@ -26,80 +26,59 @@ const stack = [
 ---
 
 <BaseLayout>
-  <main class="container max-w-[600px] space-y-6">
+  <main class="container max-w-[600px] space-y-8">
     <!-- INTRO -->
     <section class="mt-16">
       <h1 class="title animate-[fadeDown_0.6s_ease-in-out_forwards] opacity-0">
         <span> Hi, I'm </span><span
-          class="relative after:content-['Brad.'] after:absolute after:top-[8px] after:right-[5px] after:z-[-1] after:text-transparent after:bg-accent after:bg-clip-text"
-          >Brad.</span
+          class="relative after:content-['Brad.'] title-affect">Brad.</span
         >
       </h1>
 
-      <div class="animate-[fadeUp_0.6s_ease-in-out_forwards_0.5s] opacity-0">
+      <p class="animate-[fadeUp_0.6s_ease-in-out_forwards_0.5s] opacity-0">
+        I am Software Developer based in Newcastle, Australia and this is my
+        website (obviously).
+      </p>
+
+      <div
+        class="animate-[fadeUp_0.6s_ease-in-out_forwards_0.6s] opacity-0 mt-4"
+      >
         <IconNav />
       </div>
-
-      <p class="animate-[fadeUp_0.6s_ease-in-out_forwards_0.6s] opacity-0">
-        I'm a full-stack software developer with a background in finance. I also
-        have a Masters in Computer Science.
-      </p>
     </section>
 
     <!-- STACK -->
     <section class="animate-[fadeUp_0.6s_ease-in-out_forwards_0.7s] opacity-0">
-      <h2 class="heading-secondary">Stack</h2>
-      <div class="flex gap-2 flex-wrap mb-4">
+      <h2 class="heading-secondary secondary-affect">Stack</h2>
+      <div class="flex gap-2 flex-wrap mt-3">
         {stack.map((tech) => <Badge name={tech} />)}
       </div>
     </section>
 
     <!-- PROJECTS -->
     <section class="animate-[fadeUp_0.6s_ease-in-out_forwards_0.8s] opacity-0">
-      <h2 class="heading-secondary">Projects</h2>
-      <div class="space-y-8">
+      <h2 class="heading-secondary secondary-affect">Projects</h2>
+      <div>
         {PROJECTS.map((project: ProjectType) => <Project {project} />)}
       </div>
     </section>
 
     <!-- POSTS -->
     <section class="animate-[fadeUp_0.6s_ease-in-out_forwards_0.9s] opacity-0">
-      <h2 class="heading-secondary">Posts</h2>
+      <h2 class="heading-secondary secondary-affect">Posts</h2>
       {
         (
           <div class="space-y-4">
             {recentPosts.map((post) => (
-              <LinkCard href={`/posts/${post.slug}`}>
-                <h3 class="mb-2 group-hover:underline underline-offset-4 transition-all duration-500 decoration-accent">
-                  {post.data.title}
-                </h3>
-                <time
-                  datetime={post.data.date.toISOString()}
-                  class="text-xs text-zinc-400 font-mono mb-2 block"
-                >
-                  {new Date(post.data.date).toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                    year: "numeric",
-                  })}
-                </time>
-
-                {post.data.tags && (
-                  <div class="flex flex-wrap gap-2">
-                    {post.data.tags.map((tag: string) => (
-                      <span class="text-xs text-zinc-400 italic">#{tag}</span>
-                    ))}
-                  </div>
-                )}
-              </LinkCard>
+              <Post post={post} />
             ))}
             <div class="pt-8 w-fit">
               <a
                 href="/posts"
-                class="text-white group hover:underline underline-offset-4 decoration-accent transition-all duration-500 flex items-center gap-2 group-hover:decoration-accent"
+                class="text-zinc-400 group hover:underline underline-offset-4 decoration-accent transition-all duration-500 flex items-center gap-2 group-hover:decoration-accent"
               >
-                <span> View all posts</span>
-                <span>
+                <span class="group-hover:text-white"> View all posts</span>
+                <span class="">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"

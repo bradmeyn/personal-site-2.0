@@ -5,12 +5,10 @@ const { title, description, link } = Astro.props.project;
 ---
 
 <LinkCard href={link}>
-  <h3
-    class="mb-3 group-hover:underline underline-offset-4 transition-all duration-500 decoration-accent"
-  >
+  <h3 class="heading-card">
     {title}
   </h3>
-  <p class="text-sm max-w-md">
+  <p class="max-w-lg text-sm text-zinc-400">
     {description}
   </p>
 </LinkCard>

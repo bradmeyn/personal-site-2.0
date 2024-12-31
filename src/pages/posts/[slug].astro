@@ -24,24 +24,23 @@ const { Content } = await entry.render();
     >
       <i class="fa-solid fa-arrow-left"></i>
     </a>
-    <h1 class="title animate-[fadeDown_0.6s_ease-in-out_forwards] opacity-0">
-      <span
-        class=`relative  after:absolute after:top-[8px] after:right-[5px] after:z-[-1] after:text-transparent after:bg-gradient-to-b after:from-rose-600 after:to-rose-600 after:bg-clip-text`
-        >{entry.data.title}</span
+    <div class="mb-6">
+      <h1 class="text-4xl decoration-accent underline-offset-8 mb-2 underline">
+        {entry.data.title}
+      </h1>
+      <time
+        datetime={entry.data.date.toISOString()}
+        class="block mb-2 text-zinc-500"
       >
-    </h1>
-    <time
-      datetime={entry.data.date.toISOString()}
-      class="block text-sm mb-2 text-zinc-500"
-    >
-      {
-        new Date(entry.data.date).toLocaleDateString("en-US", {
-          month: "short",
-          day: "numeric",
-          year: "numeric",
-        })
-      }
-    </time>
+        {
+          new Date(entry.data.date).toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+          })
+        }
+      </time>
+    </div>
     <Content />
   </main>
 </BaseLayout>
