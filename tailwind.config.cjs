@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        accent: colors.rose[500],
+        accent: colors.rose[600],
       },
       container: {
         center: true,

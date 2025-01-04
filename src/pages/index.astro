@@ -6,7 +6,6 @@ import Project from "../components/Project.astro";
 import Badge from "../components/Badge.astro";
 import Post from "../components/Post.astro";
 import { getCollection } from "astro:content";
-import LinkCard from "../components/LinkCard.astro";
 
 // Get articles and sort by date (assuming you have a date field)
 const recentPosts = await getCollection("posts");
@@ -36,8 +35,9 @@ const stack = [
       </h1>
 
       <p class="animate-[fadeUp_0.6s_ease-in-out_forwards_0.5s] opacity-0">
-        I am Software Developer based in Newcastle, Australia and this is my
-        website (obviously).
+        I am Software Developer based in Newcastle, Australia. I've worked with
+        a range of languages & frameworks, but if I'm going to build something
+        personally it's generally within the TypeScript ecosystem.
       </p>
 
       <div

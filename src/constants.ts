@@ -10,7 +10,7 @@ export const PROJECTS = [
     title: "MoneyKit",
     description:
       "A collection of financial tools to help make financial planning easier.",
-    link: "https://bradmeyn-wealthkit.vercel.app/",
+    link: "https://moneykit.au",
     repository: "https://github.com/bradmeyn/wealthkit",
   },
 ];
