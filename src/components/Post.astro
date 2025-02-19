@@ -9,7 +9,7 @@ const { post } = Astro.props;
   </h3>
   <time
     datetime={post.data.date.toISOString()}
-    class="text-xs text-zinc-400 mb-2 block"
+    class="text-xs text-ui-400 mb-2 block"
   >
     {
       new Date(post.data.date).toLocaleDateString("en-US", {
@@ -19,14 +19,4 @@ const { post } = Astro.props;
       })
     }
   </time>
-  <!-- 
-  {
-    post.data.tags && (
-      <div class="flex flex-wrap gap-2">
-        {post.data.tags.map((tag: string) => (
-          <span class="text-xs text-zinc-400 italic">#{tag}</span>
-        ))}
-      </div>
-    )
-  } -->
 </LinkCard>

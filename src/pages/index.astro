@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../components/layouts/BaseLayout.astro";
-import IconNav from "../components/IconNav.astro";
+import SocialLinks from "../components/SocialLinks.astro";
 import { PROJECTS, type Project as ProjectType } from "../constants";
 import Project from "../components/Project.astro";
 import Badge from "../components/Badge.astro";
@@ -25,7 +25,7 @@ const stack = [
 ---
 
 <BaseLayout>
-  <main class="container max-w-[600px] space-y-8">
+  <main class="container max-w-[600px] space-y-12">
     <!-- INTRO -->
     <section class="mt-16">
       <h1 class="title animate-[fadeDown_0.6s_ease-in-out_forwards] opacity-0">
@@ -35,15 +35,13 @@ const stack = [
       </h1>
 
       <p class="animate-[fadeUp_0.6s_ease-in-out_forwards_0.5s] opacity-0">
-        I am Software Developer based in Newcastle, Australia. I've worked with
-        a range of languages & frameworks, but if I'm going to build something
-        personally it's generally within the TypeScript ecosystem.
+        I am Software Developer based in Newcastle, Australia.
       </p>
 
       <div
         class="animate-[fadeUp_0.6s_ease-in-out_forwards_0.6s] opacity-0 mt-4"
       >
-        <IconNav />
+        <SocialLinks />
       </div>
     </section>
 
@@ -75,7 +73,7 @@ const stack = [
             <div class="pt-8 w-fit">
               <a
                 href="/posts"
-                class="text-zinc-400 group hover:underline underline-offset-4 decoration-accent transition-all duration-500 flex items-center gap-2 group-hover:decoration-accent"
+                class="text-ui-400 group hover:underline underline-offset-4 decoration-accent transition-all duration-500 flex items-center gap-2 group-hover:decoration-accent"
               >
                 <span class="group-hover:text-white"> View all posts</span>
                 <span class="">

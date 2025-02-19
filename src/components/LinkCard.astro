@@ -4,14 +4,14 @@ const { href } = Astro.props;
 
 <a
   {href}
-  class="group block py-2 px-4 hover:bg-zinc-800/50 transition-all duration-300 w-full rounded-lg -mx-4 cursor-pointer"
+  class="group block py-2 px-4 hover:bg-ui-800/50 transition-all duration-300 w-full rounded-lg -mx-4 cursor-pointer"
 >
   <article class="flex justify-between items-start gap-4">
     <div class="flex-1">
       <slot />
     </div>
 
-    <div class="text-zinc-500 group-hover:text-accent transition-colors">
+    <div class="text-ui-500 group-hover:text-accent transition-colors">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="20"

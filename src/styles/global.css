@@ -8,7 +8,7 @@
   }
 
   .heading-secondary {
-    @apply text-white text-xl mb-2 font-semibold;
+    @apply text-white text-2xl mb-2 font-semibold;
   }
 
   .title-affect {
@@ -16,15 +16,11 @@
   }
 
   .heading-card {
-    @apply decoration-accent underline-offset-4 mb-1 group-hover:underline transition-all duration-500;
+    @apply decoration-accent underline-offset-4 mb-1 group-hover:underline transition-all duration-500 text-lg;
   }
 
   .secondary-affect {
     @apply relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-[25px] after:bg-accent after:content-[''] pb-2;
-  }
-
-  p {
-    @apply text-zinc-300  mb-2 leading-relaxed;
   }
 }
 
@@ -56,7 +52,7 @@ pre {
   background: #282a36;
   position: relative;
 
-  @apply mb-4  rounded-lg border border-zinc-600 !important;
+  @apply mb-4  rounded-lg border border-ui-600 !important;
 }
 
 .copy-button {

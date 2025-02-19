@@ -29,7 +29,7 @@ const tags = [...new Set(posts.flatMap((post) => post.data.tags))];
                 </h2>
                 <time
                   datetime={post.data.date.toISOString()}
-                  class="text-xs text-zinc-400 font-mono mb-2 block"
+                  class="text-xs text-ui-400 font-mono mb-2 block"
                 >
                   {new Date(post.data.date).toLocaleDateString("en-US", {
                     month: "short",
@@ -42,7 +42,7 @@ const tags = [...new Set(posts.flatMap((post) => post.data.tags))];
           ))
         }
       </ul>
-      <p class="text-zinc-400 hidden" id="no-posts">
+      <p class="text-ui-400 hidden" id="no-posts">
         No posts found for this tag.
       </p>
     </main>

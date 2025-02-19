@@ -19,7 +19,7 @@ const { Content } = await entry.render();
 <BaseLayout>
   <main class="py-4 container">
     <a
-      class="mb-4 block text-zinc-500 transition-colors duration-300 hover:text-accent"
+      class="mb-4 block text-ui-500 transition-colors duration-300 hover:text-accent"
       href="/posts"
     >
       <i class="fa-solid fa-arrow-left"></i>
@@ -30,7 +30,7 @@ const { Content } = await entry.render();
       </h1>
       <time
         datetime={entry.data.date.toISOString()}
-        class="block mb-2 text-zinc-500"
+        class="block mb-2 text-ui-500"
       >
         {
           new Date(entry.data.date).toLocaleDateString("en-US", {

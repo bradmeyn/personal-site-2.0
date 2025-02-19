@@ -4,14 +4,19 @@ tags: ["career"]
 date: 2025-01-01
 ---
 
-import TextBlock from "../../components/posts/TextBlock.astro";
-import HeadingBlock from "../../components/posts/HeadingBlock.astro";
+import { Image } from "astro:assets";
+import TextBlock from "@components/posts/TextBlock.astro";
+import HeadingBlock from "@components/posts/HeadingBlock.astro";
+import testImage from "./test.jpg";
 
 <TextBlock>
   As part of redesigning my site & moving to Astro I wanted to test the MDX
   features with a blog, however I wasn't sure what to write about. Ultimately I
   have decided to come up with some software-based resolutions for the new year.
 </TextBlock>
+
+<Image src={testImage} alt="My redesigned site" />
+
 <HeadingBlock>Sample more .NET</HeadingBlock>
 <TextBlock>
   After using .NET to build an app for my Masters degree I haven't really

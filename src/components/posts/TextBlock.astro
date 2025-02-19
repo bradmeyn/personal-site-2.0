@@ -1,14 +1,3 @@
----
-const { variant = "default" } = Astro.props;
----
-
-<p
-  class={`
-    text-lg 
-    ${variant === "default" ? "text-zinc-200" : ""}
-    ${variant === "muted" ? "text-zinc-400" : ""}
-    ${variant === "highlight" ? "text-zinc-100 font-medium" : ""}
-  `}
->
+<div class="text-ui-300 text-base/7 mb-6">
   <slot />
-</p>
+</div>
