@@ -1,5 +1,5 @@
 ---
-import BaseHead from "./page-head.astro";
+import PageHead from "./page-head.astro";
 
 const year = new Date().getFullYear();
 
@@ -19,10 +19,10 @@ links = links.map((link) => {
 
 <html lang="en">
   <head>
-    <BaseHead />
+    <PageHead />
   </head>
 
-  <body class="antialiased font-mono">
+  <body class="antialiased">
     <div class="flex flex-col min-h-screen bg-ui-900 text-white">
       <header>
         <div class="container py-8">
@@ -48,7 +48,7 @@ links = links.map((link) => {
         </div>
       </header>
 
-      <div class="flex-grow">
+      <div class="grow">
         <slot />
       </div>
       <footer>
