@@ -1,0 +1,44 @@
+---
+title: "Why I chose Svelte over React"
+tags: ["svelte"]
+date: 2025-03-01
+---
+
+import { Image } from "astro:assets";
+import TextBlock from "@components/posts/TextBlock.astro";
+import HeadingBlock from "@components/posts/HeadingBlock.astro";
+
+<TextBlock>
+  You may have noticed for my MoneyKit project I've chosen to use SvelteKit as
+  the front-end framework rather than React/Next.js. This was a conscious
+  choice, and not just because it had Kit in the name. Here are some reasons why
+  I chose Svelte over React:
+</TextBlock>
+
+<HeadingBlock>Hype</HeadingBlock>
+<TextBlock>
+  Svelte was on my radar because of the praise it received online & in surveys
+  like State of JavaScript & Stack Overflow surveys. Developers that had used it
+  touted the speed, simplicity & ease of use. I had also watched a few talks
+  from Svelte creator Rich Harris & was impressed by his vision for the
+  framework.
+</TextBlock>
+
+<HeadingBlock>Less Code</HeadingBlock>
+<TextBlock>
+  After using .NET to build an app for my Masters degree I haven't really
+  touched it since. Modern .NET (dotnet?) receives a lot of praise online but
+  I've found the verbosity of C# a bit clunky compared to something like
+  TypeScript. In regards to MVC style web frameworks I found Django's simplicity
+  and nice built-ins as a worthy trade-off for .NET's type-safety and raw speed.
+  Despite this, the reality is most Australian software positions are .NET so it
+  can't help to do a refresh & see what all the fuss is about.
+</TextBlock>
+
+<HeadingBlock>Built in Global State</HeadingBlock>
+<TextBlock>
+  With Svelte you don't need to add global state libraries like Redux or
+  Zustand. Svelte provides the ability to extract global state into svelte.ts
+  files. Combined with Svelte's Context API (which is much simpler than React's)
+  you can easily lift state up & use import where necessary.
+</TextBlock>

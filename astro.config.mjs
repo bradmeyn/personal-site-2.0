@@ -8,12 +8,7 @@ import tailwind from "@astrojs/tailwind";
 export default defineConfig({
   site: "https://example.com",
   vite: {
-    resolve: {
-      alias: {
-        "@": "/src",
-        "@components": "/src/components",
-      },
-    },
+    resolve: {},
   },
   markdown: {
     shikiConfig: {

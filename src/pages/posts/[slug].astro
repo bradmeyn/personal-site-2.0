@@ -1,6 +1,5 @@
 ---
-import BaseLayout from "../../components/layouts/BaseLayout.astro";
-
+import PageLayout from "@/components/layouts/page-layout.astro";
 import { getCollection } from "astro:content";
 
 // 1. Generate a new path for every collection entry
@@ -16,7 +15,7 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
 
-<BaseLayout>
+<PageLayout>
   <main class="py-4 container">
     <a
       class="mb-4 block text-ui-500 transition-colors duration-300 hover:text-accent"
@@ -43,4 +42,4 @@ const { Content } = await entry.render();
     </div>
     <Content />
   </main>
-</BaseLayout>
+</PageLayout>
