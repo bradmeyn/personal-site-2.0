@@ -1,22 +1,61 @@
 ---
-import LinkCard from "@/components/link-card.astro";
 const { post } = Astro.props;
 ---
 
-<LinkCard href={`/posts/${post.slug}`}>
-  <h3 class="mb-2 heading-card">
-    {post.data.title}
-  </h3>
-  <time
-    datetime={post.data.date.toISOString()}
-    class="text-xs text-ui-400 mb-2 block"
-  >
-    {
-      new Date(post.data.date).toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-      })
-    }
-  </time>
-</LinkCard>
+<article
+  class="group relative -mx-4 p-4 overflow-hidden rounded-xl transition-all duration-300 border border-transparent hover:border-ui-700/50 hover:bg-ui-800/50"
+>
+  <!-- Content -->
+
+  <!-- Date and Stats -->
+  <div class="flex items-center justify-between text-sm text-ui-400">
+    <time datetime={post.data.date.toISOString()}>
+      {
+        new Date(post.data.date).toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        })
+      }
+    </time>
+  </div>
+
+  <!-- Title -->
+  <a href={`/posts/${post.slug}`} class="block">
+    <h3 class="heading--tertiary mb-2 line-clamp-2">
+      {post.data.title}
+    </h3>
+  </a>
+
+  <!-- Summary -->
+  <p class="text-ui-300 leading-relaxed line-clamp-2 pb-4">
+    {post.data.outline}
+  </p>
+
+  <a href={`/posts/${post.slug}`}>
+    <div
+      class="flex items-center text-primary-600 gap-2 transition-colors duration-300"
+    >
+      <span class="text-primary-600 font-semibold">Read</span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="transform group-hover:tranui-x-1 transition-transform duration-300 size-4"
+      >
+        <path d="M5 12h14"></path>
+        <path d="m12 5 7 7-7 7"></path>
+      </svg>
+    </div>
+
+    <!-- Clickable overlay -->
+    <a
+      href={`/posts/${post.slug}`}
+      class="absolute inset-0 z-10"
+      aria-label={`Read ${post.data.title}`}></a>
+  </a>
+</article>

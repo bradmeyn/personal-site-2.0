@@ -1,5 +1,5 @@
 ---
-import PageLayout from "@/components/layouts/page-layout.astro";
+import PageLayout from "@/components/common/page-layout.astro";
 import { getCollection } from "astro:content";
 
 // 1. Generate a new path for every collection entry
@@ -24,7 +24,7 @@ const { Content } = await entry.render();
       <i class="fa-solid fa-arrow-left"></i>
     </a>
     <div class="mb-6">
-      <h1 class="text-4xl decoration-accent underline-offset-8 mb-2 underline">
+      <h1 class="title mb-10">
         {entry.data.title}
       </h1>
       <time

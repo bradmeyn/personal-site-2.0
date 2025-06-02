@@ -1,103 +1,20 @@
 ---
-import PageLayout from "@/components/layouts/page-layout.astro";
-import SocialLinks from "@/components/social-links.astro";
-import { PROJECTS, type Project as ProjectType } from "@/constants";
-import Project from "@/components/project-card.astro";
-import Badge from "@/components/icon-badge.astro";
-import Post from "@/components/post-card.astro";
-import { getCollection } from "astro:content";
-
-// Get articles and sort by date (assuming you have a date field)
-const recentPosts = await getCollection("posts");
-
-const stack = [
-  "TypeScript",
-  "React",
-  "Nextjs",
-  "Node",
-  "Python",
-  "Django",
-  "Svelte",
-  "Tailwind",
-  "Astro",
-  "PostgreSQL",
-];
+import PageLayout from "@/components/common/page-layout.astro";
+import ProjectsSection from "@/components/home/projects-section.astro";
+import PostsSection from "@/components/home/posts-section.astro";
+import ContactSection from "@/components/home/contact-section.astro";
+import HeroSection from "@/components/home/hero-section.astro";
+import AboutSection from "@/components/home/about-section.astro";
 ---
 
 <PageLayout>
-  <main class="container max-w-[600px] space-y-12">
-    <!-- INTRO -->
-    <section class="mt-16">
-      <h1 class="title animate-fade-down opacity-0">
-        <span> Hi, I'm </span><span
-          class="relative after:content-['Brad.'] title-affect">Brad.</span
-        >
-      </h1>
+  <!-- Background Pattern -->
 
-      <p class="animate-[fadeUp_0.6s_ease-in-out_forwards_0.5s] opacity-0">
-        I am Software Developer based in Newcastle, Australia.
-      </p>
-
-      <div
-        class="animate-[fadeUp_0.6s_ease-in-out_forwards_0.6s] opacity-0 mt-4"
-      >
-        <SocialLinks />
-      </div>
-    </section>
-
-    <!-- STACK -->
-    <section class="animate-[fadeUp_0.6s_ease-in-out_forwards_0.7s] opacity-0">
-      <h2 class="heading-secondary secondary-affect">Stack</h2>
-      <div class="flex gap-2 flex-wrap mt-3">
-        {stack.map((tech) => <Badge name={tech} />)}
-      </div>
-    </section>
-
-    <!-- PROJECTS -->
-    <section class="animate-[fadeUp_0.6s_ease-in-out_forwards_0.8s] opacity-0">
-      <h2 class="heading-secondary secondary-affect">Projects</h2>
-      <div>
-        {PROJECTS.map((project: ProjectType) => <Project {project} />)}
-      </div>
-    </section>
-
-    <!-- POSTS -->
-    <section class="animate-[fadeUp_0.6s_ease-in-out_forwards_0.9s] opacity-0">
-      <h2 class="heading-secondary secondary-affect">Posts</h2>
-      {
-        (
-          <div class="space-y-4">
-            {recentPosts.map((post) => (
-              <Post post={post} />
-            ))}
-            <div class="pt-8 w-fit">
-              <a
-                href="/posts"
-                class="text-ui-400 group hover:underline underline-offset-4 decoration-accent transition-all duration-500 flex items-center gap-2 group-hover:decoration-accent"
-              >
-                <span class="group-hover:text-white"> View all posts</span>
-                <span class="">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="transform group-hover:translate-x-1 transition-transform"
-                  >
-                    <path d="M5 12h14" />
-                    <path d="m12 5 7 7-7 7" />
-                  </svg>
-                </span>
-              </a>
-            </div>
-          </div>
-        )
-      }
-    </section>
+  <main class="container space-y-20">
+    <HeroSection />
+    <AboutSection />
+    <ProjectsSection />
+    <PostsSection />
+    <ContactSection />
   </main>
 </PageLayout>

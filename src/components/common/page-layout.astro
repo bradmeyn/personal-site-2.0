@@ -1,0 +1,64 @@
+---
+import PageHead from "./page-head.astro";
+
+const year = new Date().getFullYear();
+
+const { pathname } = Astro.url;
+let links = [
+  { name: "BM", href: "/", active: false },
+  { name: "Posts", href: "/posts", active: false },
+];
+
+links = links.map((link) => {
+  if (link.href === pathname) {
+    return { ...link, active: true };
+  }
+  return link;
+});
+---
+
+<html lang="en" data-theme="dark">
+  <head>
+    <PageHead />
+  </head>
+
+  <body class="antialiased">
+    <div
+      class="flex flex-col min-h-screen dark:bg-ui-900 dark:text-white bg-ui-200"
+    >
+      <header>
+        <nav class="container py-6 mw-full mx-auto">
+          <ul class="flex justify-center items-start gap-8">
+            {
+              links.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    class={`${
+                      link.active ? "text-white" : "text-ui-400"
+                    } hover:text-white transition duration-300`}
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </header>
+
+      <div class="grow">
+        <slot />
+      </div>
+      <footer>
+        <div class="container">
+          <div class="flex justify-center py-6">
+            <p class="text-sm">
+              &#x24B8; Copyright {year} Brad Meyn. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

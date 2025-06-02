@@ -1,0 +1,52 @@
+---
+import SocialLinks from "@/components/social-links.astro";
+---
+
+<section class="min-h-screen text-center">
+  <div class="flex gap-8 flex-col">
+    <!-- Title and Description -->
+    <div class="space-y-8 mt-8">
+      <p>
+        <span
+          class="bg-gradient-to-r from-rose-400 to-orange-400 bg-clip-text text-transparent text-4xl"
+          >Hi I'm Brad</span
+        >
+      </p>
+      <div class="space-y-2">
+        <h1
+          class="title animate-fade-down opacity-0 [animation-delay:0.4s] [animation-fill-mode:forwards]"
+        >
+          Travel enthusiast, coffee snob, wine lover, lucky husband & human/dog
+          father.
+        </h1>
+      </div>
+
+      <div
+        class="opacity-0 animate-[fadeUp_0.6s_ease-in-out_forwards_0.6s] text-center mx-auto max-w-lg"
+      >
+        <p
+          class="text-lg md:text-xl text-ui-300 leading-relaxed animate-[fadeUp_0.6s_ease-in-out_forwards_0.6s]"
+        >
+          I also code.
+        </p>
+      </div>
+
+      <div
+        class="animate-fade-up opacity-0 [animation-delay:1s] [animation-fill-mode:forwards] mb-4"
+      >
+        <SocialLinks />
+      </div>
+    </div>
+
+    <!-- Profile Image -->
+    <div
+      class="rounded-xl overflow-clip opacity-0 animate-fade-down max-w-md mx-auto size-[10rem]"
+    >
+      <img
+        src="assets/profile.jpg"
+        alt="Picture of Brad & wife in Tuscany, Italy"
+        class="relative object-cover object-top scale-130 aspect-square"
+      />
+    </div>
+  </div>
+</section>

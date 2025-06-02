@@ -1,50 +1,21 @@
 ---
-import PageLayout from "@/components/layouts/page-layout.astro";
-
-import LinkCard from "@/components/link-card.astro";
+import PageLayout from "@/components/common/page-layout.astro";
+import Post from "@/components/post-card.astro";
 import { getCollection } from "astro:content";
 const posts = await getCollection("posts");
-
-// Get all unique tags
-const tags = [...new Set(posts.flatMap((post) => post.data.tags))];
 ---
 
 <PageLayout>
-  <div class="container mt-10 py-2 max-w-[600px]">
+  <div class="container py-2">
     <main>
-      <h1 class="title animate-fade-down opacity-0">
-        <span class="relative after:content-['Posts.'] title-affect"
-          >Posts.</span
-        >
+      <h1 class="title animate-fade-down opacity-0 mb-10">
+        If a blog falls in the woods and no one reads it, does it make a sound?
       </h1>
       <ul
         class="text-white space-y-4 animate-[fadeDown_0.6s_ease-in-out_forwards_0.5s] opacity-0"
       >
-        {
-          posts.map((post) => (
-            <li data-tags={post.data.tags.join(",")}>
-              <LinkCard href={`/posts/${post.slug}`}>
-                <h2 class="mb-2 group-hover:underline underline-offset-4 transition-all duration-500 decoration-accent">
-                  {post.data.title}
-                </h2>
-                <time
-                  datetime={post.data.date.toISOString()}
-                  class="text-xs text-ui-400 font-mono mb-2 block"
-                >
-                  {new Date(post.data.date).toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                    year: "numeric",
-                  })}
-                </time>
-              </LinkCard>
-            </li>
-          ))
-        }
+        {posts.map((post) => <Post {post} />)}
       </ul>
-      <p class="text-ui-400 hidden" id="no-posts">
-        No posts found for this tag.
-      </p>
     </main>
   </div>
 </PageLayout>
