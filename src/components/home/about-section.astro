@@ -20,12 +20,10 @@ const stack = [
 
 const skills = [
   "Fullstack Development",
-  "Cloud Management",
+  "Cloud Services",
   "REST & GraphQL APIs",
   "Mobile Development",
-  "Agile Workflows",
-  "DevOps Practices",
-  "SQl & NoSQL Databases",
+  "SQL & NoSQL Databases",
   "UI/UX Design",
 ];
 
@@ -36,12 +34,12 @@ const qualifications = [
     year: 2024,
   },
   {
-    title: "Masters of Computer Science - With Distinction",
+    title: "Masters of Computer Science",
     institution: "Monash University",
     year: 2022,
   },
   {
-    title: "Bachelor of Business & Commerce - With Distinction",
+    title: "Bachelor of Business & Commerce",
     institution: "University of Newcastle",
     year: 2014,
   },
@@ -55,9 +53,8 @@ const qualifications = [
 
   <div class="space-y-8">
     <p class="text-ui-300 text-xl">
-      Hi I'm Brad, a software developer with experience working across the stack
-      for on a variety of applications. My expertise includes TypeScript, React,
-      Node.js, and cloud technologies like AWS.
+      My background is finance but after learning to code I eventually pivoted
+      my career to software development.
     </p>
 
     <div class="card mb-8">
@@ -121,12 +118,12 @@ const qualifications = [
 
       <!-- Specializations -->
       <div class="mt-12 max-w-2xl mx-auto">
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid lg:grid-cols-2 gap-3">
           {
             skills.map((skill) => (
               <div class="flex items-center gap-3 p-3 rounded-lg bg-ui-800/30 border border-ui-700/50">
-                <div class="w-2 h-2 bg-primary-600 rounded-full" />
-                <span class="text-ui-300 text-sm">{skill}</span>
+                <div class="size-2 bg-primary-600 rounded-full" />
+                <span class="text-ui-300 text-md">{skill}</span>
               </div>
             ))
           }
@@ -136,7 +133,7 @@ const qualifications = [
   </div>
 </section>
 
-<style>
+<style scoped>
   @keyframes scroll {
     0% {
       transform: translateX(0);

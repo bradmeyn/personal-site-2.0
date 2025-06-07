@@ -10,7 +10,7 @@ export type Project = {
 export const PROJECTS: Project[] = [
   {
     title: "MoneyKit",
-    image: "assets/images/projects/moneykit.jpg",
+    image: "assets/images/projects/moneykit.png",
     description:
       "A collection of financial tools to help make financial planning easier.",
     tech: ["TypeScript", "SvelteKit", "Tailwind", "Chart.js"],

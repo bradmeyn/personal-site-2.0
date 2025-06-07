@@ -95,23 +95,19 @@
 
 @layer base {
   .title {
-    @apply text-7xl relative mb-6 font-serif text-white mt-8 lg:text-5xl text-center;
+    @apply text-4xl relative mb-6 font-serif text-white mt-8 lg:text-5xl text-center;
   }
 
   .heading--secondary {
-    @apply text-white text-5xl mb-6 font-serif;
+    @apply text-white text-3xl lg:text-4xl mb-6 font-serif;
   }
 
   .heading--tertiary {
-    @apply text-2xl mb-4 font-serif;
+    @apply text-2xl  mb-4 font-serif;
   }
 
   .card {
     @apply rounded-xl p-4 bg-gradient-to-br from-ui-800/50 to-ui-900/30 border border-ui-700/50;
-  }
-
-  .heading-card {
-    @apply decoration-accent underline-offset-4 mb-1 group-hover:underline transition-all duration-500 text-lg;
   }
 }
 

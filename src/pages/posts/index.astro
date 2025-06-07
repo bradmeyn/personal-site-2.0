@@ -6,16 +6,31 @@ const posts = await getCollection("posts");
 ---
 
 <PageLayout>
-  <div class="container py-2">
-    <main>
-      <h1 class="title animate-fade-down opacity-0 mb-10">
-        If a blog falls in the woods and no one reads it, does it make a sound?
-      </h1>
-      <ul
-        class="text-white space-y-4 animate-[fadeDown_0.6s_ease-in-out_forwards_0.5s] opacity-0"
-      >
-        {posts.map((post) => <Post {post} />)}
-      </ul>
-    </main>
-  </div>
+  <main class="container">
+    <section class="flex items-center justify-center text-center">
+      <div class="flex gap-6 sm:gap-8 lg:gap-10 flex-col max-w-4xl mx-auto">
+        <!-- Introduction and Main Heading -->
+        <div class="space-y-6 sm:space-y-8">
+          <h1 class="space-y-2 sm:space-y-4 max-w-xl mx-auto">
+            <span
+              class="bg-gradient-to-r font-serif font-light animate-fade-down [animation-delay:0.2s] opacity-0 from-rose-400 to-orange-400 bg-clip-text text-transparent text-lg sm:text-xl lg:text-3xl block"
+            >
+              Posts
+            </span>
+            <span
+              class="title block animate-fade-down opacity-0 [animation-delay:0.4s] [animation-fill-mode:forwards]"
+            >
+              Explore my latest articles on software development & more.
+            </span>
+          </h1>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20">
+      <div class="space-y-4 md:space-y-6 max-w-4xl mx-auto">
+        {posts.map((post) => <Post post={post} />)}
+      </div>
+    </section>
+  </main>
 </PageLayout>

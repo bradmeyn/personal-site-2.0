@@ -1,6 +1,7 @@
 ---
 import ProjectCard from "@/components/project-card.astro";
 import { PROJECTS } from "@/constants/projects";
+import LinkButton from "@/components/link-button.astro";
 ---
 
 <section
@@ -19,6 +20,10 @@ import { PROJECTS } from "@/constants/projects";
         </div>
       ))
     }
+    <LinkButton
+      href="https://github.com/bradmeyn?tab=repositories"
+      text="View GitHub"
+    />
   </div>
 </section>
 
