@@ -1,0 +1,42 @@
+---
+import SocialLinks from "@/components/social-links.astro";
+---
+
+<section class="flex items-center justify-center text-center">
+  <div class="flex gap-6 sm:gap-8 lg:gap-10 flex-col max-w-4xl mx-auto">
+    <!-- Introduction and Main Heading -->
+    <div class="space-y-6 sm:space-y-8">
+      <h1 class="space-y-2 sm:space-y-4">
+        <span
+          class="bg-gradient-to-r font-serif font-light animate-fade-down [animation-delay:0.2s] opacity-0 from-rose-400 to-orange-400 bg-clip-text text-transparent text-lg sm:text-xl lg:text-3xl block"
+        >
+          Hi I'm Brad
+        </span>
+        <span
+          class="title block animate-fade-down opacity-0 [animation-delay:0.4s] [animation-fill-mode:forwards]"
+        >
+          Travel enthusiast, coffee snob, wine lover, husband, father & software
+          developer.
+        </span>
+      </h1>
+    </div>
+
+    <!-- Profile Image -->
+    <figure
+      class="rounded-xl opacity-0 animate-fade-down mx-auto overflow-hidden [animation-delay:0.6s]"
+    >
+      <img
+        src="assets/cartoon-brad.png"
+        alt="Cartoon illustration of Brad and his wife in Tuscany, Italy"
+        class="w-full h-auto object-cover"
+      />
+    </figure>
+
+    <!-- Social Links -->
+    <div
+      class="animate-fade-up opacity-0 [animation-delay:1s] [animation-fill-mode:forwards]"
+    >
+      <SocialLinks />
+    </div>
+  </div>
+</section>

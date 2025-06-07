@@ -1,50 +1,36 @@
 ---
-import PageLayout from "@/components/layouts/page-layout.astro";
-
-import LinkCard from "@/components/link-card.astro";
+import PageLayout from "@/components/common/page-layout.astro";
+import Post from "@/components/post-card.astro";
 import { getCollection } from "astro:content";
 const posts = await getCollection("posts");
-
-// Get all unique tags
-const tags = [...new Set(posts.flatMap((post) => post.data.tags))];
 ---
 
 <PageLayout>
-  <div class="container mt-10 py-2 max-w-[600px]">
-    <main>
-      <h1 class="title animate-fade-down opacity-0">
-        <span class="relative after:content-['Posts.'] title-affect"
-          >Posts.</span
-        >
-      </h1>
-      <ul
-        class="text-white space-y-4 animate-[fadeDown_0.6s_ease-in-out_forwards_0.5s] opacity-0"
-      >
-        {
-          posts.map((post) => (
-            <li data-tags={post.data.tags.join(",")}>
-              <LinkCard href={`/posts/${post.slug}`}>
-                <h2 class="mb-2 group-hover:underline underline-offset-4 transition-all duration-500 decoration-accent">
-                  {post.data.title}
-                </h2>
-                <time
-                  datetime={post.data.date.toISOString()}
-                  class="text-xs text-ui-400 font-mono mb-2 block"
-                >
-                  {new Date(post.data.date).toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                    year: "numeric",
-                  })}
-                </time>
-              </LinkCard>
-            </li>
-          ))
-        }
-      </ul>
-      <p class="text-ui-400 hidden" id="no-posts">
-        No posts found for this tag.
-      </p>
-    </main>
-  </div>
+  <main class="container">
+    <section class="flex items-center justify-center text-center">
+      <div class="flex gap-6 sm:gap-8 lg:gap-10 flex-col max-w-4xl mx-auto">
+        <!-- Introduction and Main Heading -->
+        <div class="space-y-6 sm:space-y-8">
+          <h1 class="space-y-2 sm:space-y-4 max-w-xl mx-auto">
+            <span
+              class="bg-gradient-to-r font-serif font-light animate-fade-down [animation-delay:0.2s] opacity-0 from-rose-400 to-orange-400 bg-clip-text text-transparent text-lg sm:text-xl lg:text-3xl block"
+            >
+              Posts
+            </span>
+            <span
+              class="title block animate-fade-down opacity-0 [animation-delay:0.4s] [animation-fill-mode:forwards]"
+            >
+              Explore my latest articles on software development & more.
+            </span>
+          </h1>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20">
+      <div class="space-y-4 md:space-y-6 max-w-4xl mx-auto">
+        {posts.map((post) => <Post post={post} />)}
+      </div>
+    </section>
+  </main>
 </PageLayout>

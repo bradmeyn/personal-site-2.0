@@ -1,0 +1,153 @@
+---
+import Badge from "@/components/icon-badge.astro";
+const stack = [
+  "TypeScript",
+  "React",
+  "Nextjs",
+  "Node",
+  "Python",
+  "Django",
+  "Svelte",
+  "Tailwind",
+  "Astro",
+  "PostgreSQL",
+  "AWS",
+  "Vue",
+  ".NET",
+  "Docker",
+  "Swift",
+];
+
+const skills = [
+  "Fullstack Development",
+  "Cloud Services",
+  "REST & GraphQL APIs",
+  "Mobile Development",
+  "SQL & NoSQL Databases",
+  "UI/UX Design",
+];
+
+const qualifications = [
+  {
+    title: "AWS Cloud Practitioner",
+    institution: "Amazon Web Services",
+    year: 2024,
+  },
+  {
+    title: "Masters of Computer Science",
+    institution: "Monash University",
+    year: 2022,
+  },
+  {
+    title: "Bachelor of Business & Commerce",
+    institution: "University of Newcastle",
+    year: 2014,
+  },
+];
+---
+
+<section
+  class="animate-fade-up opacity-0 [animation-delay:1.4s] [animation-fill-mode:forwards] py-10"
+>
+  <h2 class="heading--secondary">About</h2>
+
+  <div class="space-y-8">
+    <p class="text-ui-300 text-xl">
+      My background is finance but after learning to code I eventually pivoted
+      my career to software development.
+    </p>
+
+    <div class="card mb-8">
+      <h3 class="heading--tertiary">Qualifications</h3>
+      <div class="space-y-4">
+        {
+          qualifications.map((qual) => (
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-ui-300 text-sm font-medium">{qual.title}</p>
+                <p class="text-ui-400 text-xs">{qual.institution}</p>
+              </div>
+              <span class="text-ui-500 text-xs">{qual.year}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Tech Stack Carousel - Centered -->
+    <div class="space-y-8">
+      <h3 class="heading--tertiary">Experience with:</h3>
+      <!-- Carousel Container -->
+      <div class="relative overflow-hidden">
+        <!-- Moving strip -->
+        <div class="flex animate-scroll gap-6 justify-center">
+          {
+            stack.map((tech) => (
+              <div class="flex-shrink-0">
+                <Badge name={tech} />
+              </div>
+            ))
+          }
+          <!-- Duplicate for seamless loop -->
+          {
+            stack.map((tech) => (
+              <div class="flex-shrink-0">
+                <Badge name={tech} />
+              </div>
+            ))
+          }
+          {
+            stack.map((tech) => (
+              <div class="flex-shrink-0">
+                <Badge name={tech} />
+              </div>
+            ))
+          }
+        </div>
+
+        <!-- Fade out edges -->
+        <div
+          class="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-ui-900 to-transparent pointer-events-none"
+        >
+        </div>
+        <div
+          class="absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-ui-900 to-transparent pointer-events-none"
+        >
+        </div>
+      </div>
+
+      <!-- Specializations -->
+      <div class="mt-12 max-w-2xl mx-auto">
+        <div class="grid lg:grid-cols-2 gap-3">
+          {
+            skills.map((skill) => (
+              <div class="flex items-center gap-3 p-3 rounded-lg bg-ui-800/30 border border-ui-700/50">
+                <div class="size-2 bg-primary-600 rounded-full" />
+                <span class="text-ui-300 text-md">{skill}</span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style scoped>
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-scroll {
+    animation: scroll 20s linear infinite;
+  }
+
+  .animate-scroll:hover {
+    animation-play-state: paused;
+  }
+</style>
