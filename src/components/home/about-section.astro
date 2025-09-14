@@ -13,7 +13,6 @@ const stack = [
   "PostgreSQL",
   "AWS",
   "Vue",
-  ".NET",
   "Docker",
   "Swift",
 ];
@@ -82,42 +81,10 @@ const qualifications = [
     <!-- Tech Stack Carousel - Centered -->
     <div class="space-y-8">
       <h3 class="heading--tertiary">Experience with:</h3>
-      <!-- Carousel Container -->
-      <div class="relative overflow-hidden">
-        <!-- Moving strip -->
-        <div class="flex animate-scroll gap-6 justify-center">
-          {
-            stack.map((tech) => (
-              <div class="flex-shrink-0">
-                <Badge name={tech} />
-              </div>
-            ))
-          }
-          <!-- Duplicate for seamless loop -->
-          {
-            stack.map((tech) => (
-              <div class="flex-shrink-0">
-                <Badge name={tech} />
-              </div>
-            ))
-          }
-          {
-            stack.map((tech) => (
-              <div class="flex-shrink-0">
-                <Badge name={tech} />
-              </div>
-            ))
-          }
-        </div>
 
-        <!-- Fade out edges -->
-        <div
-          class="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-ui-900 to-transparent pointer-events-none"
-        >
-        </div>
-        <div
-          class="absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-ui-900 to-transparent pointer-events-none"
-        >
+      <div class="overflow-x-clip py-2">
+        <div class="flex gap-4 items-center animate-scroll hover:animate-none">
+          {stack.map((tech) => <Badge name={tech} />)}
         </div>
       </div>
 
