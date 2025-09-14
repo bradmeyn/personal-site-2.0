@@ -1,5 +1,7 @@
 ---
 import SocialLinks from "@/components/social-links.astro";
+import Image from "astro/components/Image.astro";
+import CartoonImage from "public/assets/cartoon-brad.png";
 ---
 
 <section class="flex items-center justify-center text-center">
@@ -25,10 +27,12 @@ import SocialLinks from "@/components/social-links.astro";
     <figure
       class="rounded-xl opacity-0 animate-fade-down mx-auto overflow-hidden [animation-delay:0.6s]"
     >
-      <img
-        src="assets/cartoon-brad.png"
+      <Image
+        loading={"eager"}
+        src={CartoonImage}
         alt="Cartoon illustration of Brad and his wife in Tuscany, Italy"
-        class="w-full h-auto object-cover"
+        width="800"
+        height="800"
       />
     </figure>
 
