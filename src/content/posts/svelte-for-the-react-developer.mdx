@@ -8,11 +8,180 @@ date: 2026-01-01
 import TextBlock from "@/components/posts/text-block.astro";
 import HeadingBlock from "@/components/posts/heading-block.astro";
 import LinkBlock from "@/components/posts/link-block.astro";
+import CodeBlock from "@/components/posts/code-block.astro";
+import CodeBlockGroup from "@/components/posts/code-block-group.astro";
 
 <TextBlock>
-  As part of redesigning my site & moving to Astro I wanted to test the MDX
-  features with a blog, however I wasn't sure what to write about. Ultimately I
-  have decided to come up with some software-based resolutions for the new year.
+  As a React developer exploring Svelte, I've noticed some interesting
+  differences in how the two frameworks handle common patterns. Here's a
+  comparison of key concepts to help you understand Svelte from a React
+  perspective.
+</TextBlock>
+
+<HeadingBlock>Component State</HeadingBlock>
+<TextBlock>
+  In React, we use hooks like `useState` to manage component state. Svelte takes
+  a more straightforward approach with reactive declarations.
+</TextBlock>
+
+<CodeBlockGroup
+  tabs={[
+    {
+      label: "App.tsx",
+      lang: "tsx",
+      code: `import { useState } from 'react';
+
+function Counter() {
+const [count, setCount] = useState(0);
+
+return (
+<div>
+<p>Count: {count}</p>
+<button onClick={() => setCount(count + 1)}>
+Increment
+</button>
+</div>
+);
+}`    },
+    {
+      label: "App.svelte",
+      lang: "svelte",
+      code:`<script>
+let count = 0;
+
+function increment() {
+count += 1;
+}
+
+</script>
+
+<div>
+  <p>Count: {count}</p>
+  <button on:click={increment}>Increment</button>
+</div>
+` } ]} />
+
+<HeadingBlock>Computed Values</HeadingBlock>
+<TextBlock>
+  React uses `useMemo` or `useCallback` for derived state, while Svelte has
+  reactive declarations that automatically update.
+</TextBlock>
+
+<CodeBlockGroup
+  tabs={[
+    {
+      label: "UserProfile.tsx",
+      lang: "tsx",
+      code: `import { useState, useMemo } from 'react';
+
+function UserProfile() {
+const [firstName, setFirstName] = useState('John');
+const [lastName, setLastName] = useState('Doe');
+
+const fullName = useMemo(
+() => \`\${firstName} \${lastName}\`,
+[firstName, lastName]
+);
+
+return <h1>{fullName}</h1>;
+}`    },
+    {
+      label: "UserProfile.svelte",
+      lang: "svelte",
+      code:`<script>
+let firstName = 'John';
+let lastName = 'Doe';
+
+$: fullName = \`\${firstName} \${lastName}\`;
+
+</script>
+
+<h1>{fullName}</h1>` } ]} />
+
+<HeadingBlock>Side Effects</HeadingBlock>
+<TextBlock>
+  Both frameworks handle side effects, but with different syntax and timing
+  guarantees.
+</TextBlock>
+
+<CodeBlockGroup
+  tabs={[
+    {
+      label: "DataFetcher.tsx",
+      lang: "tsx",
+      code: `import { useEffect, useState } from 'react';
+
+function DataFetcher() {
+const [data, setData] = useState(null);
+
+useEffect(() => {
+fetch('/api/data')
+.then(res => res.json())
+.then(setData);
+}, []); // Empty deps = run once
+
+return <div>{data?.message}</div>;
+}`    },
+    {
+      label: "DataFetcher.svelte",
+      lang: "svelte",
+      code:`<script>
+import { onMount } from 'svelte';
+
+let data = null;
+
+onMount(async () => {
+const res = await fetch('/api/data');
+data = await res.json();
+});
+
+</script>
+
+<div>{data?.message}</div>` } ]} />
+
+<HeadingBlock>Props & Type Safety</HeadingBlock>
+<TextBlock>
+  Both frameworks support TypeScript, but they define props differently.
+</TextBlock>
+
+<CodeBlock
+  filename="Button.tsx"
+  lang="tsx"
+  code={`interface ButtonProps {
+  label: string;
+  onClick: () => void;
+  variant?: 'primary' | 'secondary';
+}
+
+function Button({ label, onClick, variant = 'primary' }: ButtonProps) {
+return (
+<button
+className={\`btn btn-\${variant}\`}
+onClick={onClick} >
+{label}
+</button>
+);
+}`}
+/>
+
+<CodeBlock
+  filename="Button.svelte"
+  lang="svelte"
+  code={`<script lang="ts">
+  export let label: string;
+  export let onClick: () => void;
+  export let variant: 'primary' | 'secondary' = 'primary';
+</script>
+
+<button class="btn btn-{variant}" on:click={onClick}>
+  {label}
+</button>
+`} />
+
+<TextBlock>
+  The key difference is that Svelte uses `export let` to declare props, while
+  React uses function parameters. Both support default values and TypeScript
+  types.
 </TextBlock>
 
 <HeadingBlock>Sample more .NET</HeadingBlock>

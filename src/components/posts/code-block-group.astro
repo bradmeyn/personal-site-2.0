@@ -1,0 +1,165 @@
+---
+import { Code } from "astro:components";
+import type { BuiltinLanguage } from "shiki";
+
+interface Props {
+  tabs: Array<{
+    label: string;
+    lang: BuiltinLanguage;
+    code: string;
+  }>;
+}
+
+const { tabs } = Astro.props;
+const tabsId = `tabs-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div class="my-8 rounded-xl overflow-hidden bg-[#1e1e1e] shadow-2xl border border-white/5 code-block-container">
+  <div class="px-3 bg-[#2d2d2d] border-b border-white/5 flex items-center justify-between">
+    <div class="flex gap-2" role="tablist">
+      {
+        tabs.map((tab, index) => (
+          <button
+            class={`tab-button px-3 py-2 text-sm font-medium transition-all relative ${
+              index === 0
+                ? "text-gray-200"
+                : "text-gray-500 hover:text-gray-300"
+            }`}
+            data-tab-id={tabsId}
+            data-tab-index={index}
+            role="tab"
+            aria-selected={index === 0 ? "true" : "false"}
+          >
+            {tab.label}
+            {index === 0 && (
+              <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-orange-500"></div>
+            )}
+          </button>
+        ))
+      }
+    </div>
+    <button
+      class="copy-code-btn p-1.5 rounded-md hover:bg-white/5 text-gray-400 hover:text-white transition-colors"
+      data-tabs-id={tabsId}
+      aria-label="Copy code to clipboard"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 0 0 1 2 2v1"></path>
+      </svg>
+    </button>
+  </div>
+
+  <div class="relative bg-[#1e1e1e]">
+    {
+      tabs.map((tab, index) => (
+        <div
+          class={`tab-content ${index === 0 ? "" : "hidden"}`}
+          data-tab-id={tabsId}
+          data-tab-index={index}
+          role="tabpanel"
+        >
+          <Code code={tab.code.trim()} lang={tab.lang} theme="github-dark" />
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Handle tab switching
+    const tabButtons = document.querySelectorAll("[data-tab-id]");
+
+    tabButtons.forEach((button) => {
+      button.addEventListener("click", (e) => {
+        const target = e.currentTarget as HTMLElement;
+        const tabId = target.dataset.tabId;
+        const tabIndex = target.dataset.tabIndex;
+
+        if (!tabId || !tabIndex) return;
+
+        // Update button states
+        const allButtons = document.querySelectorAll(
+          `[data-tab-id="${tabId}"][role="tab"]`
+        );
+        allButtons.forEach((btn, idx) => {
+          const isActive = idx.toString() === tabIndex;
+          
+          if (isActive) {
+            btn.classList.add("text-gray-200");
+            btn.classList.remove("text-gray-500");
+          } else {
+            btn.classList.remove("text-gray-200");
+            btn.classList.add("text-gray-500");
+          }
+          btn.setAttribute("aria-selected", isActive.toString());
+          
+          // Remove existing underline
+          const existingUnderline = btn.querySelector('.absolute');
+          if (existingUnderline) {
+            existingUnderline.remove();
+          }
+          
+          // Add underline to active tab
+          if (isActive) {
+            const underline = document.createElement('div');
+            underline.className = 'absolute bottom-0 left-0 right-0 h-0.5 bg-orange-500';
+            btn.appendChild(underline);
+          }
+        });
+
+        // Update content visibility
+        const allPanels = document.querySelectorAll(
+          `[data-tab-id="${tabId}"][role="tabpanel"]`
+        );
+        allPanels.forEach((panel, idx) => {
+          panel.classList.toggle("hidden", idx.toString() !== tabIndex);
+        });
+      });
+    });
+
+    // Handle copy button
+    const copyButtons = document.querySelectorAll(".copy-code-btn");
+    
+    copyButtons.forEach((button) => {
+      button.addEventListener("click", async () => {
+        const tabsId = button.getAttribute("data-tabs-id");
+        if (!tabsId) return;
+        
+        // Find the active tab content
+        const activePanel = document.querySelector(`[data-tab-id="${tabsId}"][role="tabpanel"]:not(.hidden)`);
+        const code = activePanel?.textContent || "";
+        
+        try {
+          await navigator.clipboard.writeText(code);
+          
+          // Show success state
+          button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+          button.classList.add("text-green-400");
+          
+          setTimeout(() => {
+            button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`;
+            button.classList.remove("text-green-400");
+          }, 2000);
+        } catch (err) {
+          console.error("Failed to copy code:", err);
+        }
+      });
+    });
+  });
+</script>
+
+<style is:global>
+  .astro-code {
+    padding: 1.5rem;
+    font-size: 0.875rem;
+    line-height: 1.7;
+    overflow-x: auto;
+    background: #1e1e1e !important;
+  }
+  
+  .tab-button {
+    position: relative;
+  }
+</style>
