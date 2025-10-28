@@ -13,13 +13,11 @@ const posts = await getCollection("posts");
         <div class="space-y-6 sm:space-y-8">
           <h1 class="space-y-2 sm:space-y-4 max-w-xl mx-auto">
             <span
-              class="bg-gradient-to-r font-serif font-light animate-fade-down [animation-delay:0.2s] opacity-0 from-rose-400 to-orange-400 bg-clip-text text-transparent text-lg sm:text-xl lg:text-3xl block"
+              class="bg-gradient-to-r font-serif font-light from-rose-400 to-orange-400 bg-clip-text text-transparent text-lg lg:text-3xl block"
             >
               Posts
             </span>
-            <span
-              class="title block animate-fade-down opacity-0 [animation-delay:0.4s] [animation-fill-mode:forwards]"
-            >
+            <span class="title block">
               Explore my latest articles on software development & more.
             </span>
           </h1>
@@ -27,7 +25,7 @@ const posts = await getCollection("posts");
       </div>
     </section>
 
-    <section class="py-20 animate-fade-down [animation-delay:0.8s] opacity-0">
+    <section class="py-20 animate-fade-down">
       <div class="space-y-4 md:space-y-6 max-w-4xl mx-auto">
         {posts.map((post) => <Post post={post} />)}
       </div>
