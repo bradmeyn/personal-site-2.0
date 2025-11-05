@@ -14,8 +14,12 @@ const { tabs } = Astro.props;
 const tabsId = `tabs-${Math.random().toString(36).substr(2, 9)}`;
 ---
 
-<div class="my-8 rounded-xl overflow-hidden bg-[#1e1e1e] shadow-2xl border border-white/5 code-block-container">
-  <div class="px-3 bg-[#2d2d2d] border-b border-white/5 flex items-center justify-between">
+<div
+  class="my-8 rounded-xl overflow-hidden bg-[#1e1e1e] shadow-2xl border border-white/5 code-block-container"
+>
+  <div
+    class="px-3 bg-[#2d2d2d] border-b border-white/5 flex items-center justify-between"
+  >
     <div class="flex gap-2" role="tablist">
       {
         tabs.map((tab, index) => (
@@ -32,7 +36,7 @@ const tabsId = `tabs-${Math.random().toString(36).substr(2, 9)}`;
           >
             {tab.label}
             {index === 0 && (
-              <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-orange-500"></div>
+              <div class="absolute bottom-0 left-0 right-0 h-[0.05px] bg-primary-500" />
             )}
           </button>
         ))
@@ -43,7 +47,17 @@ const tabsId = `tabs-${Math.random().toString(36).substr(2, 9)}`;
       data-tabs-id={tabsId}
       aria-label="Copy code to clipboard"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
         <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 0 0 1 2 2v1"></path>
       </svg>
@@ -85,7 +99,7 @@ const tabsId = `tabs-${Math.random().toString(36).substr(2, 9)}`;
         );
         allButtons.forEach((btn, idx) => {
           const isActive = idx.toString() === tabIndex;
-          
+
           if (isActive) {
             btn.classList.add("text-gray-200");
             btn.classList.remove("text-gray-500");
@@ -94,17 +108,18 @@ const tabsId = `tabs-${Math.random().toString(36).substr(2, 9)}`;
             btn.classList.add("text-gray-500");
           }
           btn.setAttribute("aria-selected", isActive.toString());
-          
+
           // Remove existing underline
-          const existingUnderline = btn.querySelector('.absolute');
+          const existingUnderline = btn.querySelector(".absolute");
           if (existingUnderline) {
             existingUnderline.remove();
           }
-          
+
           // Add underline to active tab
           if (isActive) {
-            const underline = document.createElement('div');
-            underline.className = 'absolute bottom-0 left-0 right-0 h-0.5 bg-orange-500';
+            const underline = document.createElement("div");
+            underline.className =
+              "absolute bottom-0 left-0 right-0 h-[0.5px] bg-primary-500";
             btn.appendChild(underline);
           }
         });
@@ -121,23 +136,25 @@ const tabsId = `tabs-${Math.random().toString(36).substr(2, 9)}`;
 
     // Handle copy button
     const copyButtons = document.querySelectorAll(".copy-code-btn");
-    
+
     copyButtons.forEach((button) => {
       button.addEventListener("click", async () => {
         const tabsId = button.getAttribute("data-tabs-id");
         if (!tabsId) return;
-        
+
         // Find the active tab content
-        const activePanel = document.querySelector(`[data-tab-id="${tabsId}"][role="tabpanel"]:not(.hidden)`);
+        const activePanel = document.querySelector(
+          `[data-tab-id="${tabsId}"][role="tabpanel"]:not(.hidden)`
+        );
         const code = activePanel?.textContent || "";
-        
+
         try {
           await navigator.clipboard.writeText(code);
-          
+
           // Show success state
           button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
           button.classList.add("text-green-400");
-          
+
           setTimeout(() => {
             button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`;
             button.classList.remove("text-green-400");
@@ -158,7 +175,7 @@ const tabsId = `tabs-${Math.random().toString(36).substr(2, 9)}`;
     overflow-x: auto;
     background: #1e1e1e !important;
   }
-  
+
   .tab-button {
     position: relative;
   }

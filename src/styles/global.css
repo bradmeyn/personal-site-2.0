@@ -115,7 +115,8 @@ pre,
 code {
   color: #d4d4d4;
   font-size: 14px !important;
-  font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+  font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas,
+    "Courier New", monospace;
   line-height: 1.7;
   direction: ltr;
   white-space: pre;
