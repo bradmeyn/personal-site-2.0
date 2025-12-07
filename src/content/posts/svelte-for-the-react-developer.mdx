@@ -2,7 +2,7 @@
 title: "Svelte for the React developer"
 outline: "An introduction to Svelte using comparisons to React."
 tags: ["svelte", "react"]
-date: 2026-01-01
+date: 2025-12-01
 ---
 
 import TextBlock from "@/components/posts/text-block.astro";
@@ -12,13 +12,11 @@ import CodeBlock from "@/components/posts/code-block.astro";
 import CodeBlockGroup from "@/components/posts/code-block-group.astro";
 
 <TextBlock>
-  As a React developer exploring Svelte, I've noticed some interesting
-  differences in how the two frameworks handle common patterns. Here's a
-  comparison of key concepts to help you understand Svelte from a React
-  perspective.
+  React & Svelte are both great UI libraries that simiplify building front-end
+  applications. 
 </TextBlock>
 
-<HeadingBlock>Component State</HeadingBlock>
+<HeadingBlock>State</HeadingBlock>
 <TextBlock>
   In React, we use hooks like `useState` to manage component state. Svelte takes
   a more straightforward approach with reactive declarations.
@@ -184,23 +182,4 @@ onClick={onClick} >
   The key difference is that Svelte uses `export let` to declare props, while
   React uses function parameters. Both support default values and TypeScript
   types.
-</TextBlock>
-
-<HeadingBlock>Sample more .NET</HeadingBlock>
-<TextBlock>
-  After using .NET to build an app for my Masters degree I haven't really
-  touched it since. I didn't hate it, however the verbosity of C# & OOP always
-  seemed cumbersome to me relative to TypeScript. Despite this I know that it is highly used and regarded in the industry, and after reading <LinkBlock href="https://typescript-is-like-csharp.chrlschn.dev/" title="TypeScript is like C#"/> I would like to try it out some more.For a while I've wanted to explore building a
-CRM-style project that incorporate the best practices of React and connecting
-with a .NET backend makes a lot of sense, especially if there is an easy way
-to generate TypeScript types.
-
-</TextBlock>
-
-<HeadingBlock>Build a AWS-based project</HeadingBlock>
-<TextBlock>
-  Despite having an basic AWS certification, thanks to the various free saas
-  wrappers around AWS I haven't had much need to use it directly. I'm hoping to
-  change this in 2026, coming up with something where I can incorporate a range
-  of AWS products & rack up a huge bill.
 </TextBlock>
