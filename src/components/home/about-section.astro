@@ -7,6 +7,7 @@ const stack = [
   "Node",
   "Python",
   "Django",
+  ".NET",
   "Svelte",
   "Tailwind",
   "Astro",
@@ -20,10 +21,11 @@ const stack = [
 const skills = [
   "Fullstack Development",
   "Mobile Development",
-  "Cloud deployment",
+  "Cloud deployment with AWS & Azure",
+  "Testing with Jest, Vitest & Playwright",
   "REST & GraphQL APIs",
   "Database administration",
-  "CI/CD Pipelines",
+  "CI/CD Pipelines with GitHub Actions",
 ];
 
 const qualifications = [
@@ -52,9 +54,7 @@ const qualifications = [
 
   <div class="space-y-8">
     <p class="text-ui-400 text-lg">
-      Hi I'm Brad, a software developer based in Newcastle, Australia. I
-      specialise in building fullstack applications usually with a React
-      frontend consuming APIs built with Node, Python or .NET.
+      Hi I'm Brad, a software developer based in Newcastle, Australia.
     </p>
 
     <div class="card mb-8">
@@ -78,10 +78,8 @@ const qualifications = [
     <div class="space-y-8">
       <h3 class="heading--tertiary">Experience with:</h3>
 
-      <div class="overflow-x-clip py-2">
-        <div class="flex gap-4 items-center animate-scroll hover:animate-none">
-          {stack.map((tech) => <Badge name={tech} />)}
-        </div>
+      <div class="gap-4 items-center grid grid-cols-4 py-2">
+        {stack.map((tech) => <Badge name={tech} />)}
       </div>
 
       <!-- Specializations -->

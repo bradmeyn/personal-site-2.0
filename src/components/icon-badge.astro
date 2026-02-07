@@ -3,9 +3,8 @@ const { name } = Astro.props;
 const svgPath = `/assets/svg/${name.toLowerCase()}.svg`;
 ---
 
-<>
-  <div class="flex items-center gap-2 card">
-    <img class="size-6 flex-shrink-0" src={svgPath} alt={name} loading="lazy" />
-    <span class="text-lg max-w-xs flex-grow">{name}</span>
-  </div>
-</>
+<div class="flex items-center gap-2 card">
+  <img class="size-6 flex-shrink-0" src={svgPath} alt={name} loading="lazy" />
+  <span class="text-lg max-w-xs flex-grow">{name}</span>
+</div>
+  
