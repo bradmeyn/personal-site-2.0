@@ -1,35 +1,557 @@
 ---
-import SocialLinks from "@/components/social-links.astro";
-import { Image } from "astro:assets";
-import CartoonImage from "public/assets/cartoon-brad.png";
+import fs from "node:fs/promises";
+import path from "node:path";
+
+async function loadLogo(
+  name: string,
+  replacements: Array<[string, string]> = [],
+) {
+  const filePath = path.join(process.cwd(), "public/assets/svg", `${name}.svg`);
+  let svg = await fs.readFile(filePath, "utf-8");
+  for (const [from, to] of replacements) {
+    svg = svg.split(from).join(to);
+  }
+  const vbMatch = svg.match(/viewBox=["']([^"']+)["']/);
+  const viewBox = vbMatch ? vbMatch[1] : "0 0 24 24";
+  const inner = svg
+    .replace(/<\?xml[^>]*\?>/g, "")
+    .replace(/<!--[\s\S]*?-->/g, "")
+    .replace(/<svg[^>]*>/, "")
+    .replace(/<\/svg>/g, "")
+    .trim();
+  return { viewBox, inner };
+}
+
+const logos = {
+  react: await loadLogo("react"),
+  typescript: await loadLogo("typescript"),
+  aws: await loadLogo("aws", [["#252F3E", "#ffffff"]]),
+  postgres: await loadLogo("postgresql", [
+    [`<path d="M255.008`, `<path fill="#ffffff" d="M255.008`],
+  ]),
+  tailwind: await loadLogo("tailwind"),
+  svelte: await loadLogo("svelte"),
+};
+
+type LogoKey = keyof typeof logos;
+
+type Node = {
+  key: LogoKey;
+  label: string;
+  cx: number;
+  cy: number;
+  pathId: string;
+  pathD: string;
+  pulseDur: string;
+  labelX: number;
+  labelY: number;
+  size?: number;
+};
+
+const nodes: Node[] = [
+  {
+    key: "react",
+    label: "React",
+    cx: 692,
+    cy: 165,
+    pathId: "path-0",
+    pathD: "M 692 165 C 600 175, 560 195, 540 210",
+    pulseDur: "2.6s",
+    labelX: 692,
+    labelY: 120,
+  },
+  {
+    key: "typescript",
+    label: "TypeScript",
+    cx: 450,
+    cy: 80,
+    pathId: "path-1",
+    pathD: "M 450 80 C 450 130, 450 160, 450 180",
+    pulseDur: "2.9s",
+    labelX: 450,
+    labelY: 34,
+  },
+  {
+    key: "tailwind",
+    label: "Tailwind",
+    cx: 208,
+    cy: 165,
+    pathId: "path-2",
+    pathD: "M 208 165 C 300 175, 340 195, 360 210",
+    pulseDur: "3.1s",
+    labelX: 208,
+    labelY: 120,
+  },
+  {
+    key: "postgres",
+    label: "Postgres",
+    cx: 208,
+    cy: 335,
+    pathId: "path-3",
+    pathD: "M 208 335 C 300 325, 340 305, 360 290",
+    pulseDur: "2.7s",
+    labelX: 208,
+    labelY: 385,
+  },
+  {
+    key: "svelte",
+    label: "Svelte",
+    cx: 450,
+    cy: 420,
+    pathId: "path-4",
+    pathD: "M 450 420 C 450 370, 450 340, 450 320",
+    pulseDur: "3.3s",
+    labelX: 450,
+    labelY: 470,
+    size: 36,
+  },
+  {
+    key: "aws",
+    label: "AWS",
+    cx: 692,
+    cy: 335,
+    pathId: "path-5",
+    pathD: "M 692 335 C 600 325, 560 305, 540 290",
+    pulseDur: "2.8s",
+    labelX: 692,
+    labelY: 385,
+  },
+];
+
+const particles = Array.from({ length: 14 }, (_, i) => ({
+  cx: 60 + ((i * 71) % 820),
+  cy: 40 + ((i * 53) % 420),
+  r: 0.8 + (i % 3) * 0.4,
+  dur: 8 + (i % 5) * 2,
+  delay: (i * 0.7) % 6,
+}));
+
+const credentials = [
+  "5+ years building software",
+  "Master's in Computer Science",
+  "AWS Certified Cloud Practitioner",
+];
 ---
 
-<section class="flex items-center justify-center text-center">
-  <div class="flex gap-6 sm:gap-8 lg:gap-10 flex-col max-w-4xl mx-auto">
-    <!-- Introduction and Main Heading -->
-    <div class="space-y-6 sm:space-y-8">
-      <h1 class="space-y-2 sm:space-y-4">
-        <span class="title block">Software Developer</span>
-      </h1>
-    </div>
-
-    <figure
-      class="rounded-xl opacity-0 animate-fade-down mx-auto overflow-hidden [animation-delay:0.2s]"
-    >
-      <Image
-        loading={"eager"}
-        src={CartoonImage}
-        alt="Cartoon illustration of Brad and his dog"
-        width="800"
-        height="800"
-      />
-    </figure>
-
-    <!-- Social Links -->
-    <div
-      class="animate-fade-down opacity-0 [animation-delay:0.2s] [animation-fill-mode:forwards]"
-    >
-      <SocialLinks />
-    </div>
+<section class="pt-8 pb-12 lg:pt-12 lg:pb-16">
+  <div class="text-center space-y-5 max-w-3xl mx-auto">
+    <h1
+      class="font-serif text-3xl sm:text-4xl lg:text-5xl leading-[1.1] text-white opacity-0 animate-fade-down [animation-fill-mode:forwards]">
+      Hi, I'm Brad.
+    </h1>
+    <p
+      class="max-w-2xl mx-auto text-lg sm:text-xl text-ui-300 opacity-0 animate-fade-down [animation-delay:0.15s] [animation-fill-mode:forwards]">
+      Full-stack TypeScript developer based in Newcastle, Australia — building
+      web apps from idea through to production.
+    </p>
   </div>
+
+  <div
+    class="hero-stage mt-12 lg:mt-16 relative opacity-0 animate-fade-down [animation-delay:0.35s] [animation-fill-mode:forwards]">
+    <svg
+      class="block w-full h-auto"
+      viewBox="0 0 900 500"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-label="Tech stack flowing into a web product"
+      role="img">
+      <defs>
+        <pattern
+          id="hero-grid"
+          x="0"
+          y="0"
+          width="40"
+          height="40"
+          patternUnits="userSpaceOnUse">
+          <circle cx="1" cy="1" r="1" fill="#262626"></circle>
+        </pattern>
+
+        <radialGradient id="stage-bg" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="rgba(234,88,12,0.16)"></stop>
+          <stop offset="55%" stop-color="rgba(234,88,12,0.02)"></stop>
+          <stop offset="100%" stop-color="rgba(23,23,23,0)"></stop>
+        </radialGradient>
+
+        <linearGradient id="line-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="rgba(249,115,22,0.06)"></stop>
+          <stop offset="50%" stop-color="rgba(249,115,22,0.7)"></stop>
+          <stop offset="100%" stop-color="rgba(253,186,116,0.95)"></stop>
+        </linearGradient>
+
+        <radialGradient id="node-glow">
+          <stop offset="0%" stop-color="rgba(249,115,22,0.5)"></stop>
+          <stop offset="60%" stop-color="rgba(249,115,22,0.08)"></stop>
+          <stop offset="100%" stop-color="rgba(249,115,22,0)"></stop>
+        </radialGradient>
+
+        <radialGradient id="core-glow">
+          <stop offset="0%" stop-color="rgba(249,115,22,0.32)"></stop>
+          <stop offset="100%" stop-color="rgba(249,115,22,0)"></stop>
+        </radialGradient>
+
+        <filter id="soft-glow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="2.5" result="blur"></feGaussianBlur>
+          <feMerge>
+            <feMergeNode in="blur"></feMergeNode>
+            <feMergeNode in="SourceGraphic"></feMergeNode>
+          </feMerge>
+        </filter>
+
+        <clipPath id="stage-clip">
+          <rect x="0" y="0" width="900" height="500"></rect>
+        </clipPath>
+      </defs>
+
+      <g clip-path="url(#stage-clip)">
+        <rect width="900" height="500" fill="url(#hero-grid)"></rect>
+        <rect width="900" height="500" fill="url(#stage-bg)"></rect>
+
+        <g class="particles" fill="#fdba74" opacity="0.5">
+          {
+            particles.map((p) => (
+              <circle
+                cx={p.cx}
+                cy={p.cy}
+                r={p.r}
+                style={`animation: drift ${p.dur}s ease-in-out ${p.delay}s infinite alternate`}
+              />
+            ))
+          }
+        </g>
+
+        <circle cx="450" cy="250" r="220" fill="url(#core-glow)"></circle>
+
+        <g stroke-linecap="round">
+          {
+            nodes.map((n) => (
+              <path
+                id={n.pathId}
+                d={n.pathD}
+                fill="none"
+                stroke="url(#line-grad)"
+                stroke-width="1.5"
+                stroke-dasharray="3 6"
+                class="flow-line"
+              />
+            ))
+          }
+        </g>
+
+        <g transform="translate(450 250)">
+          <rect
+            x="-110"
+            y="-78"
+            width="220"
+            height="156"
+            rx="12"
+            fill="#0f0f0f"
+            stroke="rgba(249,115,22,0.4)"
+            stroke-width="1.5"></rect>
+
+          <rect x="-110" y="-78" width="220" height="22" rx="12" fill="#171717"
+          ></rect>
+          <rect x="-110" y="-66" width="220" height="10" fill="#171717"></rect>
+          <circle cx="-94" cy="-67" r="3" fill="#404040"></circle>
+          <circle cx="-82" cy="-67" r="3" fill="#404040"></circle>
+          <circle cx="-70" cy="-67" r="3" fill="#404040"></circle>
+
+          <rect
+            x="-95"
+            y="-44"
+            width="70"
+            height="6"
+            rx="2"
+            fill="#ea580c"
+            class="progress-bar"></rect>
+
+          <rect
+            x="-95"
+            y="-30"
+            width="180"
+            height="3"
+            rx="1.5"
+            fill="#2a2a2a"
+            class="text-line text-line-1"></rect>
+          <rect
+            x="-95"
+            y="-22"
+            width="150"
+            height="3"
+            rx="1.5"
+            fill="#2a2a2a"
+            class="text-line text-line-2"></rect>
+          <rect
+            x="-95"
+            y="-14"
+            width="165"
+            height="3"
+            rx="1.5"
+            fill="#2a2a2a"
+            class="text-line text-line-3"></rect>
+
+          <rect
+            x="-95"
+            y="8"
+            width="86"
+            height="50"
+            rx="4"
+            fill="#141414"
+            stroke="#2a2a2a"></rect>
+          <rect x="-86" y="18" width="40" height="3" rx="1.5" fill="#404040"
+          ></rect>
+          <rect x="-86" y="26" width="60" height="3" rx="1.5" fill="#2a2a2a"
+          ></rect>
+          <rect x="-86" y="34" width="50" height="3" rx="1.5" fill="#2a2a2a"
+          ></rect>
+          <circle cx="-78" cy="48" r="3" fill="#ea580c" class="dot-pulse dot-1"
+          ></circle>
+
+          <rect
+            x="9"
+            y="8"
+            width="86"
+            height="50"
+            rx="4"
+            fill="#141414"
+            stroke="#2a2a2a"></rect>
+          <rect x="18" y="18" width="40" height="3" rx="1.5" fill="#404040"
+          ></rect>
+          <rect x="18" y="26" width="60" height="3" rx="1.5" fill="#2a2a2a"
+          ></rect>
+          <rect x="18" y="34" width="50" height="3" rx="1.5" fill="#2a2a2a"
+          ></rect>
+          <circle cx="26" cy="48" r="3" fill="#ea580c" class="dot-pulse dot-2"
+          ></circle>
+        </g>
+
+        {
+          nodes.map((n) => {
+            const logo = logos[n.key];
+            const size = n.size ?? 24;
+            return (
+              <g class="logo-node">
+                <circle cx={n.cx} cy={n.cy} r="38" fill="url(#node-glow)" />
+                <circle
+                  cx={n.cx}
+                  cy={n.cy}
+                  r="26"
+                  fill="#0f0f0f"
+                  stroke="#262626"
+                  stroke-width="1.5"
+                />
+                <svg
+                  x={n.cx - size / 2}
+                  y={n.cy - size / 2}
+                  width={size}
+                  height={size}
+                  viewBox={logo.viewBox}
+                  overflow="visible"
+                  set:html={logo.inner}
+                />
+                <text
+                  x={n.labelX}
+                  y={n.labelY}
+                  text-anchor="middle"
+                  fill="#737373"
+                  font-family="ui-sans-serif, system-ui, sans-serif"
+                  font-size="10"
+                  letter-spacing="1">
+                  {n.label}
+                </text>
+              </g>
+            );
+          })
+        }
+
+        <g filter="url(#soft-glow)">
+          {
+            nodes.map((n) => (
+              <circle r="4" fill="#fed7aa">
+                <animateMotion dur={n.pulseDur} repeatCount="indefinite">
+                  <mpath href={`#${n.pathId}`} />
+                </animateMotion>
+              </circle>
+            ))
+          }
+        </g>
+
+        <circle
+          cx="450"
+          cy="250"
+          r="3"
+          fill="#fdba74"
+          filter="url(#soft-glow)"
+          class="core-pulse"></circle>
+      </g>
+    </svg>
+  </div>
+
+  <ul
+    class="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm text-ui-400 opacity-0 animate-fade-down [animation-delay:0.45s] [animation-fill-mode:forwards]">
+    {
+      credentials.map((c) => (
+        <li class="flex items-center gap-2">
+          <span class="w-1 h-1 rounded-full bg-primary-500" />
+          {c}
+        </li>
+      ))
+    }
+  </ul>
 </section>
+
+<style>
+  .hero-stage {
+    width: min(100vw - 2rem, 900px);
+    margin-left: calc((100% - min(100vw - 2rem, 900px)) / 2);
+  }
+
+  .flow-line {
+    animation: dash 1.6s linear infinite;
+  }
+  @keyframes dash {
+    to {
+      stroke-dashoffset: -36;
+    }
+  }
+
+  .logo-node {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: bob 6s ease-in-out infinite;
+  }
+  .logo-node:nth-of-type(odd) {
+    animation-delay: -3s;
+  }
+  @keyframes bob {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-4px);
+    }
+  }
+
+  .core-pulse {
+    transform-box: view-box;
+    transform-origin: 450px 250px;
+    animation: corepulse 2.4s ease-in-out infinite;
+  }
+  @keyframes corepulse {
+    0%,
+    100% {
+      opacity: 0.5;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.8);
+    }
+  }
+
+  .progress-bar {
+    transform-box: fill-box;
+    transform-origin: left center;
+    animation: progress 3.6s ease-in-out infinite;
+  }
+  @keyframes progress {
+    0% {
+      transform: scaleX(0.05);
+      opacity: 1;
+    }
+    70% {
+      transform: scaleX(1);
+      opacity: 1;
+    }
+    85% {
+      opacity: 0.3;
+    }
+    100% {
+      transform: scaleX(1);
+      opacity: 0;
+    }
+  }
+
+  .text-line {
+    transform-box: fill-box;
+    transform-origin: left center;
+    animation: linefill 4s ease-in-out infinite;
+  }
+  .text-line-1 {
+    animation-delay: 0s;
+  }
+  .text-line-2 {
+    animation-delay: 0.3s;
+  }
+  .text-line-3 {
+    animation-delay: 0.6s;
+  }
+  @keyframes linefill {
+    0%,
+    8% {
+      transform: scaleX(0.05);
+      opacity: 0.3;
+    }
+    40%,
+    90% {
+      transform: scaleX(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scaleX(0.05);
+      opacity: 0.3;
+    }
+  }
+
+  .dot-pulse {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: dotpulse 1.6s ease-in-out infinite;
+  }
+  .dot-1 {
+    animation-delay: 0s;
+  }
+  .dot-2 {
+    animation-delay: 0.8s;
+  }
+  @keyframes dotpulse {
+    0%,
+    100% {
+      opacity: 0.5;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.4);
+    }
+  }
+
+  .particles circle {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  @keyframes drift {
+    0% {
+      transform: translate(0, 0);
+      opacity: 0.2;
+    }
+    50% {
+      opacity: 0.7;
+    }
+    100% {
+      transform: translate(20px, -30px);
+      opacity: 0.2;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .flow-line,
+    .logo-node,
+    .core-pulse,
+    .progress-bar,
+    .text-line,
+    .dot-pulse,
+    .particles circle {
+      animation: none;
+    }
+  }
+</style>

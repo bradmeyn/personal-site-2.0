@@ -1,14 +1,18 @@
 ---
 type Props = {
   href: string;
-  title: string;
+  title?: string;
 };
 
 const { href, title } = Astro.props;
+const external = /^https?:\/\//.test(href);
 ---
 
 <a
   href={href}
-  class="text-white underline underline-offset-2 decoration-primary-500"
-  >{title}</a
+  title={title}
+  {...external && { target: "_blank", rel: "noopener noreferrer" }}
+  class="text-ui-100 underline underline-offset-4 decoration-ui-600 decoration-1 hover:decoration-primary-400 hover:text-white transition-colors duration-200"
 >
+  <slot />
+</a>

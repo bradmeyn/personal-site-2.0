@@ -71,7 +71,7 @@
     max-width: none;
   }
   @media (width >= 800px) {
-    max-width: 700px;
+    max-width: 672px;
   }
 }
 
@@ -107,14 +107,13 @@
   }
 
   .card {
-    @apply rounded-xl p-4 bg-gradient-to-br from-ui-800/50 to-ui-900/30 border border-ui-700/50;
+    @apply rounded-xl p-4 bg-linear-to-br from-ui-800/50 to-ui-900/30 border border-ui-700/50;
   }
 }
 
 pre,
-code {
+pre code {
   color: #d4d4d4;
-  font-size: 14px !important;
   font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas,
     "Courier New", monospace;
   line-height: 1.7;
@@ -131,14 +130,97 @@ code {
   -moz-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
+  font-size: 14px;
 }
 
 pre {
   margin: 0;
-  padding: 0;
+  padding: 1rem;
   overflow: auto;
   background: #1e1e1e;
   position: relative;
+  border-radius: 0.5rem;
+}
+
+.article-body a,
+a.article-link {
+  color: var(--color-ui-100);
+  text-decoration: underline;
+  text-decoration-color: var(--color-ui-600);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition:
+    color 200ms,
+    text-decoration-color 200ms;
+}
+
+.article-body a:hover,
+a.article-link:hover {
+  color: #fff;
+  text-decoration-color: var(--color-primary-400);
+}
+
+.article-body ul,
+.article-body ol {
+  list-style: none;
+  padding-left: 0;
+  margin-block: 1.25rem 1.75rem;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.article-body li {
+  color: var(--color-ui-300);
+  line-height: 1.7;
+  padding-left: 1.4rem;
+  position: relative;
+}
+
+.article-body ul li::before {
+  content: "";
+  position: absolute;
+  left: 0.25rem;
+  top: 0.7em;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: var(--color-primary-500);
+}
+
+.article-body ol {
+  counter-reset: ol-counter;
+}
+
+.article-body ol li {
+  counter-increment: ol-counter;
+}
+
+.article-body ol li::before {
+  content: counter(ol-counter) ".";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--color-primary-400);
+  font-weight: 600;
+  font-size: 0.9em;
+  line-height: 1.7;
+}
+
+.article-body li > strong:first-child {
+  color: var(--color-ui-100);
+  margin-right: 0.25rem;
+}
+
+:not(pre) > code {
+  font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas,
+    "Courier New", monospace;
+  font-size: 0.875em;
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.3rem;
+  background: var(--color-ui-800);
+  color: var(--color-primary-300);
+  border: 1px solid var(--color-ui-700);
+  white-space: nowrap;
 }
 
 /* Improve code block scrollbar */

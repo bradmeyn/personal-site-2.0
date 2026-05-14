@@ -1,0 +1,72 @@
+---
+title: "SvelteKit is Great and Nobody Is Using It"
+outline: "Why SvelteKit is a hidden gem in the web development world"
+tags: ["sveltekit", "typescript", "web development"]
+date: 2025-06-01
+---
+
+import TextBlock from "@/components/posts/text-block.astro";
+import HeadingBlock from "@/components/posts/heading-block.astro";
+
+<TextBlock>
+  For years, Svelte and its meta-framework SvelteKit have quietly been one of
+  the best options for building on the web. Despite this, SvelteKit doesn't seem
+  to be gaining much traction — Next.js remains the de facto choice for most new
+  projects, likely due to mindshare, job market inertia, and the gravitational
+  pull of the React ecosystem. In this post I want to explore why SvelteKit is
+  great, and why I think it deserves more attention.
+</TextBlock>
+
+<HeadingBlock>Simplicity</HeadingBlock>
+<TextBlock>
+  Svelte apps use fewer lines of code than their Vue and React counterparts.
+  State is <code>let framework = $state("React")</code>, and setting state is as
+  simple as <code>framework = "Svelte"</code>. Need an input to update state?
+  Just add <code>{"bind:value={firstName}"}</code> to the input — no{" "}
+  <code>{"onChange={handleChange}"}</code> required. See a <a href="https://component-party.dev/?f=svelte5-react#form-input.input-text" target="_blank" rel="noopener noreferrer">side-by-side comparison</a> for more examples. It's intuitive, and it lets you write less code to achieve the same result.
+</TextBlock>
+
+<HeadingBlock>Performance</HeadingBlock>
+<TextBlock>
+  Every React developer has had a scenario where they accidentally triggered too
+  many re-renders, causing the app to slow down. Svelte's signal-based
+  reactivity model eliminates this problem by only updating the parts of the DOM
+  that actually changed. This means that Svelte apps can be more performant than
+  React apps, especially as they grow in complexity — and there's no{" "}
+  <code>useMemo()</code> or <code>useCallback()</code> to reach for.
+</TextBlock>
+
+<TextBlock>
+  SvelteKit's compiler-based approach ships less JavaScript to the client, putting its <a href="https://httparchive.org/reports/techreport/tech?client=mobile&tech=Astro%2CNext.js%2CNuxt.js%2CSvelteKit&geo=ALL&rank=ALL&page=1" target="_blank" rel="noopener noreferrer">Core Web Vitals</a> up there with Astro, the reigning king of static sites.
+</TextBlock>
+
+<HeadingBlock>Ecosystem</HeadingBlock>
+<TextBlock>
+  React has the largest ecosystem of libraries and tools, but Svelte's ecosystem
+  is growing rapidly and thanks to the ability to use vanilla TypeScript, can
+  easily integrate with many existing libraries. All the tools you'd need to
+  build a modern web app are available:
+</TextBlock>
+
+- Components: <a href="https://svelte.dev/community#components" target="_blank" rel="noopener noreferrer">Svelte component libraries</a>
+- Auth: <a href="https://better-auth.com/docs/integrations/svelte-kit" target="_blank" rel="noopener noreferrer">Better Auth SvelteKit integration</a>
+- Charts: <a href="https://www.chartjs.org/" target="_blank" rel="noopener noreferrer">Chart.js</a> or <a href="https://next.layerchart.com/" target="_blank" rel="noopener noreferrer">Layer Charts</a>
+- ORM: <a href="https://drizzle.team/" target="_blank" rel="noopener noreferrer">Drizzle ORM</a>
+- Icons: <a href="https://lucide.dev/guide/svelte/" target="_blank" rel="noopener noreferrer">Lucide Icons</a>
+- Global state management: Built in with <code>svelte.ts</code> files.
+- Form handling: Built in with <code>form</code> remote functions.
+
+<HeadingBlock>Why Isn't Svelte More Popular?</HeadingBlock>
+
+<TextBlock>
+  React is the default, the safe choice with a wider ecosystem and more job
+  opportunities. AI-driven devlopment is also likely to favour React (although
+  I've seen it misuse <code>useEffect()</code> more than once). Svelte's
+  simplicity and performance benefits may not be enough to overcome the inertia
+  of the React ecosystem, especially for larger teams and projects that require
+  a lot of third-party libraries.
+</TextBlock>
+
+<TextBlock>
+  But then again, if it's good enough for <a href="https://music.apple.com/us/new" target="_blank" rel="noopener noreferrer">Apple</a>, maybe it's good enough for you?
+</TextBlock>

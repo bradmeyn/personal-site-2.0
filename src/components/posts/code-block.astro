@@ -10,34 +10,66 @@ interface Props {
 }
 
 const { code, lang, filename, showLineNumbers = false } = Astro.props;
-const blockId = `code-${Math.random().toString(36).substr(2, 9)}`;
+const blockId = `code-${Math.random().toString(36).substring(2, 11)}`;
+
+const langStyles: Record<string, { label: string; bg: string; fg: string }> = {
+  typescript: { label: "TS", bg: "#1e3a5f", fg: "#79b8ff" },
+  ts: { label: "TS", bg: "#1e3a5f", fg: "#79b8ff" },
+  tsx: { label: "TSX", bg: "#1e3a5f", fg: "#79b8ff" },
+  javascript: { label: "JS", bg: "#3a3014", fg: "#f0d04f" },
+  js: { label: "JS", bg: "#3a3014", fg: "#f0d04f" },
+  jsx: { label: "JSX", bg: "#143a3a", fg: "#5ad8d8" },
+  svelte: { label: "SV", bg: "#3a1810", fg: "#ff6b3d" },
+  vue: { label: "VUE", bg: "#143a25", fg: "#42d392" },
+  astro: { label: "A", bg: "#3a1810", fg: "#ff8a4c" },
+  html: { label: "HTML", bg: "#3a2014", fg: "#ff8b50" },
+  css: { label: "CSS", bg: "#2a1a3a", fg: "#c084fc" },
+  json: { label: "JSON", bg: "#3a3014", fg: "#f0d04f" },
+  bash: { label: "SH", bg: "#262626", fg: "#a3a3a3" },
+  sh: { label: "SH", bg: "#262626", fg: "#a3a3a3" },
+  python: { label: "PY", bg: "#1e3a5f", fg: "#79b8ff" },
+  py: { label: "PY", bg: "#1e3a5f", fg: "#79b8ff" },
+  go: { label: "GO", bg: "#143a3a", fg: "#5ad8d8" },
+  rust: { label: "RS", bg: "#3a1810", fg: "#ff8a4c" },
+  sql: { label: "SQL", bg: "#262626", fg: "#d4d4d4" },
+};
+const badge = langStyles[lang] ?? {
+  label: lang.slice(0, 3).toUpperCase(),
+  bg: "#262626",
+  fg: "#d4d4d4",
+};
 ---
 
-<div
-  class="my-8 rounded-xl overflow-hidden bg-[#1e1e1e] shadow-2xl border border-white/5 code-block-container"
+<figure
+  class="my-8 rounded-xl overflow-hidden border border-ui-800 bg-[#0f0f10] code-block-container"
 >
   <div
-    class="px-3 bg-[#2d2d2d] border-b border-white/5 flex items-center justify-between"
+    class="flex items-center justify-between gap-3 px-3 py-2 bg-[#16161a] border-b border-ui-800"
   >
-    <div class="flex">
+    <div class="flex items-center gap-2 min-w-0">
+      <span
+        class="inline-flex items-center justify-center rounded-md px-1.5 py-0.5 text-[10px] font-bold tracking-wide leading-none shrink-0"
+        style={`background:${badge.bg};color:${badge.fg}`}
+      >
+        {badge.label}
+      </span>
       {
         filename && (
-          <div class="px-3 py-2 text-sm font-medium text-gray-200 relative">
+          <span class="text-sm text-ui-300 font-medium truncate">
             {filename}
-            <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-primary-500" />
-          </div>
+          </span>
         )
       }
     </div>
     <button
-      class="copy-code-btn p-1.5 rounded-md hover:bg-white/5 text-gray-400 hover:text-white transition-colors"
+      class="copy-code-btn p-1.5 rounded-md hover:bg-white/5 text-ui-400 hover:text-white transition-colors shrink-0"
       data-code-id={blockId}
       aria-label="Copy code to clipboard"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
+        width="15"
+        height="15"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -46,12 +78,11 @@ const blockId = `code-${Math.random().toString(36).substr(2, 9)}`;
         stroke-linejoin="round"
       >
         <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-        ></path>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
       </svg>
     </button>
   </div>
-  <div class="relative bg-[#1e1e1e]" data-code-block={blockId}>
+  <div class="relative" data-code-block={blockId}>
     <Code
       code={code.trim()}
       lang={lang}
@@ -59,13 +90,11 @@ const blockId = `code-${Math.random().toString(36).substr(2, 9)}`;
       class={showLineNumbers ? "line-numbers" : ""}
     />
   </div>
-</div>
+</figure>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const copyButtons = document.querySelectorAll(".copy-code-btn");
-
-    copyButtons.forEach((button) => {
+    document.querySelectorAll(".copy-code-btn").forEach((button) => {
       button.addEventListener("click", async () => {
         const codeId = button.getAttribute("data-code-id");
         const codeBlock = document.querySelector(
@@ -75,15 +104,13 @@ const blockId = `code-${Math.random().toString(36).substr(2, 9)}`;
 
         try {
           await navigator.clipboard.writeText(code);
-
-          // Show success state
-          button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+          const original = button.innerHTML;
+          button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
           button.classList.add("text-green-400");
-
           setTimeout(() => {
-            button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`;
+            button.innerHTML = original;
             button.classList.remove("text-green-400");
-          }, 2000);
+          }, 1600);
         } catch (err) {
           console.error("Failed to copy code:", err);
         }
@@ -93,12 +120,20 @@ const blockId = `code-${Math.random().toString(36).substr(2, 9)}`;
 </script>
 
 <style is:global>
-  .astro-code {
-    padding: 1.5rem;
-    font-size: 0.875rem;
-    line-height: 1.7;
+  .code-block-container .astro-code {
+    padding: 1rem 1.25rem;
+    font-size: 0.85rem;
+    line-height: 1.65;
     overflow-x: auto;
-    background: #1e1e1e !important;
+    background: #0f0f10 !important;
+  }
+
+  .code-block-container .astro-code::-webkit-scrollbar {
+    height: 6px;
+  }
+  .code-block-container .astro-code::-webkit-scrollbar-thumb {
+    background: #2a2a2a;
+    border-radius: 3px;
   }
 
   .line-numbers .line {

@@ -5,6 +5,7 @@ import LinkButton from "@/components/link-button.astro";
 ---
 
 <section
+  id="projects"
   class="animate-fade-up opacity-0 [animation-delay:2s] [animation-fill-mode:forwards]"
 >
   <h2 class="heading--secondary">Projects</h2>
@@ -26,56 +27,3 @@ import LinkButton from "@/components/link-button.astro";
     />
   </div>
 </section>
-
-<script>
-  // Auto-scrolling badges logic
-  const badgeContainer = document.querySelector(".badges-container");
-  let scrollInterval: null | NodeJS.Timeout;
-  let isScrolling = false;
-
-  function startScrolling() {
-    if (isScrolling || !badgeContainer) return;
-
-    scrollInterval = setInterval(() => {
-      if (
-        badgeContainer.scrollLeft >=
-        badgeContainer.scrollWidth - badgeContainer.clientWidth
-      ) {
-        // Reset to beginning when reaching the end
-        badgeContainer.scrollLeft = 0;
-      } else {
-        // Scroll by 1px for smooth movement
-        badgeContainer.scrollLeft += 1;
-      }
-    }, 20); // Adjust speed by changing interval time
-
-    isScrolling = true;
-  }
-
-  function stopScrolling() {
-    if (!isScrolling || !scrollInterval) return;
-    clearInterval(scrollInterval);
-    isScrolling = false;
-  }
-
-  // Start scrolling when page loads
-  document.addEventListener("DOMContentLoaded", () => {
-    // Add some delay to let animations finish
-    setTimeout(() => {
-      startScrolling();
-    }, 3000);
-  });
-
-  // Stop scrolling on hover, resume when not hovering
-  badgeContainer?.addEventListener("mouseenter", stopScrolling);
-  badgeContainer?.addEventListener("mouseleave", startScrolling);
-
-  // Optional: Pause scrolling when window is not in focus
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) {
-      stopScrolling();
-    } else {
-      startScrolling();
-    }
-  });
-</script>

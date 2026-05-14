@@ -1,119 +1,81 @@
 ---
-import Badge from "@/components/icon-badge.astro";
-const stack = [
-  "TypeScript",
-  "React",
-  "Nextjs",
-  "Node",
-  "Python",
-  "Django",
-  ".NET",
-  "Svelte",
-  "Tailwind",
-  "Astro",
-  "PostgreSQL",
-  "AWS",
-  "Vue",
-  "Docker",
-  "Swift",
+const capabilities = [
+  {
+    title: "Web Apps",
+    description:
+      "Modern, fast, accessible front-ends with clean component architecture and solid testing.",
+    icon: `<path d="M2 4h20v14H2z"/><path d="M2 8h20"/><path d="M6 18v3"/><path d="M18 18v3"/><path d="M5 21h14"/>`,
+  },
+  {
+    title: "API Integrations",
+    description:
+      "Connect third-party services and internal systems with reliable, well-tested integrations.",
+    icon: `<path d="M10 13a5 5 0 0 0 7.07 0l2.83-2.83a5 5 0 0 0-7.07-7.07L11 4"/><path d="M14 11a5 5 0 0 0-7.07 0L4.1 13.83a5 5 0 1 0 7.07 7.07L13 20"/>`,
+  },
+  {
+    title: "Cloud & DevOps",
+    description:
+      "AWS deployments, CI/CD pipelines, and infrastructure built for reliability and easy handoff.",
+    icon: `<path d="M17.5 19a4.5 4.5 0 1 0-1.4-8.78 6 6 0 1 0-10.6 4.78"/><path d="M12 19v3"/><path d="M9 22h6"/>`,
+  },
+  {
+    title: "Mobile",
+    description:
+      "Cross-platform mobile experiences with pragmatic architecture and a clear release plan.",
+    icon: `<rect x="7" y="2" width="10" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/>`,
+  },
+  {
+    title: "AI Features",
+    description:
+      "Assistants, semantic search, and workflow automation built on top of modern LLM APIs.",
+    icon: `<path d="m12 3 1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="m19 14 1 2.5L22.5 17 20 18l-1 2.5L18 18l-2.5-1 2.5-.5z"/>`,
+  },
+  {
+    title: "MVP Builds",
+    description:
+      "End-to-end MVPs taken from concept to production launch in tight, focused iterations.",
+    icon: `<path d="M4.5 16.5c-1.5 1.5-1 4-1 4s2.5.5 4-1l3-3-3-3z"/><path d="M14 10 9 5c3-3 7.5-3 10-1 2 2 2 7-1 10l-4 4"/><path d="M15 9l-6 6"/>`,
+  },
 ];
 
-const skills = [
-  "Fullstack Development",
-  "Mobile Development",
-  "Cloud deployment with AWS & Azure",
-  "Testing with Jest, Vitest & Playwright",
-  "REST & GraphQL APIs",
-  "Database administration",
-  "CI/CD Pipelines with GitHub Actions",
-];
-
-const qualifications = [
-  {
-    title: "AWS Cloud Practitioner",
-    institution: "Amazon Web Services",
-    year: 2024,
-  },
-  {
-    title: "Masters of Computer Science",
-    institution: "Monash University",
-    year: 2022,
-  },
-  {
-    title: "Bachelor of Business & Commerce",
-    institution: "University of Newcastle",
-    year: 2014,
-  },
-];
 ---
 
 <section
   class="animate-fade-down opacity-0 [animation-delay:0.6s] [animation-fill-mode:forwards]"
 >
-  <h2 class="heading--secondary">About</h2>
+  <h2 class="heading--secondary">What I work on</h2>
 
-  <div class="space-y-8">
-    <p class="text-ui-400 text-lg">
-      Hi I'm Brad, a software developer based in Newcastle, Australia.
-    </p>
-
-    <div class="card mb-8">
-      <h3 class="heading--tertiary">Qualifications</h3>
-      <div class="space-y-4">
+  <div class="space-y-12">
+    <div>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {
-          qualifications.map((qual) => (
-            <div class="flex items-center justify-between">
-              <div>
-                <p class="text-ui-300 text-sm font-medium">{qual.title}</p>
-                <p class="text-ui-400 text-xs">{qual.institution}</p>
+          capabilities.map((capability) => (
+            <article class="card space-y-3">
+              <div class="flex items-center gap-3">
+                <div class="flex size-10 items-center justify-center rounded-lg border border-ui-700/50 bg-ui-900/50 text-primary-500">
+                  <svg
+                    viewBox="0 0 24 24"
+                    class="size-5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    set:html={capability.icon}
+                  />
+                </div>
+                <h4 class="text-xl font-serif text-white">
+                  {capability.title}
+                </h4>
               </div>
-              <span class="text-ui-500 text-xs">{qual.year}</span>
-            </div>
+              <p class="text-ui-300 text-sm leading-relaxed">
+                {capability.description}
+              </p>
+            </article>
           ))
         }
       </div>
     </div>
 
-    <!-- Tech Stack Carousel - Centered -->
-    <div class="space-y-8">
-      <h3 class="heading--tertiary">Experience with:</h3>
-
-      <div class="gap-4 items-center grid grid-cols-4 py-2">
-        {stack.map((tech) => <Badge name={tech} />)}
-      </div>
-
-      <!-- Specializations -->
-      <div class="mt-12 max-w-2xl mx-auto">
-        <div class="grid lg:grid-cols-2 gap-3">
-          {
-            skills.map((skill) => (
-              <div class="flex items-center gap-3 p-3 rounded-lg bg-ui-800/30 border border-ui-700/50">
-                <div class="size-2 bg-primary-600 rounded-full" />
-                <span class="text-ui-300 text-md">{skill}</span>
-              </div>
-            ))
-          }
-        </div>
-      </div>
-    </div>
   </div>
 </section>
-
-<style scoped>
-  @keyframes scroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
-  }
-
-  .animate-scroll {
-    animation: scroll 20s linear infinite;
-  }
-
-  .animate-scroll:hover {
-    animation-play-state: paused;
-  }
-</style>

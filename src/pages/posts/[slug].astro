@@ -16,7 +16,7 @@ const { Content } = await entry.render();
 ---
 
 <PageLayout>
-  <main class="py-4 container">
+  <main class="py-4 mx-auto px-4 max-w-2xl">
     <a
       href={"/posts"}
       class="flex w-fit items-center gap-3 text-ui-400 hover:text-primary-700 transition-all duration-300 group py-3"
@@ -36,13 +36,10 @@ const { Content } = await entry.render();
       </svg>
       <span class="font-medium">Posts</span>
     </a>
-    <div class="mb-6">
-      <h1 class="title mb-10">
-        {entry.data.title}
-      </h1>
+    <div class="mb-10">
       <time
         datetime={entry.data.date.toISOString()}
-        class="block mb-2 text-ui-500"
+        class="block mb-2 text-ui-500 text-sm"
       >
         {
           new Date(entry.data.date).toLocaleDateString("en-US", {
@@ -52,7 +49,12 @@ const { Content } = await entry.render();
           })
         }
       </time>
+      <h1 class="font-serif text-2xl sm:text-3xl text-white">
+        {entry.data.title}
+      </h1>
     </div>
-    <Content />
+    <div class="article-body">
+      <Content />
+    </div>
   </main>
 </PageLayout>
