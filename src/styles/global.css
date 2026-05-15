@@ -114,8 +114,9 @@
 pre,
 pre code {
   color: #d4d4d4;
-  font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas,
-    "Courier New", monospace;
+  font-family:
+    "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New",
+    monospace;
   line-height: 1.7;
   direction: ltr;
   white-space: pre;
@@ -212,13 +213,14 @@ a.article-link:hover {
 }
 
 :not(pre) > code {
-  font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas,
-    "Courier New", monospace;
+  font-family:
+    "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New",
+    monospace;
   font-size: 0.875em;
   padding: 0.15rem 0.4rem;
   border-radius: 0.3rem;
   background: var(--color-ui-800);
-  color: var(--color-primary-300);
+  color: var(--color-primary-200);
   border: 1px solid var(--color-ui-700);
   white-space: nowrap;
 }
