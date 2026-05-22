@@ -4,6 +4,7 @@ import PageHead from "./page-head.astro";
 const year = new Date().getFullYear();
 
 const { pathname } = Astro.url;
+const { title } = Astro.props || {};
 let links = [
   { name: "Home", href: "/", active: false },
   { name: "Posts", href: "/posts", active: false },
@@ -19,19 +20,17 @@ links = links.map((link) => {
 
 <html lang="en" data-theme="dark">
   <head>
-    <PageHead />
+    <PageHead title={title} />
   </head>
 
   <body class="antialiased">
     <div
-      class="flex flex-col min-h-screen dark:bg-ui-900 dark:text-white bg-ui-200"
-    >
+      class="flex flex-col min-h-screen dark:bg-ui-900 dark:text-white bg-ui-200">
       <header>
         <nav
-          class="container py-6 w-full mx-auto flex justify-between items-center"
-        >
+          class="container py-6 w-full mx-auto flex justify-between items-center">
           <a href="/">
-            <h1 class="text-xl font-serif">Brad Meyn</h1>
+            <h1 class="text-xl font-serif">Bradley Meyn</h1>
           </a>
 
           <ul class="items-center gap-4 flex justify-center">
@@ -42,8 +41,7 @@ links = links.map((link) => {
                     href={link.href}
                     class={`${
                       link.active ? "text-white" : "text-ui-400"
-                    } hover:text-white transition duration-300 text-sm`}
-                  >
+                    } hover:text-white transition duration-300 text-sm`}>
                     {link.name}
                   </a>
                 </li>
@@ -76,7 +74,7 @@ links = links.map((link) => {
         <div class="container">
           <div class="flex justify-center py-6">
             <p class="text-sm">
-              &#x24B8; Copyright {year} Brad Meyn. All rights reserved.
+              &#x24B8; Copyright {year} Bradley Meyn. All rights reserved.
             </p>
           </div>
         </div>

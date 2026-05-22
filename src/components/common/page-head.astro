@@ -3,9 +3,13 @@ import "@/styles/global.css";
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const description =
-  "Personal website of Brad Meyn, a software developer based in Newcastle, Australia.";
-const title = "Brad Meyn | Software Developer";
+  "Personal website of Bradley Meyn, a software developer based in Newcastle, Australia.";
+const defaultTitle = "Bradley Meyn | Software Developer";
 const previewImage = "https://www.bradmeyn.com/" + "assets/link-preview.jpg";
+
+// Allow pages to pass a `title` prop; fall back to the default.
+const { title: pageTitle } = Astro.props || {};
+const title = pageTitle ? `${pageTitle} | Bradley Meyn` : defaultTitle;
 ---
 
 <!-- Global Metadata -->
