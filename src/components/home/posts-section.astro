@@ -1,14 +1,12 @@
 ---
 import Post from "@/components/post-card.astro";
 import { getCollection } from "astro:content";
-import LinkButton from "@/components/link-button.astro";
 
 const posts = await getCollection("posts");
 ---
 
 <section
-  class="animate-fade-up opacity-0 [animation-delay:0.4s] [animation-fill-mode:forwards]"
->
+  class="animate-fade-up opacity-0 [animation-delay:0.4s] [animation-fill-mode:forwards]">
   <h2 class="heading--secondary">Posts</h2>
 
   <div class="space-y-8">
@@ -16,13 +14,10 @@ const posts = await getCollection("posts");
       posts.map((post, index) => (
         <div
           class="animate-fade-up opacity-0"
-          style={`animation-delay: ${2.6 + index * 0.1}s; animation-fill-mode: forwards;`}
-        >
+          style={`animation-delay: ${2.6 + index * 0.1}s; animation-fill-mode: forwards;`}>
           <Post post={post} />
         </div>
       ))
     }
-
-    <LinkButton href="/posts" text="View Posts" />
   </div>
 </section>

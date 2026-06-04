@@ -1,13 +1,11 @@
 ---
 import ProjectCard from "@/components/project-card.astro";
 import { PROJECTS } from "@/constants/projects";
-import LinkButton from "@/components/link-button.astro";
 ---
 
 <section
   id="projects"
-  class="animate-fade-up opacity-0 [animation-delay:2s] [animation-fill-mode:forwards]"
->
+  class="animate-fade-up opacity-0 [animation-delay:2s] [animation-fill-mode:forwards]">
   <h2 class="heading--secondary">Projects</h2>
 
   <div class="space-y-8">
@@ -15,15 +13,10 @@ import LinkButton from "@/components/link-button.astro";
       PROJECTS.map((project, index) => (
         <div
           class="animate-fade-up opacity-0"
-          style={`animation-delay: ${2.2 + index * 0.2}s; animation-fill-mode: forwards;`}
-        >
+          style={`animation-delay: ${2.2 + index * 0.2}s; animation-fill-mode: forwards;`}>
           <ProjectCard {project} />
         </div>
       ))
     }
-    <LinkButton
-      href="https://github.com/bradmeyn?tab=repositories"
-      text="View GitHub"
-    />
   </div>
 </section>
