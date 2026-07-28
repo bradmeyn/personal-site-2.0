@@ -24,11 +24,11 @@ import LinkBlock from "@/components/posts/link-block.astro";
 <HeadingBlock>Simplicity of Svelte</HeadingBlock>
 <TextBlock>
   Svelte takes the best parts of React & Vue and combines them into an output
-  that is easier to read and write. State can be declared with{" "}
-  <code>let framework = $state("React")</code>, then updated directly with{" "}
-  <code>framework = "Svelte"</code>. Need an input to keep state in sync? Add{" "}
-  <code>{"bind:value={firstName}"}</code> and you're done, no{" "}
-  <code>{"onChange={handleChange}"}</code> ceremony needed. See a{" "}
+  that is easier to read and write. State can be declared with
+  `let framework = $state("React")`, then updated directly with
+  `framework = "Svelte"`. Need an input to keep state in sync? Add
+  `bind:value={firstName}` and you're done, no `onChange={handleChange}`
+  ceremony needed. See a{" "}
   <LinkBlock href="https://component-party.dev/?f=svelte5-react#form-input.input-text">
     side-by-side comparison
   </LinkBlock>{" "}
@@ -41,8 +41,8 @@ import LinkBlock from "@/components/posts/link-block.astro";
   Most React developers have experienced accidental re-renders that quietly drag
   performance down. Svelte's signal-based reactivity avoids that class of
   problem by updating only the DOM that actually changed. The result is better
-  performance as apps grow, without constantly reaching for{" "}
-  <code>useMemo()</code> or <code>useCallback()</code> to keep things fast.
+  performance as apps grow, without constantly reaching for `useMemo()` or
+  `useCallback()` to keep things fast.
 </TextBlock>
 
 <TextBlock>
@@ -68,15 +68,15 @@ import LinkBlock from "@/components/posts/link-block.astro";
 - Charts: <LinkBlock href="https://www.chartjs.org/">Chart.js</LinkBlock> or <LinkBlock href="https://next.layerchart.com/">Layer Charts</LinkBlock>
 - ORM: <LinkBlock href="https://drizzle.team/">Drizzle ORM</LinkBlock>
 - Icons: <LinkBlock href="https://lucide.dev/guide/svelte/">Lucide Icons</LinkBlock>
-- Global state management: Built in with <code>svelte.ts</code> files.
-- Form handling: Built in with <code>form()</code> remote functions.
+- Global state management: Built in with `svelte.ts` files.
+- Form handling: Built in with `form()` remote functions.
 
 <HeadingBlock>Why Isn't Svelte More Popular?</HeadingBlock>
 
 <TextBlock>
   React is the default, the safe choice with a wider ecosystem and more job
   opportunities. AI-driven devlopment is also likely to favour React (although
-  I've seen it misuse <code>useEffect()</code> more than once). Svelte's
+  I've seen it misuse `useEffect()` more than once). Svelte's
   simplicity and performance benefits may not be enough to overcome the inertia
   of the React ecosystem, especially for larger teams and projects that require
   a lot of third-party libraries.

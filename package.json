@@ -16,11 +16,12 @@
     "@astrojs/markdown-satteri": "^0.3.4",
     "@astrojs/mdx": "^7.0.4",
     "@astrojs/sitemap": "^3.7.3",
-    "@tailwindcss/vite": "^4.1.8",
+    "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.1.4",
-    "tailwindcss": "^4.1.8"
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
+    "vite": "^8.1.5",
     "wrangler": "^4.114.0"
   }
 }
