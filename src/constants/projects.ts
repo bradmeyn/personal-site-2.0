@@ -13,13 +13,12 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "Embark",
-    description: "Trip itinerary with AI intergration I made to plan holidays.",
+    description: "Trip itinerary builder with AI intergrations.",
     repository: "https://github.com/bradmeyn/embark",
   },
   {
     title: "Sage CRM",
-    description:
-      "A mock financial advisor CRM project I made to try out TanStack Start (cutting edge React framework)",
-    repository: "https://github.com/bradmeyn/sage-crm",
+    description: "Modern financial advisor CRM.",
+    repository: "https://github.com/bradmeyn/sage-crm-svelte",
   },
 ];
