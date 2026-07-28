@@ -24,16 +24,20 @@ import LinkBlock from "@/components/posts/link-block.astro";
 <HeadingBlock>Simplicity of Svelte</HeadingBlock>
 <TextBlock>
   Svelte takes the best parts of React & Vue and combines them into an output
-  that is easier to read and write. State can be declared with
-  `let framework = $state("React")`, then updated directly with
-  `framework = "Svelte"`. Need an input to keep state in sync? Add
-  `bind:value={firstName}` and you're done, no `onChange={handleChange}`
-  ceremony needed. See a{" "}
-  <LinkBlock href="https://component-party.dev/?f=svelte5-react#form-input.input-text">
-    side-by-side comparison
-  </LinkBlock>{" "}
-  for more examples. It feels intuitive, and it helps you ship the same features
-  with less code.
+  that is easier to read and write. State can be declared with `$state`, then
+  updated directly:
+</TextBlock>
+
+```ts
+let framework = $state("React");
+framework = "Svelte";
+```
+
+<TextBlock>
+  Need an input to keep state in sync? Add `bind:value={firstName}` and you're
+  done, no `onChange={handleChange}` ceremony needed. See a <LinkBlock href="https://component-party.dev/?f=svelte5-react#form-input.input-text">side-by-side comparison</LinkBlock> for
+  more examples. It feels intuitive, and it helps you ship the same features with
+  less code.
 </TextBlock>
 
 <HeadingBlock>Performance</HeadingBlock>
@@ -47,12 +51,9 @@ import LinkBlock from "@/components/posts/link-block.astro";
 
 <TextBlock>
   SvelteKit also ships less JavaScript to the browser thanks to its
-  compiler-first approach, which helps it post excellent{" "}
-  <LinkBlock href="https://httparchive.org/reports/techreport/tech?client=mobile&tech=Astro%2CNext.js%2CNuxt.js%2CSvelteKit&geo=ALL&rank=ALL&page=1">
-    Core Web Vitals
-  </LinkBlock>{" "}
-  numbers, right alongside Astro, one of the strongest performers in the static
-  site space.
+  compiler-first approach, which helps it post excellent <LinkBlock href="https://httparchive.org/reports/techreport/tech?client=mobile&tech=Astro%2CNext.js%2CNuxt.js%2CSvelteKit&geo=ALL&rank=ALL&page=1">Core Web Vitals</LinkBlock> numbers,
+  right alongside Astro, one of the strongest performers in the static site
+  space.
 </TextBlock>
 
 <HeadingBlock>Ecosystem</HeadingBlock>

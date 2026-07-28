@@ -108,9 +108,21 @@ pre {
   margin: 0;
   padding: 1rem;
   overflow: auto;
-  background: #1e1e1e;
+  background: var(--color-ui-950);
   position: relative;
   border-radius: 0.5rem;
+}
+
+.article-body pre {
+  margin-block: 1.75rem;
+  border: 1px solid var(--color-ui-800);
+  /* Shiki writes its theme background as an inline style, so this has to win */
+  background: var(--color-ui-950) !important;
+}
+
+/* TextBlock children get paragraph-wrapped by MDX; keep multiples readable */
+.article-body p + p {
+  margin-top: 1.25rem;
 }
 
 .article-body a,
@@ -186,12 +198,13 @@ a.article-link:hover {
   font-family:
     "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New",
     monospace;
-  font-size: 0.875em;
-  padding: 0.15rem 0.4rem;
-  border-radius: 0.3rem;
+  font-size: 0.85em;
+  padding: 0.1em 0.35em;
+  border-radius: 0.25rem;
   background: var(--color-ui-800);
   color: var(--color-primary-200);
-  border: 1px solid var(--color-ui-700);
+  /* Borderless keeps line-height even in prose. nowrap so the chip's background
+     never splits across two lines — long snippets belong in a fenced block. */
   white-space: nowrap;
 }
 
