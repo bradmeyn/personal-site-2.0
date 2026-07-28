@@ -5,51 +5,35 @@ type Props = {
 };
 
 const { project } = Astro.props;
-const { title, description, tech, repository } = project;
+const { title, description, repository } = project;
 ---
 
-<div class="group p-4 flex-col lg:flex-row mx-auto gap-4 flex card">
-  <!-- Content -->
-  <div class="space-y-4">
-    <div class="space-y-2">
-      <h3 class="heading--tertiary mb-2 line-clamp-2">
-        {title}
-      </h3>
-      <p class="text-ui-300 leading-relaxed">
-        {description}
-      </p>
-    </div>
+<a
+  href={repository}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="card group block transition-colors duration-300 hover:border-ui-600 hover:from-ui-800/80">
+  <h3 class="font-serif text-lg text-white">
+    {title}
+  </h3>
 
-    <!-- Tech Stack -->
-    <div class="flex flex-wrap gap-2">
-      {
-        tech.map((techItem) => (
-          <span class="px-3 py-1 text-xs font-medium bg-ui-700/50 text-ui-300 rounded-full border border-ui-600/50">
-            {techItem}
-          </span>
-        ))
-      }
-    </div>
+  <p class="mt-1 text-ui-300 leading-relaxed">
+    {description}
+  </p>
 
-    <a
-      href={repository}
-      class="flex items-center gap-2 px-4 py-2 text-sm font-medium w-fit text-white bg-primary-700 hover:bg-primary-800 rounded-full transition-all duration-300"
-      target="_blank"
-      rel="noopener noreferrer">
-      <span>View Code</span>
-
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="transform group-hover:tranui-x-1 transition-transform duration-300 size-4">
-        <path d="M5 12h14"></path>
-        <path d="m12 5 7 7-7 7"></path>
-      </svg>
-    </a>
+  <div class="mt-4 flex items-center gap-2 text-primary-600">
+    <span class="text-sm font-semibold">View Project</span>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="size-4 transition-transform duration-300 group-hover:translate-x-1">
+      <path d="M5 12h14"></path>
+      <path d="m12 5 7 7-7 7"></path>
+    </svg>
   </div>
-</div>
+</a>

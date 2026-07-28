@@ -2,15 +2,15 @@
 import PageLayout from "@/components/common/page-layout.astro";
 import ProjectsSection from "@/components/home/projects-section.astro";
 import PostsSection from "@/components/home/posts-section.astro";
-import ContactSection from "@/components/home/contact-section.astro";
 import HeroSection from "@/components/home/hero-section.astro";
 ---
 
 <PageLayout>
-  <main class="container space-y-20">
+  <main class="container">
     <HeroSection />
-    <ProjectsSection />
-    <PostsSection />
-    <ContactSection />
+    <div class="mt-8 space-y-10 pb-20">
+      <ProjectsSection />
+      <PostsSection />
+    </div>
   </main>
 </PageLayout>

@@ -3,20 +3,10 @@ import ProjectCard from "@/components/project-card.astro";
 import { PROJECTS } from "@/constants/projects";
 ---
 
-<section
-  id="projects"
-  class="animate-fade-up opacity-0 [animation-delay:2s] [animation-fill-mode:forwards]">
+<section id="projects">
   <h2 class="heading--secondary">Projects</h2>
 
-  <div class="space-y-8">
-    {
-      PROJECTS.map((project, index) => (
-        <div
-          class="animate-fade-up opacity-0"
-          style={`animation-delay: ${2.2 + index * 0.2}s; animation-fill-mode: forwards;`}>
-          <ProjectCard {project} />
-        </div>
-      ))
-    }
+  <div class="space-y-4">
+    {PROJECTS.map((project) => <ProjectCard {project} />)}
   </div>
 </section>

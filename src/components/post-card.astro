@@ -2,60 +2,42 @@
 const { post } = Astro.props;
 ---
 
-<article
-  class="group relative -mx-4 p-4 overflow-hidden rounded-xl transition-all duration-300 border border-transparent hover:border-ui-700/50 hover:bg-ui-800/50"
->
-  <!-- Content -->
+<a
+  href={`/posts/${post.id}`}
+  class="card group block transition-colors duration-300 hover:border-ui-600 hover:from-ui-800/80">
+  <time
+    datetime={post.data.date.toISOString()}
+    class="text-sm text-ui-400">
+    {
+      new Date(post.data.date).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      })
+    }
+  </time>
 
-  <!-- Date and Stats -->
-  <div class="flex items-center justify-between text-sm text-ui-400">
-    <time datetime={post.data.date.toISOString()}>
-      {
-        new Date(post.data.date).toLocaleDateString("en-US", {
-          month: "short",
-          day: "numeric",
-          year: "numeric",
-        })
-      }
-    </time>
-  </div>
+  <h3 class="mt-1 font-serif text-lg text-white line-clamp-2">
+    {post.data.title}
+  </h3>
 
-  <!-- Title -->
-  <a href={`/posts/${post.slug}`} class="block">
-    <h3 class="heading--tertiary mb-2 line-clamp-2">
-      {post.data.title}
-    </h3>
-  </a>
-
-  <!-- Summary -->
-  <p class="text-ui-300 leading-relaxed line-clamp-2 pb-4">
+  <p class="mt-1 text-ui-300 leading-relaxed line-clamp-2">
     {post.data.outline}
   </p>
 
-  <a href={`/posts/${post.slug}`}>
-    <div
-      class="flex items-center text-primary-600 gap-2 transition-colors duration-300"
-    >
-      <span class="text-primary-600 font-semibold">Read</span>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="transform group-hover:tranui-x-1 transition-transform duration-300 size-4"
-      >
-        <path d="M5 12h14"></path>
-        <path d="m12 5 7 7-7 7"></path>
-      </svg>
-    </div>
-
-    <!-- Clickable overlay -->
-    <a
-      href={`/posts/${post.slug}`}
-      class="absolute inset-0 z-10"
-      aria-label={`Read ${post.data.title}`}></a>
-  </a>
-</article>
+  <div class="mt-4 flex items-center gap-2 text-primary-600">
+    <span class="text-sm font-semibold">Read</span>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="size-4 transition-transform duration-300 group-hover:translate-x-1">
+      <path d="M5 12h14"></path>
+      <path d="m12 5 7 7-7 7"></path>
+    </svg>
+  </div>
+</a>

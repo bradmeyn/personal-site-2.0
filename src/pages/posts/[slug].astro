@@ -1,24 +1,24 @@
 ---
 import PageLayout from "@/components/common/page-layout.astro";
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 
 // 1. Generate a new path for every collection entry
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
   return posts.map((entry) => ({
-    params: { slug: entry.slug },
+    params: { slug: entry.id },
     props: { entry },
   }));
 }
 // 2. For your template, you can get the entry directly from the prop
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 ---
 
 <PageLayout title={entry.data.title}>
   <main class="py-4 mx-auto px-4 max-w-2xl">
     <a
-      href={"/posts"}
+      href={"/"}
       class="flex w-fit items-center gap-3 text-ui-400 hover:text-primary-700 transition-all duration-300 group py-3">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +32,7 @@ const { Content } = await entry.render();
         <path d="M19 12H5"></path>
         <path d="m12 19-7-7 7-7"></path>
       </svg>
-      <span class="font-medium">Posts</span>
+      <span class="font-medium">Home</span>
     </a>
     <div class="mb-10">
       <time

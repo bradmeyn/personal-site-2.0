@@ -11,21 +11,23 @@ import LinkBlock from "@/components/posts/link-block.astro";
 
 <TextBlock>
   For years, <LinkBlock href="https://svelte.dev/">Svelte</LinkBlock> and its
-  meta-framework SvelteKit have quietly been among the best options for building
-  full-stack TypeScript applications on the web. SvelteKit offers excellent
-  performance with far less boilerplate than most React-based frameworks. Even
-  so, it still hasn't gained the same traction: Next.js remains the default
-  choice for many new projects, driven by mindshare, hiring inertia, and the
-  gravitational pull of the React ecosystem. In this post, I want to explore why
-  SvelteKit is great and why I think it deserves more attention.
+  'meta-framework' SvelteKit have quietly been among the best options for
+  building full-stack TypeScript applications on the web. While SvelteKit offers
+  superior performance with less code than all of the other full-stack
+  frameworks, it still hasn't gained much traction, especially in Australia.
+  Next.js remains the default choice for many new projects, driven by mindshare,
+  hiring inertia, and the gravitational pull of the React ecosystem. In this
+  post, I want to explore why SvelteKit is great and why I think it deserves
+  more attention.
 </TextBlock>
 
-<HeadingBlock>Simplicity</HeadingBlock>
+<HeadingBlock>Simplicity of Svelte</HeadingBlock>
 <TextBlock>
-  Svelte apps typically require less code than their React or Vue counterparts.
-  State can be declared with <code>let framework = $state("React")</code>, then
-  updated directly with <code>framework = "Svelte"</code>. Need an input to keep
-  state in sync? Add <code>{"bind:value={firstName}"}</code> and you're done, no{" "}
+  Svelte takes the best parts of React & Vue and combines them into an output
+  that is easier to read and write. State can be declared with{" "}
+  <code>let framework = $state("React")</code>, then updated directly with{" "}
+  <code>framework = "Svelte"</code>. Need an input to keep state in sync? Add{" "}
+  <code>{"bind:value={firstName}"}</code> and you're done, no{" "}
   <code>{"onChange={handleChange}"}</code> ceremony needed. See a{" "}
   <LinkBlock href="https://component-party.dev/?f=svelte5-react#form-input.input-text">
     side-by-side comparison
