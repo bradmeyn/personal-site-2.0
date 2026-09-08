@@ -1,54 +1,80 @@
 ---
-const GITHUB_URL = "https://github.com/bradmeyn";
-// TODO: swap in your real contact email — placeholder for now.
-const EMAIL = "hello@bradmeyn.com";
 ---
 
-<section class="pt-16 sm:pt-24 pb-14 sm:pb-20">
-  <div class="flex items-center gap-2.5">
-    <span class="size-1.5 rounded-full bg-accent-500"></span>
-    <p class="eyebrow">Available for work — Newcastle, AU</p>
-  </div>
+<section class="pt-14 sm:pt-20 pb-16 sm:pb-24">
+  <div class="grid lg:grid-cols-[1fr_auto] items-center gap-10 lg:gap-16">
+    <div>
+      <div class="flex items-center gap-2.5">
+        <span class="size-1.5 rounded-full bg-accent-500"></span>
+        <p class="eyebrow">Full-stack developer — Newcastle, AU</p>
+      </div>
 
-  <h1
-    class="mt-7 font-display font-normal leading-[0.95] tracking-tight text-ink-950 text-[15vw] sm:text-[7.5rem] lg:text-[8.5rem]">
-    Bradley
-    <br />
-    <span class="text-accent-500">Meyn</span>
-  </h1>
+      <h1
+        class="mt-6 font-display font-semibold leading-[1.02] tracking-tight text-ink-950 text-[12vw] sm:text-6xl lg:text-7xl">
+        Building
+        <br />
+        <span class="text-bauhaus-red">modern</span> software.
+      </h1>
 
-  <div
-    class="mt-10 sm:mt-12 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 border-t border-line pt-7">
-    <p class="max-w-md text-lg text-ink-700 leading-relaxed">
-      Full-stack software developer who builds fast, considered products —
-      from financial tools to travel planners. Currently shipping with
-      TypeScript, Svelte &amp; Astro.
-    </p>
+      <p class="mt-6 max-w-md text-lg text-ink-700 leading-relaxed">
+        I design &amp; build fast, considered products — from financial
+        tools to travel planners. Currently shipping with TypeScript,
+        Svelte &amp; Astro.
+      </p>
 
-    <div class="flex shrink-0 items-center gap-4">
-      <img
-        src="/assets/cartoon-brad.png"
-        alt="Illustration of Bradley Meyn at his desk"
-        width="56"
-        height="56"
-        loading="eager"
-        class="size-12 shrink-0 rounded-full object-cover object-[40%_22%] grayscale contrast-125"
-      />
-      <div class="h-8 w-px bg-line" aria-hidden="true"></div>
-      <nav class="flex items-center gap-5 text-sm text-ink-600">
+      <div class="mt-8 flex items-center gap-4">
+        <a href="/#projects" class="pill-button">View projects</a>
         <a
-          href={GITHUB_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="hover:text-accent-600 transition-colors duration-200">
-          GitHub
+          href="/#writing"
+          class="text-sm font-medium text-ink-700 hover:text-ink-950 transition-colors duration-200">
+          Read the blog &rarr;
         </a>
-        <a
-          href={`mailto:${EMAIL}`}
-          class="hover:text-accent-600 transition-colors duration-200">
-          Email
-        </a>
-      </nav>
+      </div>
     </div>
+
+    <svg
+      viewBox="0 0 400 400"
+      width="280"
+      height="280"
+      role="img"
+      aria-label="Illustration of an orbiting solar system"
+      class="mx-auto shrink-0 size-56 sm:size-64 lg:size-72">
+      <circle
+        cx="200"
+        cy="200"
+        r="160"
+        fill="none"
+        stroke="var(--color-line-strong)"
+        stroke-width="1"></circle>
+      <circle
+        cx="200"
+        cy="200"
+        r="110"
+        fill="none"
+        stroke="var(--color-line-strong)"
+        stroke-width="1"></circle>
+      <circle
+        cx="200"
+        cy="200"
+        r="60"
+        fill="none"
+        stroke="var(--color-line-strong)"
+        stroke-width="1"></circle>
+
+      <g class="orbit orbit-outer">
+        <circle cx="360" cy="200" r="12" fill="var(--color-bauhaus-red)"
+        ></circle>
+      </g>
+      <g class="orbit orbit-mid">
+        <circle cx="310" cy="200" r="9" fill="var(--color-bauhaus-blue)"
+        ></circle>
+      </g>
+      <g class="orbit orbit-inner">
+        <circle cx="260" cy="200" r="7" fill="var(--color-ink-800)"></circle>
+      </g>
+
+      <circle cx="200" cy="200" r="22" fill="var(--color-bauhaus-yellow)"
+      ></circle>
+    </svg>
   </div>
 </section>

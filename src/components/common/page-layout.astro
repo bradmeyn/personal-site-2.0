@@ -2,6 +2,9 @@
 import PageHead from "./page-head.astro";
 
 const year = new Date().getFullYear();
+const GITHUB_URL = "https://github.com/bradmeyn";
+// TODO: swap in your real contact email — placeholder for now.
+const EMAIL = "hello@bradmeyn.com";
 
 const { title } = Astro.props || {};
 ---
@@ -13,9 +16,45 @@ const { title } = Astro.props || {};
 
   <body class="antialiased bg-paper text-ink-900">
     <div class="flex flex-col min-h-screen">
+      <header class="border-b border-line">
+        <div class="container flex items-center justify-between py-4">
+          <a href="/" class="flex items-center gap-2.5 group">
+            <span
+              class="flex size-7 shrink-0 items-center justify-center rounded-full bg-ink-950 text-paper text-xs font-bold transition-colors duration-200 group-hover:bg-bauhaus-red">
+              B
+            </span>
+            <span class="font-semibold tracking-tight text-ink-950"
+              >Bradley Meyn</span
+            >
+          </a>
+
+          <nav class="flex items-center gap-5">
+            <a
+              href="/#projects"
+              class="hidden sm:inline text-sm text-ink-600 hover:text-ink-950 transition-colors duration-200">
+              Projects
+            </a>
+            <a
+              href="/#writing"
+              class="hidden sm:inline text-sm text-ink-600 hover:text-ink-950 transition-colors duration-200">
+              Writing
+            </a>
+            <a
+              href={GITHUB_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hidden sm:inline text-sm text-ink-600 hover:text-ink-950 transition-colors duration-200">
+              GitHub
+            </a>
+            <a href={`mailto:${EMAIL}`} class="pill-button">Get in touch</a>
+          </nav>
+        </div>
+      </header>
+
       <div class="grow opacity-0 animate-fade-up [animation-fill-mode:forwards]">
         <slot />
       </div>
+
       <footer class="border-t border-line">
         <div
           class="container flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 py-6">

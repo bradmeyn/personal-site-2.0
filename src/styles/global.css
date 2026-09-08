@@ -23,7 +23,14 @@
   --color-accent-700: #1a26a8;
   --color-lime: #dcff50;
 
-  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  /* Bauhaus-inspired primaries — used sparingly, as accents & the hero
+     geometry, not as page-wide color blocking. */
+  --color-bauhaus-red: #d33d2c;
+  --color-bauhaus-blue: #1e3a8f;
+  --color-bauhaus-yellow: #f0b400;
+
+  --font-display:
+    "Space Grotesk", ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-sans:
     "Space Grotesk", ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
@@ -85,11 +92,40 @@
   }
 
   .heading--secondary {
-    @apply font-display text-3xl lg:text-4xl text-ink-950;
+    @apply font-display font-semibold tracking-tight text-3xl lg:text-4xl text-ink-950;
   }
 
   .heading--tertiary {
-    @apply text-lg mb-4 font-display text-ink-950;
+    @apply text-lg mb-4 font-display font-semibold tracking-tight text-ink-950;
+  }
+
+  .pill-button {
+    @apply inline-flex items-center gap-1.5 rounded-full bg-ink-950 px-4 py-2 text-sm font-medium text-paper transition-colors duration-200 hover:bg-bauhaus-red;
+  }
+}
+
+/* Hero orbit graphic ----------------------------------------------------- */
+
+.orbit {
+  transform-box: view-box;
+  transform-origin: 200px 200px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .orbit-outer {
+    animation: orbit-spin 46s linear infinite;
+  }
+  .orbit-mid {
+    animation: orbit-spin 28s linear infinite reverse;
+  }
+  .orbit-inner {
+    animation: orbit-spin 16s linear infinite;
+  }
+}
+
+@keyframes orbit-spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
