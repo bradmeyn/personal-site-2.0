@@ -12,7 +12,7 @@ const external = /^https?:\/\//.test(href);
   href={href}
   title={title}
   {...external && { target: "_blank", rel: "noopener noreferrer" }}
-  class="text-ui-100 underline underline-offset-4 decoration-ui-600 decoration-1 hover:decoration-primary-400 hover:text-white transition-colors duration-200"
+  class="text-ink-900 underline underline-offset-4 decoration-line-strong decoration-1 hover:decoration-accent-500 hover:text-accent-600 transition-colors duration-200"
 >
   <slot />
 </a>

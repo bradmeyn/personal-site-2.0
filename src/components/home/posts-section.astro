@@ -6,9 +6,14 @@ const posts = await getCollection("posts");
 ---
 
 <section>
-  <h2 class="heading--secondary">Posts</h2>
+  <div class="flex items-baseline justify-between gap-4">
+    <h2 class="heading--secondary">Writing</h2>
+    <span class="eyebrow shrink-0"
+      >{String(posts.length).padStart(2, "0")} posts</span
+    >
+  </div>
 
-  <div class="space-y-4">
-    {posts.map((post) => <Post post={post} />)}
+  <div class="mt-6 border-t border-line">
+    {posts.map((post, index) => <Post post={post} index={index} />)}
   </div>
 </section>

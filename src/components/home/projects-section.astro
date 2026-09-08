@@ -4,9 +4,18 @@ import { PROJECTS } from "@/constants/projects";
 ---
 
 <section id="projects">
-  <h2 class="heading--secondary">Projects</h2>
+  <div class="flex items-baseline justify-between gap-4">
+    <h2 class="heading--secondary">Projects</h2>
+    <span class="eyebrow shrink-0"
+      >{String(PROJECTS.length).padStart(2, "0")} selected</span
+    >
+  </div>
 
-  <div class="space-y-4">
-    {PROJECTS.map((project) => <ProjectCard {project} />)}
+  <div class="mt-6 border-t border-line">
+    {
+      PROJECTS.map((project, index) => (
+        <ProjectCard project={project} index={index} />
+      ))
+    }
   </div>
 </section>

@@ -6,25 +6,25 @@ const year = new Date().getFullYear();
 const { title } = Astro.props || {};
 ---
 
-<html lang="en" data-theme="dark">
+<html lang="en">
   <head>
     <PageHead title={title} />
   </head>
 
-  <body class="antialiased">
-    <div
-      class="flex flex-col min-h-screen dark:bg-ui-900 dark:text-white bg-ui-200">
-      <div
-        class="grow opacity-0 animate-fade-down [animation-fill-mode:forwards]">
+  <body class="antialiased bg-paper text-ink-900">
+    <div class="flex flex-col min-h-screen">
+      <div class="grow opacity-0 animate-fade-up [animation-fill-mode:forwards]">
         <slot />
       </div>
-      <footer>
-        <div class="container">
-          <div class="flex justify-center py-6">
-            <p class="text-sm">
-              &#x24B8; Copyright {year} Bradley Meyn. All rights reserved.
-            </p>
-          </div>
+      <footer class="border-t border-line">
+        <div
+          class="container flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 py-6">
+          <p class="font-mono text-xs tracking-wide text-ink-500">
+            &#x24B8; {year} BRADLEY MEYN — NEWCASTLE, AU
+          </p>
+          <p class="font-mono text-xs tracking-wide text-ink-500">
+            BUILT WITH ASTRO
+          </p>
         </div>
       </footer>
     </div>

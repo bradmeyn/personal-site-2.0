@@ -1,33 +1,39 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ui-100: #f5f5f5;
-  --color-ui-200: #e5e5e5;
-  --color-ui-300: #d4d4d4;
-  --color-ui-400: #a3a3a3;
-  --color-ui-500: #737373;
-  --color-ui-600: #525252;
-  --color-ui-700: #404040;
-  --color-ui-800: #262626;
-  --color-ui-900: #171717;
-  --color-ui-950: #0a0a0a;
+  /* Warm ink / paper neutrals — not a pure gray scale on purpose */
+  --color-ink-950: #0e0e0c;
+  --color-ink-900: #17170f;
+  --color-ink-800: #2a2a22;
+  --color-ink-700: #454539;
+  --color-ink-600: #63634f;
+  --color-ink-500: #837f6a;
+  --color-ink-400: #a6a08a;
+  --color-line: #ddd8c8;
+  --color-line-strong: #c7c1ac;
+  --color-paper: #f8f6ef;
+  --color-paper-raised: #fffefb;
 
-  --color-primary-100: #ffedd5;
-  --color-primary-200: #fed7aa;
-  --color-primary-300: #fdba74;
-  --color-primary-400: #fb923c;
-  --color-primary-500: #f97316;
-  --color-primary-600: #ea580c;
-  --color-primary-700: #c2410c;
-  --color-primary-800: #9a3412;
-  --color-primary-900: #7c2d12;
+  /* Single confident accent, plus a secondary pop — deliberately not a
+     Claude-adjacent orange/terracotta. */
+  --color-accent-100: #dbe2ff;
+  --color-accent-300: #93a4ff;
+  --color-accent-500: #2b3df2;
+  --color-accent-600: #1f2ed1;
+  --color-accent-700: #1a26a8;
+  --color-lime: #dcff50;
 
-  --animate-fade-down: fadeDown 0.6s ease-in-out forwards;
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans:
+    "Space Grotesk", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
 
-  @keyframes fadeDown {
+  --animate-fade-up: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+  @keyframes fadeUp {
     from {
       opacity: 0;
-      transform: translateY(-30px);
+      transform: translateY(14px);
     }
     to {
       opacity: 1;
@@ -36,16 +42,14 @@
   }
 }
 
-@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
-
 @utility container {
   margin-inline: auto;
-  padding-inline: 1rem;
-  @media (width >= --theme(--breakpoint-sm)) {
-    max-width: none;
+  padding-inline: 1.25rem;
+  @media (width >= 640px) {
+    padding-inline: 2rem;
   }
-  @media (width >= 800px) {
-    max-width: 672px;
+  @media (width >= 1024px) {
+    max-width: 920px;
   }
 }
 
@@ -53,9 +57,6 @@
   The default border color has changed to `currentcolor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
   looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
 */
 @layer base {
   *,
@@ -63,30 +64,41 @@
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
+    border-color: var(--color-line);
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink-900);
+    font-family: var(--font-sans);
+  }
+
+  ::selection {
+    background: var(--color-lime);
+    color: var(--color-ink-950);
   }
 }
 
 @layer base {
+  .eyebrow {
+    @apply font-mono text-xs tracking-[0.18em] uppercase text-ink-500;
+  }
+
   .heading--secondary {
-    @apply text-white text-xl lg:text-2xl mb-4 font-serif;
+    @apply font-display text-3xl lg:text-4xl text-ink-950;
   }
 
   .heading--tertiary {
-    @apply text-lg mb-4 font-serif;
-  }
-
-  .card {
-    @apply rounded-xl p-4 bg-linear-to-br from-ui-800/50 to-ui-900/30 border border-ui-700/50;
+    @apply text-lg mb-4 font-display text-ink-950;
   }
 }
 
+/* Article body ---------------------------------------------------------- */
+
 pre,
 pre code {
-  color: #d4d4d4;
-  font-family:
-    "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New",
-    monospace;
+  color: #e5e2d6;
+  font-family: var(--font-mono);
   line-height: 1.7;
   direction: ltr;
   white-space: pre;
@@ -108,28 +120,33 @@ pre {
   margin: 0;
   padding: 1rem;
   overflow: auto;
-  background: var(--color-ui-950);
+  background: var(--color-ink-950);
   position: relative;
-  border-radius: 0.5rem;
+  border-radius: 0.375rem;
 }
 
 .article-body pre {
   margin-block: 1.75rem;
-  border: 1px solid var(--color-ui-800);
+  border: 1px solid var(--color-ink-800);
   /* Shiki writes its theme background as an inline style, so this has to win */
-  background: var(--color-ui-950) !important;
+  background: var(--color-ink-950) !important;
 }
 
-/* TextBlock children get paragraph-wrapped by MDX; keep multiples readable */
+.article-body p {
+  color: var(--color-ink-700);
+  font-size: 1.0625rem;
+  line-height: 1.8;
+}
+
 .article-body p + p {
   margin-top: 1.25rem;
 }
 
 .article-body a,
 a.article-link {
-  color: var(--color-ui-100);
+  color: var(--color-ink-900);
   text-decoration: underline;
-  text-decoration-color: var(--color-ui-600);
+  text-decoration-color: var(--color-line-strong);
   text-decoration-thickness: 1px;
   text-underline-offset: 4px;
   transition:
@@ -139,8 +156,8 @@ a.article-link {
 
 .article-body a:hover,
 a.article-link:hover {
-  color: #fff;
-  text-decoration-color: var(--color-primary-400);
+  color: var(--color-accent-600);
+  text-decoration-color: var(--color-accent-500);
 }
 
 .article-body ul,
@@ -153,7 +170,7 @@ a.article-link:hover {
 }
 
 .article-body li {
-  color: var(--color-ui-300);
+  color: var(--color-ink-700);
   line-height: 1.7;
   padding-left: 1.4rem;
   position: relative;
@@ -167,7 +184,7 @@ a.article-link:hover {
   width: 6px;
   height: 6px;
   border-radius: 9999px;
-  background: var(--color-primary-500);
+  background: var(--color-accent-500);
 }
 
 .article-body ol {
@@ -183,26 +200,24 @@ a.article-link:hover {
   position: absolute;
   left: 0;
   top: 0;
-  color: var(--color-primary-400);
+  color: var(--color-accent-600);
   font-weight: 600;
   font-size: 0.9em;
   line-height: 1.7;
 }
 
 .article-body li > strong:first-child {
-  color: var(--color-ui-100);
+  color: var(--color-ink-950);
   margin-right: 0.25rem;
 }
 
 :not(pre) > code {
-  font-family:
-    "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New",
-    monospace;
+  font-family: var(--font-mono);
   font-size: 0.85em;
   padding: 0.1em 0.35em;
   border-radius: 0.25rem;
-  background: var(--color-ui-800);
-  color: var(--color-primary-200);
+  background: var(--color-ink-900);
+  color: var(--color-lime);
   /* Borderless keeps line-height even in prose. nowrap so the chip's background
      never splits across two lines — long snippets belong in a fenced block. */
   white-space: nowrap;
@@ -214,14 +229,14 @@ pre::-webkit-scrollbar {
 }
 
 pre::-webkit-scrollbar-track {
-  background: #2d2d2d;
+  background: #23231b;
 }
 
 pre::-webkit-scrollbar-thumb {
-  background: #404040;
+  background: #454539;
   border-radius: 4px;
 }
 
 pre::-webkit-scrollbar-thumb:hover {
-  background: #525252;
+  background: #63634f;
 }

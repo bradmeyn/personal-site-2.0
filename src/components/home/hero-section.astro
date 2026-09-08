@@ -1,28 +1,68 @@
 ---
 const GITHUB_URL = "https://github.com/bradmeyn";
+// TODO: swap in your real contact email — placeholder for now.
+const EMAIL = "hello@bradmeyn.com";
 ---
 
-<section class="pt-12 lg:pt-16">
-  <div class="flex items-center gap-5">
-    <img
-      src="/assets/cartoon-brad.png"
-      alt="Illustration of Bradley Meyn"
-      width="80"
-      height="80"
-      loading="eager"
-      class="size-16 sm:size-20 shrink-0 rounded-full object-cover object-[40%_22%] ring-1 ring-ui-800"
-    />
+<section class="pt-16 sm:pt-24 pb-14 sm:pb-20">
+  <div class="flex items-center gap-3">
+    <span class="relative flex size-2">
+      <span
+        class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-500 opacity-60">
+      </span>
+      <span class="relative inline-flex size-2 rounded-full bg-accent-500"
+      ></span>
+    </span>
+    <p class="eyebrow">Available for work — Newcastle, AU</p>
+  </div>
 
-    <div class="space-y-1">
-      <h1 class="font-serif text-2xl sm:text-3xl text-white">Bradley Meyn</h1>
-      <p class="text-ui-400">
-        Full-stack software developer based in Newcastle, Australia.
-      </p>
-      <a
-        href={GITHUB_URL}
-        class="inline-block pt-2 text-sm text-ui-400 underline decoration-ui-600 decoration-1 underline-offset-4 transition-colors duration-300 hover:text-white hover:decoration-primary-400">
-        github.com/bradmeyn
-      </a>
+  <h1
+    class="mt-6 font-display font-medium leading-[0.92] tracking-tight text-ink-950 text-[15vw] sm:text-[8.5rem] lg:text-[9.5rem]">
+    Bradley
+    <br />
+    <span class="italic text-accent-500">Meyn</span><span
+      class="align-super text-[0.28em] font-mono not-italic text-ink-400"
+      >&#8202;/&#8202;dev</span
+    >
+  </h1>
+
+  <div
+    class="mt-8 sm:mt-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 border-t border-line pt-6">
+    <p class="max-w-md text-lg text-ink-700 leading-relaxed">
+      Full-stack software developer who builds fast, considered products —
+      from financial tools to travel planners. Currently shipping with
+      TypeScript, Svelte &amp; Astro.
+    </p>
+
+    <div class="flex shrink-0 items-center gap-6">
+      <img
+        src="/assets/cartoon-brad.png"
+        alt="Illustration of Bradley Meyn at his desk"
+        width="64"
+        height="64"
+        loading="eager"
+        class="size-14 shrink-0 rounded-full object-cover object-[40%_22%] border border-line grayscale contrast-125"
+      />
+      <div class="flex flex-col gap-2 font-mono text-sm">
+        <a
+          href={GITHUB_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group inline-flex items-center gap-2 text-ink-800 hover:text-accent-600 transition-colors duration-200">
+          <span class="underline decoration-line-strong underline-offset-4 group-hover:decoration-accent-500"
+            >GITHUB</span
+          >
+          <span aria-hidden="true" class="transition-transform duration-200 group-hover:translate-x-0.5">&#8599;</span>
+        </a>
+        <a
+          href={`mailto:${EMAIL}`}
+          class="group inline-flex items-center gap-2 text-ink-800 hover:text-accent-600 transition-colors duration-200">
+          <span class="underline decoration-line-strong underline-offset-4 group-hover:decoration-accent-500"
+            >EMAIL</span
+          >
+          <span aria-hidden="true" class="transition-transform duration-200 group-hover:translate-x-0.5">&#8599;</span>
+        </a>
+      </div>
     </div>
   </div>
 </section>
