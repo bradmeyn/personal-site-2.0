@@ -172,12 +172,17 @@
       <span class="ml-auto hidden text-faint sm:inline">{dateFormat.format(active.date)}</span>
     </div>
 
-    <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+    <!-- A slider over the days in range: arrow keys move the crosshair, and screen
+         readers announce the date and value at each step. -->
     <div
-      class="relative mt-3 h-48 cursor-crosshair touch-pan-y outline-none sm:h-56"
-      role="img"
+      class="relative mt-3 h-48 cursor-crosshair touch-pan-y rounded-sm sm:h-56"
+      role="slider"
       tabindex="0"
-      aria-label={`Portfolio value over ${range}. Use the arrow keys to inspect values.`}
+      aria-label={`Portfolio value over ${range}`}
+      aria-valuemin={0}
+      aria-valuemax={data.length - 1}
+      aria-valuenow={hoverIndex ?? data.length - 1}
+      aria-valuetext={`${dateFormat.format(active.date)}: ${money.format(active.portfolio)}`}
       onpointermove={onPointer}
       onpointerdown={onPointer}
       onpointerleave={() => (hoverIndex = null)}
