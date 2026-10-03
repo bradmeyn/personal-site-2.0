@@ -102,67 +102,39 @@
   @apply text-muted transition-colors duration-200 hover:text-fg;
 }
 
-/* Hero backdrop -------------------------------------------------------------
-   A faint grid that fades out from the top, lit by two slow-drifting glows. The
-   glows are the only ambient motion on the site and stop for reduced motion. */
-
-.hero-grid {
-  background-image:
-    linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
-  background-size: 64px 64px;
-  background-position: center top;
-  mask-image: radial-gradient(ellipse 75% 70% at 50% 0%, black 10%, transparent 75%);
-}
-
-.hero-glow {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(60px);
-  will-change: transform;
-}
-
-.hero-glow-a {
-  top: -24rem;
-  left: 50%;
-  width: 72rem;
-  height: 44rem;
-  margin-left: -26rem;
-  background: radial-gradient(closest-side, rgb(165 156 255 / 0.6), rgb(165 156 255 / 0.18) 55%, transparent);
-}
-
-.hero-glow-b {
-  top: 4rem;
-  right: -10rem;
-  width: 44rem;
-  height: 34rem;
-  background: radial-gradient(closest-side, rgb(122 108 255 / 0.4), transparent);
-}
-
-.hero-beam {
-  background: linear-gradient(90deg, transparent, rgb(165 156 255 / 0.7) 50%, transparent);
-  opacity: 0.6;
+/* Typed headline cursor: a violet block, like a terminal. */
+.typed-cursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 0.85em;
+  margin-left: 0.08em;
+  vertical-align: -0.06em;
+  background: var(--color-accent);
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .hero-glow-a {
-    animation: hero-drift-a 18s ease-in-out infinite alternate;
-  }
-  .hero-glow-b {
-    animation: hero-drift-b 24s ease-in-out infinite alternate;
+  .typed-cursor {
+    animation: cursor-blink 1.1s steps(1, end) infinite;
   }
 }
 
-@keyframes hero-drift-a {
-  to {
-    transform: translate3d(-12rem, 4rem, 0) scale(1.1);
+@keyframes cursor-blink {
+  50% {
+    opacity: 0;
   }
 }
 
-@keyframes hero-drift-b {
-  to {
-    transform: translate3d(-10rem, 6rem, 0) scale(0.9);
-  }
+/* Hero backdrop (phones) -----------------------------------------------------
+   Phones skip the WebGL circuit, so they get a still grid that fades out from
+   the top right instead. */
+
+.hero-grid {
+  background-image:
+    linear-gradient(to right, rgb(165 156 255 / 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(165 156 255 / 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: right top;
+  mask-image: radial-gradient(ellipse 90% 55% at 100% 0%, black 15%, transparent 75%);
 }
 
 /* Article body ---------------------------------------------------------- */

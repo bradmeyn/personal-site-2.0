@@ -3,8 +3,8 @@
  * Animated circuit board for the hero, drawn with a small WebGL fragment shader
  * (no libraries). It starts after the page has loaded, renders at half resolution,
  * pauses off screen and in hidden tabs, and
- * draws a single still frame for reduced motion. Phones, and browsers without
- * WebGL, keep the CSS glow behind it instead.
+ * draws a single still frame for reduced motion. Phones get a static CSS grid
+ * instead (see .hero-grid), and browsers without WebGL show nothing.
  */
 ---
 
@@ -188,8 +188,8 @@
     }
   }
 
-  // Phones get the CSS glow only: the silk is faint at that size, and it isn't
-  // worth the extra work on a slow device.
+  // Phones get the static CSS grid instead: the animation isn't worth the extra
+  // work on a slow device.
   const isPhone = window.matchMedia("(max-width: 639px)").matches;
   const whenIdle = (fn: () => void) =>
     "requestIdleCallback" in window ? requestIdleCallback(fn, { timeout: 2500 }) : setTimeout(fn, 300);

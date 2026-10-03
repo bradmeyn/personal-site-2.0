@@ -1,26 +1,37 @@
 ---
 import HeroCanvas from "@/components/home/hero-canvas.astro";
 import { SITE } from "@/constants/site";
+
+// The headline types through these endings. The first is what shows before the
+// script runs and for reduced motion.
+const ENDINGS = ["fast.", "right.", "to scale.", "to last."];
+const spoken = `Software, built ${ENDINGS.slice(0, -1)
+  .map((e) => e.replace(".", ""))
+  .join(", ")} and ${ENDINGS.at(-1)}`;
 ---
 
 <section class="relative isolate overflow-hidden" aria-labelledby="hero-title">
-  <!-- Backdrop: a soft violet glow, with the animated silk gradient drawn over it. -->
+  <!-- Backdrop: the animated circuit grid, or a static CSS grid on phones. -->
   <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-    <div class="hero-glow hero-glow-a"></div>
+    <div class="hero-grid absolute inset-0 sm:hidden"></div>
     <HeroCanvas />
-    <div class="hero-beam absolute inset-x-0 top-0 h-px"></div>
   </div>
 
   <div class="container pb-24 pt-24 sm:pb-32 sm:pt-32 lg:pb-40 lg:pt-40">
     <h1
       id="hero-title"
-      class="max-w-[18ch] text-balance font-mono text-[2.5rem] font-medium leading-[1.05] tracking-[-0.05em] sm:text-6xl lg:text-[4.75rem]">
-      Modern software solutions.
+      class="font-mono text-[2.25rem] font-medium leading-[1.05] tracking-[-0.05em] sm:text-6xl lg:text-[4.75rem]">
+      <span class="sr-only">{spoken}</span>
+      <span aria-hidden="true" class="block">Software,</span>
+      <span aria-hidden="true" class="block whitespace-nowrap">
+        built <span data-typed data-words={JSON.stringify(ENDINGS)}>{ENDINGS[0]}</span><span
+          class="typed-cursor"></span>
+      </span>
     </h1>
 
     <p class="mt-8 max-w-[54ch] text-lg leading-relaxed text-muted">
-      I'm Brad, a full-stack developer in Newcastle, Australia. I design web apps and build them with
-      AI coding agents, mostly in TypeScript with SvelteKit, React and Astro.
+      I'm Brad, a full-stack developer in Newcastle, Australia. I build web apps, internal tools and fast
+      websites.
     </p>
 
     <div class="mt-10 flex flex-wrap items-center gap-3">
@@ -29,3 +40,39 @@ import { SITE } from "@/constants/site";
     </div>
   </div>
 </section>
+
+<script>
+  const el = document.querySelector<HTMLElement>("[data-typed]");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (el && !reduceMotion) {
+    const words: string[] = JSON.parse(el.dataset.words ?? "[]");
+    const TYPE_MS = 85;
+    const DELETE_MS = 45;
+    const HOLD_MS = 2400;
+    let index = 0;
+
+    const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    async function cycle() {
+      await wait(HOLD_MS);
+      while (true) {
+        const current = words[index];
+        for (let i = current.length; i >= 0; i--) {
+          el!.textContent = current.slice(0, i);
+          await wait(DELETE_MS);
+        }
+        index = (index + 1) % words.length;
+        const next = words[index];
+        await wait(250);
+        for (let i = 1; i <= next.length; i++) {
+          el!.textContent = next.slice(0, i);
+          await wait(TYPE_MS);
+        }
+        await wait(HOLD_MS);
+      }
+    }
+
+    cycle();
+  }
+</script>
