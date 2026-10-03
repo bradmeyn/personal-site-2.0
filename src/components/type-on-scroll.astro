@@ -1,0 +1,86 @@
+---
+/**
+ * Types headings marked with data-type-on-scroll the first time they scroll into
+ * view, with the same violet cursor as the hero. The real text stays in place
+ * (transparent) so the layout never shifts and screen readers read it normally;
+ * the typing is drawn over it. Without JavaScript or with reduced motion, the
+ * headings simply show as they are.
+ */
+---
+
+<script>
+  const headings = [...document.querySelectorAll<HTMLElement>("[data-type-on-scroll]")];
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (headings.length && !reduceMotion) {
+    const TYPE_MS = 55;
+    const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    const prepared = headings.map((heading) => {
+      const text = heading.textContent?.trim() ?? "";
+      const reserve = document.createElement("span");
+      reserve.className = "type-reserve";
+      reserve.textContent = text;
+
+      const overlay = document.createElement("span");
+      overlay.className = "type-overlay";
+      overlay.setAttribute("aria-hidden", "true");
+      const typed = document.createElement("span");
+      const cursor = document.createElement("span");
+      cursor.className = "typed-cursor";
+      overlay.append(typed, cursor);
+
+      const wrap = document.createElement("span");
+      wrap.className = "type-wrap";
+      wrap.append(reserve, overlay);
+      heading.replaceChildren(wrap);
+      return { heading, text, typed, cursor };
+    });
+
+    async function type({ text, typed, cursor }: (typeof prepared)[number]) {
+      for (let i = 1; i <= text.length; i++) {
+        typed.textContent = text.slice(0, i);
+        await wait(TYPE_MS);
+      }
+      await wait(1600); // a couple of blinks, then the cursor leaves
+      cursor.classList.add("is-done");
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          observer.unobserve(entry.target);
+          const item = prepared.find((p) => p.heading === entry.target);
+          if (item) type(item);
+        }
+      },
+      { threshold: 0.6 },
+    );
+    for (const item of prepared) observer.observe(item.heading);
+  }
+</script>
+
+<style is:global>
+  .type-wrap {
+    position: relative;
+    display: inline-block;
+  }
+
+  /* Keeps the heading's space and its accessible text while the overlay types. */
+  .type-reserve {
+    color: transparent;
+  }
+
+  .type-overlay {
+    position: absolute;
+    inset: 0;
+    white-space: nowrap;
+  }
+
+  .typed-cursor.is-done {
+    opacity: 0;
+    animation: none;
+    transition: opacity 0.4s;
+  }
+</style>
