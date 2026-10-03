@@ -79,7 +79,7 @@
           {value}
         </span>
       </span>
-      <span class="text-xs text-muted">{score.label}</span>
+      <span class="whitespace-nowrap text-[11px] text-muted sm:text-xs">{score.label}</span>
     </span>
   {/each}
 </button>

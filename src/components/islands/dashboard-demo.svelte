@@ -119,7 +119,7 @@
   }
 </script>
 
-<div class="overflow-hidden rounded-xl border border-line-strong bg-surface text-[13px] shadow-[0_30px_80px_-20px_rgb(0_0_0/0.6)]">
+<div class="overflow-hidden rounded-xl border border-line-strong bg-surface text-[13px] sm:shadow-[0_30px_80px_-20px_rgb(0_0_0/0.6)]">
   <div class="flex flex-wrap items-center justify-between gap-3 border-b border-line px-4 py-3">
     <p class="font-medium text-fg">Household portfolio</p>
     <div class="flex rounded-lg border border-line bg-bg/60 p-0.5" role="group" aria-label="Time range">
@@ -241,7 +241,7 @@
         </span>
       {/each}
     </div>
-    <ul class="mt-3 grid grid-cols-2 gap-x-4 gap-y-1.5">
+    <ul class="mt-3 grid grid-cols-1 gap-x-4 gap-y-1.5 sm:grid-cols-2">
       {#each ALLOCATION as a (a.label)}
         <li>
           <button
