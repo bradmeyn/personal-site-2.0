@@ -8,8 +8,10 @@
   const RADIUS = 34;
   const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
-  // One tween drives every ring, staggered by index, so they finish together.
-  const progress = new Tween(0, { duration: 1600, easing: cubicOut });
+  // One tween drives every ring, staggered by index, so they finish together. It
+  // starts full, so the real scores show before hydration and without JavaScript;
+  // play() resets it to 0 and counts up.
+  const progress = new Tween(1, { duration: 1600, easing: cubicOut });
 
   let root: HTMLButtonElement;
 

@@ -6,10 +6,13 @@ date: 2026-10-03
 ---
 
 import CwvChart from "@/components/posts/cwv-chart.astro";
+import LighthouseCard from "@/components/lighthouse-card.astro";
+
+<LighthouseCard class="mb-12" caption="This site's own Lighthouse results, on a throttled mobile connection." />
 
 A marketing site has a simple job. It needs to load fast, rank well, be easy to update, cost little to run, and never get hacked. Yet many end up as a WordPress install with thirty plugins, or a React app shipping a megabyte of JavaScript to render what is mostly text.
 
-My answer for these sites is Astro, hosted on Cloudflare. This site is built that way, so the numbers below are real.
+My answer for these sites is Astro, hosted on Cloudflare. This site is built that way, so the numbers above are real.
 
 ## Astro ships HTML, not an app
 
@@ -25,11 +28,7 @@ import DashboardDemo from "@/components/islands/dashboard-demo.svelte";
 <DashboardDemo client:visible />
 ```
 
-`client:visible` means its JavaScript doesn't load until you scroll to it. Everything else on the page is HTML and CSS. The result for this site, measured with Lighthouse on a throttled mobile connection:
-
-- **100** for performance, accessibility, best practices and SEO
-- **1.5 s** to the largest paint, with **0 ms** of blocking time
-- **73 KB** for the whole first visit, and **0 KB** of JavaScript until you reach something interactive
+`client:visible` means its JavaScript doesn't load until you scroll to it. Everything else on the page is HTML and CSS. That's how this site gets the Lighthouse results at the top of this article, measured on a throttled mobile connection, with **0 KB** of JavaScript until you reach something interactive.
 
 You can use React, Svelte, Vue or Solid for the islands, so you're not locked into one UI library either.
 
@@ -95,18 +94,6 @@ export default defineConfig({
 
 There's no server to patch, no database to attack and no plugin updates to babysit. The site is a folder of files on a CDN.
 
-## A bigger example: Film Junk
-
-This site is small. [Film Junk](https://github.com/bradmeyn/film-junk), an unofficial guide to the Film Junk Podcast, is not. It's the same stack at a much larger scale:
-
-- **1,346 episodes, 7,064 films and 3,699 host ratings**, going back to January 2005, merged from the podcast feed, a fan wiki, Bandcamp and the official episode guides.
-- **8,446 pages**, one for every episode and film plus the year and host pages. A full build regenerates all of them in about six seconds on my laptop.
-- **Search and filters are Svelte islands.** Everything else is plain HTML.
-- **A GitHub Action rebuilds it every day**, pulling in new episodes and deploying to Cloudflare.
-- **Hosting costs nothing.** The Worker only serves static files, which Cloudflare doesn't charge for, no matter how many pages there are.
-
-On Lighthouse it scores 100 for accessibility, best practices and SEO. Mobile performance was 88 to 90 until I applied the fonts fix above: it loaded its fonts from Google Fonts, which held up the first paint by about two seconds on a slow connection. Self-hosting them and inlining the CSS took the home page to 99. Episode pages sit at 93 to 96, and the gap there is the poster image, which loads from TMDB's servers.
-
 ## Compared with the usual options
 
 This isn't only true of my site. Astro publishes real-world data from HTTP Archive and the Chrome UX Report: the share of sites built with each framework that pass Google's Core Web Vitals.
@@ -118,3 +105,15 @@ This isn't only true of my site. Astro publishes real-world data from HTTP Archi
 - **Site builders** are fine until you need something they don't offer, or care about what's in the HTML.
 
 Astro on Cloudflare gives you the speed of a static site, the flexibility of a framework when you need it, and hosting costs that round to zero. For a site whose whole job is to be found and load fast, that's the right trade.
+
+## A bigger example: Film Junk
+
+This site is small. [Film Junk](https://github.com/bradmeyn/film-junk), an unofficial guide to the Film Junk Podcast, is not. It's the same stack at a much larger scale:
+
+- **1,346 episodes, 7,064 films and 3,699 host ratings**, going back to January 2005, merged from the podcast feed, a fan wiki, Bandcamp and the official episode guides.
+- **8,446 pages**, one for every episode and film plus the year and host pages. A full build regenerates all of them in about six seconds on my laptop.
+- **Search and filters are Svelte islands.** Everything else is plain HTML.
+- **A GitHub Action rebuilds it every day**, pulling in new episodes and deploying to Cloudflare.
+- **Hosting costs nothing.** The Worker only serves static files, which Cloudflare doesn't charge for, no matter how many pages there are.
+
+On Lighthouse it scores 100 for accessibility, best practices and SEO. Mobile performance was 88 to 90 until I applied the fonts fix above: it loaded its fonts from Google Fonts, which held up the first paint by about two seconds on a slow connection. Self-hosting them and inlining the CSS took the home page to 99. Episode pages sit at 93 to 96, and the gap there is the poster image, which loads from TMDB's servers.

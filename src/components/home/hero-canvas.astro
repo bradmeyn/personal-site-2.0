@@ -2,9 +2,9 @@
 /**
  * Animated circuit board for the hero, drawn with a small WebGL fragment shader
  * (no libraries). It starts after the page has loaded, renders at half resolution,
- * pauses off screen and in hidden tabs, and
- * draws a single still frame for reduced motion. Phones get a static CSS grid
- * instead (see .hero-grid), and browsers without WebGL show nothing.
+ * pauses off screen and in hidden tabs, and draws a single still frame for reduced
+ * motion. Phones, machines without a GPU and browsers without WebGL get the static
+ * CSS grid (.hero-grid) instead.
  */
 ---
 
@@ -18,8 +18,8 @@
 
   // A circuit board: a faint grid, some segments lit as traces, and pulses of
   // energy racing along the traces with a bright head and a fading tail.
-  // Junctions glow softly. Alpha fades out towards the left and bottom so the
-  // headline always sits on the page background.
+  // Junctions glow softly. It clears in an oval behind the centred headline
+  // and fades out at the bottom.
   const FRAGMENT = `
     precision highp float;
     uniform vec2 resolution;
@@ -80,11 +80,14 @@
       color += mix(violet, hot, clamp(energy * 1.2, 0.0, 1.0)) * energy * 1.6;
 
       float intensity = clamp(grid + traces + node + halo + energy * 1.6, 0.0, 1.0);
-      float fadeX = smoothstep(0.36, 0.85, gl_FragCoord.x / resolution.x);
-      float fadeY = smoothstep(0.0, 0.4, gl_FragCoord.y / resolution.y);
-      float alpha = intensity * fadeX * fadeY;
+      // Clear in an oval behind the centred text, rising towards the edges,
+      // and fading out at the bottom of the hero.
+      vec2 uv = gl_FragCoord.xy / resolution;
+      vec2 c = (uv - vec2(0.5, 0.55)) * vec2(resolution.x / resolution.y, 1.0);
+      float r = length(c * vec2(0.62, 1.05));
+      float mask = smoothstep(0.3, 0.72, r) * smoothstep(0.0, 0.22, uv.y);
 
-      gl_FragColor = vec4(color * fadeX * fadeY, alpha);
+      gl_FragColor = vec4(color * mask, intensity * mask);
     }
   `;
 
@@ -100,6 +103,16 @@
       context.shaderSource(shader, source);
       context.compileShader(shader);
       return context.getShaderParameter(shader, context.COMPILE_STATUS) ? shader : null;
+    }
+
+    // Without a GPU (software WebGL such as SwiftShader or llvmpipe, which is also
+    // what headless test browsers use) even one frame of this shader is expensive
+    // on the CPU. Skip it and show the static CSS grid that phones get instead.
+    const debug = gl?.getExtension("WEBGL_debug_renderer_info");
+    const renderer = gl && debug ? String(gl.getParameter(debug.UNMASKED_RENDERER_WEBGL)) : "";
+    if (/swiftshader|llvmpipe|softpipe|software|basic render/i.test(renderer)) {
+      document.querySelector(".hero-grid")?.classList.remove("sm:hidden");
+      return;
     }
 
     if (canvas && gl) {
@@ -155,7 +168,10 @@
             last = now;
             draw(now);
           }
-          frame = visible && !document.hidden && !reduceMotion.matches ? requestAnimationFrame(loop) : 0;
+          frame =
+            visible && !document.hidden && !reduceMotion.matches
+              ? requestAnimationFrame(loop)
+              : 0;
         }
 
         function play() {
@@ -202,9 +218,8 @@
 <style>
   .hero-canvas {
     position: absolute;
-    top: 0;
-    right: 0;
-    width: min(100%, 72rem);
+    inset: 0;
+    width: 100%;
     height: 100%;
     opacity: 0;
     transition: opacity 1.2s ease;

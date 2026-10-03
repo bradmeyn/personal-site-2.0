@@ -130,6 +130,13 @@
   }
 }
 
+/* The hero headline glides to centre each ending before it types. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-title {
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
 /* Typed headline cursor: a violet block, like a terminal. */
 .typed-cursor {
   display: inline-block;
@@ -153,16 +160,16 @@
 }
 
 /* Hero backdrop (phones) -----------------------------------------------------
-   Phones skip the WebGL circuit, so they get a still grid that fades out from
-   the top right instead. */
+   Phones skip the WebGL circuit, so they get a still grid around the edges,
+   clear behind the centred text. */
 
 .hero-grid {
   background-image:
     linear-gradient(to right, rgb(165 156 255 / 0.1) 1px, transparent 1px),
     linear-gradient(to bottom, rgb(165 156 255 / 0.1) 1px, transparent 1px);
   background-size: 40px 40px;
-  background-position: right top;
-  mask-image: radial-gradient(ellipse 90% 55% at 100% 0%, black 15%, transparent 75%);
+  background-position: center;
+  mask-image: radial-gradient(ellipse 85% 60% at 50% 50%, transparent 35%, black 90%);
 }
 
 /* Article body ---------------------------------------------------------- */
