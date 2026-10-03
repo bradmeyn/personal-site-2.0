@@ -1,80 +1,31 @@
 ---
+import HeroCanvas from "@/components/home/hero-canvas.astro";
+import { SITE } from "@/constants/site";
 ---
 
-<section class="pt-14 sm:pt-20 pb-16 sm:pb-24">
-  <div class="grid lg:grid-cols-[1fr_auto] items-center gap-10 lg:gap-16">
-    <div>
-      <div class="flex items-center gap-2.5">
-        <span class="size-1.5 rounded-full bg-accent-500"></span>
-        <p class="eyebrow">Full-stack developer — Newcastle, AU</p>
-      </div>
+<section class="relative isolate overflow-hidden" aria-labelledby="hero-title">
+  <!-- Backdrop: a soft violet glow, with the animated silk gradient drawn over it. -->
+  <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+    <div class="hero-glow hero-glow-a"></div>
+    <HeroCanvas />
+    <div class="hero-beam absolute inset-x-0 top-0 h-px"></div>
+  </div>
 
-      <h1
-        class="mt-6 font-display font-semibold leading-[1.02] tracking-tight text-ink-950 text-[12vw] sm:text-6xl lg:text-7xl">
-        Building
-        <br />
-        <span class="text-bauhaus-red">modern</span> software.
-      </h1>
+  <div class="container pb-24 pt-24 sm:pb-32 sm:pt-32 lg:pb-40 lg:pt-40">
+    <h1
+      id="hero-title"
+      class="max-w-[18ch] text-balance font-mono text-[2.5rem] font-medium leading-[1.05] tracking-[-0.05em] sm:text-6xl lg:text-[4.75rem]">
+      Modern software solutions.
+    </h1>
 
-      <p class="mt-6 max-w-md text-lg text-ink-700 leading-relaxed">
-        I design &amp; build fast, considered products — from financial
-        tools to travel planners. Currently shipping with TypeScript,
-        Svelte &amp; Astro.
-      </p>
+    <p class="mt-8 max-w-[54ch] text-lg leading-relaxed text-muted">
+      I'm Brad, a full-stack developer in Newcastle, Australia. I design web apps and build them with
+      AI coding agents, mostly in TypeScript with SvelteKit, React and Astro.
+    </p>
 
-      <div class="mt-8 flex items-center gap-4">
-        <a href="/#projects" class="pill-button">View projects</a>
-        <a
-          href="/#writing"
-          class="text-sm font-medium text-ink-700 hover:text-ink-950 transition-colors duration-200">
-          Read the blog &rarr;
-        </a>
-      </div>
+    <div class="mt-10 flex flex-wrap items-center gap-3">
+      <a href="#services" class="button-primary">See what I do</a>
+      <a href={SITE.github} class="button-ghost" rel="me noopener">GitHub profile</a>
     </div>
-
-    <svg
-      viewBox="0 0 400 400"
-      width="280"
-      height="280"
-      role="img"
-      aria-label="Illustration of an orbiting solar system"
-      class="mx-auto shrink-0 size-56 sm:size-64 lg:size-72">
-      <circle
-        cx="200"
-        cy="200"
-        r="160"
-        fill="none"
-        stroke="var(--color-line-strong)"
-        stroke-width="1"></circle>
-      <circle
-        cx="200"
-        cy="200"
-        r="110"
-        fill="none"
-        stroke="var(--color-line-strong)"
-        stroke-width="1"></circle>
-      <circle
-        cx="200"
-        cy="200"
-        r="60"
-        fill="none"
-        stroke="var(--color-line-strong)"
-        stroke-width="1"></circle>
-
-      <g class="orbit orbit-outer">
-        <circle cx="360" cy="200" r="12" fill="var(--color-bauhaus-red)"
-        ></circle>
-      </g>
-      <g class="orbit orbit-mid">
-        <circle cx="310" cy="200" r="9" fill="var(--color-bauhaus-blue)"
-        ></circle>
-      </g>
-      <g class="orbit orbit-inner">
-        <circle cx="260" cy="200" r="7" fill="var(--color-ink-800)"></circle>
-      </g>
-
-      <circle cx="200" cy="200" r="22" fill="var(--color-bauhaus-yellow)"
-      ></circle>
-    </svg>
   </div>
 </section>

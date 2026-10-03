@@ -1,19 +1,19 @@
 ---
-import Post from "@/components/post-card.astro";
-import { getCollection } from "astro:content";
+import PostCard from "@/components/post-card.astro";
+import { getPosts } from "@/lib/posts";
 
-const posts = await getCollection("posts");
+const LIMIT = 3;
+const posts = await getPosts();
 ---
 
-<section id="writing">
-  <div class="flex items-baseline justify-between gap-4">
-    <h2 class="heading--secondary">Writing</h2>
-    <span class="eyebrow shrink-0"
-      >{String(posts.length).padStart(2, "0")} posts</span
-    >
-  </div>
-
-  <div class="mt-6 border-t border-line">
-    {posts.map((post, index) => <Post post={post} index={index} />)}
+<section id="articles" aria-labelledby="articles-title" class="scroll-mt-20 border-t border-line">
+  <div class="container py-20 sm:py-28">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <h2 id="articles-title" class="display text-3xl leading-tight sm:text-4xl">Articles</h2>
+      <a href="/articles/" class="link text-sm">All articles</a>
+    </div>
+    <div class="mt-8 border-t border-line">
+      {posts.slice(0, LIMIT).map((post) => <PostCard post={post} />)}
+    </div>
   </div>
 </section>

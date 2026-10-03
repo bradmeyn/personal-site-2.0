@@ -1,0 +1,80 @@
+---
+import MockFrame from "./mock-frame.astro";
+
+const days = [
+  { n: 1, place: "Tokyo", dx: -12, detail: "Shibuya, teamLab Planets", x: 320, y: 64 },
+  { n: 2, place: "Hakone", dx: 12, detail: "Ropeway, onsen ryokan", x: 262, y: 108 },
+  { n: 3, place: "Kyoto", dx: -14, detail: "Fushimi Inari at dawn", x: 160, y: 140 },
+  { n: 4, place: "Nara", dx: 12, detail: "Tōdai-ji, deer park", x: 184, y: 182 },
+  { n: 5, place: "Osaka", dx: -12, detail: "Dōtonbori, fly home", x: 112, y: 196 },
+];
+const route = days.map((d) => `${d.x},${d.y}`).join(" ");
+---
+
+<MockFrame title="Japan, spring" color="var(--color-embark)">
+  <div class="grid sm:grid-cols-[13rem_1fr]">
+    <ol class="border-b border-line sm:border-b-0 sm:border-r">
+      {
+        days.map((d) => (
+          <li
+            class:list={[
+              "flex gap-3 border-b border-line px-4 py-3 last:border-0",
+              d.n === 3 && "bg-white/[0.04]",
+            ]}>
+            <span
+              class:list={[
+                "mt-0.5 grid size-5 shrink-0 place-items-center rounded-full text-[10px] font-medium",
+                d.n === 3 ? "bg-embark text-bg" : "bg-white/[0.08] text-muted",
+              ]}>
+              {d.n}
+            </span>
+            <span class="min-w-0">
+              <span class="block font-medium text-fg">{d.place}</span>
+              <span class="block truncate text-xs text-faint">{d.detail}</span>
+            </span>
+          </li>
+        ))
+      }
+    </ol>
+    <div class="relative hidden min-h-64 bg-[#101a1c] sm:block">
+      <svg viewBox="0 0 400 260" class="absolute inset-0 size-full" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <pattern id="embark-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M20 0H0V20" fill="none" stroke="rgb(255 255 255 / 0.035)" />
+          </pattern>
+        </defs>
+        <rect width="400" height="260" fill="url(#embark-grid)" />
+        <polyline
+          points={route}
+          fill="none"
+          stroke="var(--color-embark)"
+          stroke-width="2"
+          stroke-dasharray="5 5"
+          stroke-linecap="round"
+          opacity="0.85"
+        />
+        {
+          days.map((d) => (
+            <g>
+              <circle cx={d.x} cy={d.y} r={d.n === 3 ? 9 : 6} fill="var(--color-embark)" opacity="0.2" />
+              <circle cx={d.x} cy={d.y} r="3.5" fill={d.n === 3 ? "var(--color-embark)" : "#e8eef0"} />
+              <text
+                x={d.x + d.dx}
+                y={d.y + 4}
+                text-anchor={d.dx < 0 ? "end" : "start"}
+                font-size="11"
+                fill={d.n === 3 ? "#e8eef0" : "#a3afb3"}>
+                {d.place}
+              </text>
+            </g>
+          ))
+        }
+      </svg>
+      <div
+        class="absolute right-3 bottom-3 rounded-lg border border-line-strong bg-bg/80 px-3 py-2 text-xs backdrop-blur">
+        <p class="text-fg">Hakone to Kyoto</p>
+        <p class="text-faint">Shinkansen, 2h 10m</p>
+      </div>
+    </div>
+  </div>
+</MockFrame>

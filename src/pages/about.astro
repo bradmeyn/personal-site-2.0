@@ -1,0 +1,135 @@
+---
+import { Image } from "astro:assets";
+import PageLayout from "@/components/common/page-layout.astro";
+import { SITE } from "@/constants/site";
+import profile from "@/assets/profile.jpg";
+import TechWall from "@/components/tech-wall.astro";
+
+const QUALIFICATIONS = [
+  {
+    title: "AWS Certified Cloud Practitioner",
+    institution: "Amazon Web Services",
+    year: 2024,
+  },
+  {
+    title: "Master of Computer Science, with Distinction",
+    institution: "Monash University",
+    year: 2022,
+  },
+  {
+    title: "Bachelor of Business & Commerce, with Distinction",
+    institution: "University of Newcastle",
+    year: 2014,
+  },
+];
+
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    url: `${SITE.url}/about/`,
+    mainEntity: {
+      "@type": "Person",
+      "@id": `${SITE.url}/#person`,
+      name: SITE.name,
+      jobTitle: "Full-stack developer",
+      url: SITE.url,
+      sameAs: [SITE.github, SITE.linkedin],
+      alumniOf: [
+        { "@type": "CollegeOrUniversity", name: "Monash University" },
+        { "@type": "CollegeOrUniversity", name: "University of Newcastle" },
+      ],
+      hasCredential: QUALIFICATIONS.map((q) => ({
+        "@type": "EducationalOccupationalCredential",
+        name: q.title,
+        recognizedBy: { "@type": "Organization", name: q.institution },
+      })),
+    },
+  },
+];
+---
+
+<PageLayout
+  title="About"
+  description="Bradley Meyn is a full-stack developer in Newcastle, Australia, with more than six years of experience and a Master of Computer Science from Monash University."
+  jsonLd={jsonLd}>
+  <section class="container pb-20 pt-16 sm:pt-24">
+    <div class="grid items-start gap-12 lg:grid-cols-[3fr_2fr] lg:gap-20">
+      <div>
+        <h1 class="display text-4xl leading-tight sm:text-5xl">About</h1>
+        <div class="mt-8 max-w-[60ch] space-y-5 text-lg leading-relaxed text-muted">
+          <p>
+            Hi, I'm Brad, a full-stack developer in Newcastle, Australia, and I've been building
+            software for more than six years. I build web apps end to end on a modern stack, mostly
+            TypeScript with SvelteKit, React and Astro, and I work with AI coding agents to ship
+            them faster.
+          </p>
+          <p>
+            I studied business and commerce before computer science, which is a big part of why so
+            much of what I build deals with money: an adviser platform in{" "}
+            <a href="/projects/#sage" class="text-fg underline decoration-line-strong underline-offset-4 transition-colors hover:text-accent hover:decoration-accent">Sage</a>{" "}
+            and capital gains tax tracking in{" "}
+            <a href="/projects/#costbase" class="text-fg underline decoration-line-strong underline-offset-4 transition-colors hover:text-accent hover:decoration-accent">Costbase</a>.
+          </p>
+          <p>
+            Away from the keyboard I'm a travel enthusiast, coffee snob, wine lover, lucky husband and
+            human/dog father.
+          </p>
+        </div>
+
+        <div class="mt-10 flex flex-wrap gap-3">
+          <a href={`mailto:${SITE.email}`} class="button-primary">Email me</a>
+          <a href={SITE.linkedin} class="button-ghost" rel="me noopener">LinkedIn</a>
+          <a href={SITE.github} class="button-ghost" rel="me noopener">GitHub</a>
+        </div>
+      </div>
+
+      <figure class="lg:pt-4">
+        <Image
+          src={profile}
+          alt="Brad and his wife in Tuscany, Italy"
+          widths={[360, 540, 720]}
+          sizes="(min-width: 1024px) 420px, (min-width: 640px) 560px, 92vw"
+          quality={55}
+          format="avif"
+          fetchpriority="high"
+          class="aspect-[4/5] w-full rounded-xl border border-line-strong object-cover object-top"
+          loading="eager"
+        />
+        <figcaption class="mt-3 text-sm text-faint">Tuscany, Italy.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section aria-labelledby="qualifications-title" class="border-t border-line">
+    <div class="container grid gap-10 py-20 lg:grid-cols-[1fr_2fr]">
+      <h2 id="qualifications-title" class="display text-2xl sm:text-3xl">Qualifications</h2>
+      <ul class="border-t border-line">
+        {
+          QUALIFICATIONS.map((q) => (
+            <li class="grid gap-1 border-b border-line py-5 sm:grid-cols-[1fr_auto] sm:gap-6">
+              <div>
+                <p class="font-medium text-fg">{q.title}</p>
+                <p class="mt-1 text-sm text-muted">{q.institution}</p>
+              </div>
+              <p class="font-mono text-sm tabular-nums text-faint">{q.year}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="tools-title" class="border-t border-line">
+    <div class="container grid gap-10 py-20 lg:grid-cols-[1fr_2fr]">
+      <div>
+        <h2 id="tools-title" class="display text-2xl sm:text-3xl">Tools I've worked with</h2>
+        <p class="mt-4 max-w-[36ch] leading-relaxed text-muted">
+          A modern TypeScript stack day to day, with Python, .NET and Swift along the way.
+        </p>
+      </div>
+      <TechWall />
+    </div>
+  </section>
+</PageLayout>

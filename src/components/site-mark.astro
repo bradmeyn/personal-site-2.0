@@ -1,0 +1,24 @@
+---
+/** The site's logo: "BM" with a violet full stop, on a tile styled like the project logos. */
+type Props = {
+  /** Rendered size in px. */
+  size?: number;
+  class?: string;
+};
+
+const { size = 30, class: className = "" } = Astro.props;
+---
+
+<span
+  class:list={[
+    "grid shrink-0 place-items-center rounded-[22%] border border-white/10 bg-[#121a1d]",
+    "shadow-[inset_0_1px_0_rgb(255_255_255/0.08)]",
+    className,
+  ]}
+  style={`width:${size}px;height:${size}px;font-size:${Math.round(size * 0.4)}px`}
+  aria-hidden="true">
+  <span class="font-mono font-bold leading-none tracking-[-0.06em] text-fg">
+    BM<span
+      class="ml-[0.08em] inline-block size-[0.24em] rounded-full bg-accent align-baseline"></span>
+  </span>
+</span>

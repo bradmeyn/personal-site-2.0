@@ -1,0 +1,68 @@
+---
+import MockFrame from "./mock-frame.astro";
+
+// Illustrative figures only.
+const summary = [
+  { label: "Net capital gain", value: "$8,214" },
+  { label: "Discount applied", value: "$5,960" },
+  { label: "Losses carried", value: "$0" },
+];
+
+const parcels = [
+  { code: "VAS", acquired: "12 Mar 2022", units: "140", cost: "$12,404", gain: "+$3,286", long: true },
+  { code: "VGS", acquired: "04 Aug 2023", units: "95", cost: "$10,121", gain: "+$2,917", long: true },
+  { code: "BHP", acquired: "19 Nov 2024", units: "200", cost: "$8,730", gain: "+$1,402", long: true },
+  { code: "CSL", acquired: "28 Jan 2026", units: "18", cost: "$4,995", gain: "+$609", long: false },
+];
+---
+
+<MockFrame title="Tax report 2025–26" color="var(--color-costbase)">
+  <div class="grid grid-cols-3 border-b border-line">
+    {
+      summary.map((s, i) => (
+        <div class:list={["px-4 py-4", i > 0 && "border-l border-line"]}>
+          <p class="text-[11px] text-faint">{s.label}</p>
+          <p class="mt-1 font-mono text-base text-fg sm:text-lg">{s.value}</p>
+        </div>
+      ))
+    }
+  </div>
+  <div class="px-4 pb-2 pt-3">
+    <p class="text-xs font-medium text-muted">Realised parcels, FIFO</p>
+  </div>
+  <table class="w-full text-left">
+    <thead class="text-[11px] text-faint">
+      <tr class="border-b border-line">
+        <th class="px-4 py-2 font-normal">Holding</th>
+        <th class="hidden px-2 py-2 font-normal sm:table-cell">Acquired</th>
+        <th class="px-2 py-2 text-right font-normal">Cost base</th>
+        <th class="px-2 py-2 text-right font-normal">Gain</th>
+        <th class="px-4 py-2 text-right font-normal">Term</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        parcels.map((p) => (
+          <tr class="border-b border-line last:border-0">
+            <td class="px-4 py-2.5">
+              <span class="font-medium text-fg">{p.code}</span>
+              <span class="ml-1.5 text-faint">{p.units}</span>
+            </td>
+            <td class="hidden px-2 py-2.5 text-muted sm:table-cell">{p.acquired}</td>
+            <td class="px-2 py-2.5 text-right font-mono text-muted">{p.cost}</td>
+            <td class="px-2 py-2.5 text-right font-mono text-[#7fd6a8]">{p.gain}</td>
+            <td class="px-4 py-2.5 text-right">
+              <span
+                class:list={[
+                  "rounded-md px-1.5 py-0.5 text-[11px]",
+                  p.long ? "bg-costbase/15 text-costbase" : "bg-white/[0.06] text-muted",
+                ]}>
+                {p.long ? "Discount" : "Short"}
+              </span>
+            </td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</MockFrame>

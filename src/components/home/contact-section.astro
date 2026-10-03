@@ -1,0 +1,20 @@
+---
+import { SITE } from "@/constants/site";
+---
+
+<section aria-labelledby="contact-title" class="border-t border-line bg-surface">
+  <div
+    class="container flex flex-col gap-8 py-20 sm:py-24 lg:flex-row lg:items-end lg:justify-between">
+    <div>
+      <h2 id="contact-title" class="display max-w-[22ch] text-balance text-3xl leading-tight sm:text-4xl">
+        Have something worth building?
+      </h2>
+      <p class="mt-4 max-w-[48ch] text-lg leading-relaxed text-muted">
+        Tell me what you're working on and I'll get back to you.
+      </p>
+    </div>
+    <a href={`mailto:${SITE.email}`} class="button-primary self-start !px-5 !py-2.5 lg:self-auto">
+      Email {SITE.email}
+    </a>
+  </div>
+</section>

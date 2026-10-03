@@ -1,0 +1,30 @@
+---
+/** Window chrome for an illustrative product screenshot built in HTML. */
+type Props = {
+  title: string;
+  /** Brand colour for the light spilling behind the window. */
+  color: string;
+  class?: string;
+};
+
+const { title, color, class: className = "" } = Astro.props;
+---
+
+<figure class:list={["relative isolate", className]} aria-hidden="true">
+  <div
+    class="pointer-events-none absolute -inset-x-10 -top-10 bottom-0 -z-10 opacity-[0.18] blur-3xl"
+    style={`background: radial-gradient(60% 55% at 50% 35%, ${color}, transparent 70%)`}>
+  </div>
+  <div
+    class="overflow-hidden rounded-xl border border-line-strong bg-surface shadow-[0_1px_0_rgb(255_255_255/0.06)_inset,0_30px_80px_-20px_rgb(0_0_0/0.6)]">
+    <div class="flex h-9 items-center gap-2 border-b border-line bg-raised/60 px-3.5">
+      <span class="size-2 rounded-full bg-white/10"></span>
+      <span class="size-2 rounded-full bg-white/10"></span>
+      <span class="size-2 rounded-full bg-white/10"></span>
+      <span class="ml-2 truncate text-xs text-faint">{title}</span>
+    </div>
+    <div class="text-[13px] leading-normal">
+      <slot />
+    </div>
+  </div>
+</figure>

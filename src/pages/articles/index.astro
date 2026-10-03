@@ -1,0 +1,39 @@
+---
+import PageLayout from "@/components/common/page-layout.astro";
+import PostCard from "@/components/post-card.astro";
+import { getPosts } from "@/lib/posts";
+import { SITE } from "@/constants/site";
+
+const posts = await getPosts();
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: `${SITE.name}: Articles`,
+    url: `${SITE.url}/articles/`,
+    author: { "@type": "Person", "@id": `${SITE.url}/#person`, name: SITE.name },
+    blogPost: posts.map((post) => ({
+      "@type": "BlogPosting",
+      headline: post.data.title,
+      url: `${SITE.url}/articles/${post.id}/`,
+      datePublished: post.data.date.toISOString(),
+    })),
+  },
+];
+---
+
+<PageLayout
+  title="Articles"
+  description="Articles by Bradley Meyn on SvelteKit, Astro, Cloudflare and building software with AI agents."
+  jsonLd={jsonLd}>
+  <section class="container pb-24 pt-16 sm:pt-24">
+    <h1 class="display text-4xl leading-tight sm:text-5xl">Articles</h1>
+    <p class="mt-5 max-w-[56ch] text-lg leading-relaxed text-muted">
+      Notes on the frameworks and tools I build with, and how I use AI agents to build faster.
+    </p>
+    <div class="mt-12 border-t border-line">
+      {posts.map((post) => <PostCard post={post} headingLevel={2} />)}
+    </div>
+  </section>
+</PageLayout>

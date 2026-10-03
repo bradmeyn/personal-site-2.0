@@ -1,0 +1,217 @@
+---
+/**
+ * Animated circuit board for the hero, drawn with a small WebGL fragment shader
+ * (no libraries). It starts after the page has loaded, renders at half resolution,
+ * pauses off screen and in hidden tabs, and
+ * draws a single still frame for reduced motion. Phones, and browsers without
+ * WebGL, keep the CSS glow behind it instead.
+ */
+---
+
+<canvas class="hero-canvas" data-hero-canvas aria-hidden="true"></canvas>
+
+<script>
+  const VERTEX = `
+    attribute vec2 position;
+    void main() { gl_Position = vec4(position, 0.0, 1.0); }
+  `;
+
+  // A circuit board: a faint grid, some segments lit as traces, and pulses of
+  // energy racing along the traces with a bright head and a fading tail.
+  // Junctions glow softly. Alpha fades out towards the left and bottom so the
+  // headline always sits on the page background.
+  const FRAGMENT = `
+    precision highp float;
+    uniform vec2 resolution;
+    uniform float time;
+
+    float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+    float hash1(float n) { return fract(sin(n * 91.345) * 47453.5453); }
+
+    // Energy travelling along one line. 'along' is the position on the line in
+    // cells, 'across' the distance from it in pixels, 'lane' identifies the line.
+    float pulse(float along, float across, float lane, float span, float t) {
+      if (hash1(lane + 11.0) < 0.3) return 0.0;
+      float speed = 0.6 + hash1(lane) * 1.4;
+      float dir = hash1(lane + 3.0) > 0.5 ? 1.0 : -1.0;
+      float head = fract(hash1(lane + 7.0) + t * speed / span) * span;
+      head = dir > 0.0 ? head - 1.0 : span - head - 1.0;
+      float d = (along - head) * dir;
+      float trail = d < 0.0 ? exp(d * 0.38) : exp(-d * 14.0);
+      return trail * exp(-across * across * 0.35);
+    }
+
+    void main() {
+      float cell = 26.0;
+      vec2 g = gl_FragCoord.xy / cell;
+      float t = time;
+      vec2 span = resolution / cell + 2.0;
+
+      float row = floor(g.y + 0.5);
+      float col = floor(g.x + 0.5);
+      float dH = abs(g.y - row) * cell;
+      float dV = abs(g.x - col) * cell;
+
+      // Which segments are lit as traces.
+      float hTrace = step(0.52, hash(vec2(floor(g.x), row)));
+      float vTrace = step(0.6, hash(vec2(col, floor(g.y)) + 17.0));
+
+      float hLine = smoothstep(1.1, 0.0, dH);
+      float vLine = smoothstep(1.1, 0.0, dV);
+      float grid = (hLine + vLine) * 0.07;
+      float traces = hLine * hTrace * 0.32 + vLine * vTrace * 0.32;
+
+      float energy =
+        pulse(g.x, dH, row, span.x, t) * hTrace +
+        pulse(g.y, dV, col + 101.0, span.y, t * 0.8) * vTrace;
+
+      // Junctions: small pads at some crossings, breathing slowly.
+      float pad = hash(vec2(col, row) + 5.0);
+      float d = length(g - vec2(col, row)) * cell;
+      float node = step(0.72, pad) * smoothstep(3.2, 1.2, d);
+      node *= 0.45 + 0.55 * (0.5 + 0.5 * sin(t * 1.6 + pad * 40.0));
+      float halo = step(0.72, pad) * exp(-d * 0.18) * 0.18;
+
+      vec3 violet = vec3(0.65, 0.61, 1.0);
+      vec3 indigo = vec3(0.36, 0.30, 0.95);
+      vec3 hot = vec3(0.93, 0.92, 1.0);
+
+      vec3 color = indigo * grid + violet * (traces + node * 0.9 + halo);
+      color += mix(violet, hot, clamp(energy * 1.2, 0.0, 1.0)) * energy * 1.6;
+
+      float intensity = clamp(grid + traces + node + halo + energy * 1.6, 0.0, 1.0);
+      float fadeX = smoothstep(0.36, 0.85, gl_FragCoord.x / resolution.x);
+      float fadeY = smoothstep(0.0, 0.4, gl_FragCoord.y / resolution.y);
+      float alpha = intensity * fadeX * fadeY;
+
+      gl_FragColor = vec4(color * fadeX * fadeY, alpha);
+    }
+  `;
+
+  // Everything WebGL, including compiling the shader, waits until the page has
+  // loaded and the browser is idle, so the animation never competes with the
+  // first paint.
+  function init() {
+    const canvas = document.querySelector<HTMLCanvasElement>("[data-hero-canvas]");
+    const gl = canvas?.getContext("webgl", { premultipliedAlpha: true, antialias: false });
+
+    function compile(context: WebGLRenderingContext, type: number, source: string) {
+      const shader = context.createShader(type)!;
+      context.shaderSource(shader, source);
+      context.compileShader(shader);
+      return context.getShaderParameter(shader, context.COMPILE_STATUS) ? shader : null;
+    }
+
+    if (canvas && gl) {
+      const vertex = compile(gl, gl.VERTEX_SHADER, VERTEX);
+      const fragment = compile(gl, gl.FRAGMENT_SHADER, FRAGMENT);
+      const program = gl.createProgram()!;
+
+      if (vertex && fragment) {
+        gl.attachShader(program, vertex);
+        gl.attachShader(program, fragment);
+        gl.linkProgram(program);
+      }
+
+      if (vertex && fragment && gl.getProgramParameter(program, gl.LINK_STATUS)) {
+        gl.useProgram(program);
+        const buffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+        const position = gl.getAttribLocation(program, "position");
+        gl.enableVertexAttribArray(position);
+        gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
+        const uResolution = gl.getUniformLocation(program, "resolution");
+        const uTime = gl.getUniformLocation(program, "time");
+
+        // The gradient is soft, so a reduced resolution looks the same at a fraction of
+        // the cost; phones go lower still.
+        const SCALE = 0.5;
+        const FRAME_MS = 1000 / 30;
+        let last = 0;
+        function resize() {
+          const width = Math.max(1, Math.round(canvas!.clientWidth * SCALE));
+          const height = Math.max(1, Math.round(canvas!.clientHeight * SCALE));
+          if (canvas!.width !== width || canvas!.height !== height) {
+            canvas!.width = width;
+            canvas!.height = height;
+            gl!.viewport(0, 0, width, height);
+          }
+          gl!.uniform2f(uResolution, width, height);
+        }
+
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+        const start = performance.now() - 12_000; // start mid-flow, with pulses already running
+        let visible = true;
+        let frame = 0;
+
+        function draw(now: number) {
+          gl!.uniform1f(uTime, (now - start) / 1000);
+          gl!.drawArrays(gl!.TRIANGLE_STRIP, 0, 4);
+        }
+
+        function loop(now: number) {
+          if (now - last >= FRAME_MS) {
+            last = now;
+            draw(now);
+          }
+          frame = visible && !document.hidden && !reduceMotion.matches ? requestAnimationFrame(loop) : 0;
+        }
+
+        function play() {
+          if (!frame) frame = requestAnimationFrame(loop);
+        }
+
+        function begin() {
+          resize();
+          draw(performance.now());
+          canvas!.dataset.ready = "true";
+          play();
+        }
+        begin();
+
+        const started = () => canvas!.dataset.ready === "true";
+        new ResizeObserver(() => {
+          if (!started()) return;
+          resize();
+          draw(performance.now());
+        }).observe(canvas);
+        new IntersectionObserver(([entry]) => {
+          visible = entry.isIntersecting;
+          if (visible && started()) play();
+        }).observe(canvas);
+        document.addEventListener("visibilitychange", () => {
+          if (!document.hidden && started()) play();
+        });
+        reduceMotion.addEventListener("change", () => started() && play());
+      }
+    }
+  }
+
+  // Phones get the CSS glow only: the silk is faint at that size, and it isn't
+  // worth the extra work on a slow device.
+  const isPhone = window.matchMedia("(max-width: 639px)").matches;
+  const whenIdle = (fn: () => void) =>
+    "requestIdleCallback" in window ? requestIdleCallback(fn, { timeout: 2500 }) : setTimeout(fn, 300);
+  if (!isPhone) {
+    if (document.readyState === "complete") whenIdle(init);
+    else window.addEventListener("load", () => whenIdle(init), { once: true });
+  }
+</script>
+
+<style>
+  .hero-canvas {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: min(100%, 72rem);
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+  }
+
+  .hero-canvas[data-ready="true"] {
+    opacity: 1;
+  }
+
+</style>

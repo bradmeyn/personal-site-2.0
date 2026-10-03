@@ -1,0 +1,67 @@
+---
+import * as icons from "simple-icons";
+
+type Icon = { title: string; hex: string; path: string };
+type Tile = { name: string; icon?: Icon };
+
+// Brand logos from Simple Icons (CC0), inlined at build time. AWS isn't in the set,
+// so it's shown as a wordmark.
+const TILES: Tile[] = [
+  { name: "TypeScript", icon: icons.siTypescript },
+  { name: "JavaScript", icon: icons.siJavascript },
+  { name: "Node.js", icon: icons.siNodedotjs },
+  { name: "React", icon: icons.siReact },
+  { name: "Next.js", icon: icons.siNextdotjs },
+  { name: "Svelte", icon: icons.siSvelte },
+  { name: "Astro", icon: icons.siAstro },
+  { name: "TanStack", icon: icons.siTanstack },
+  { name: "Vue", icon: icons.siVuedotjs },
+  { name: "Tailwind CSS", icon: icons.siTailwindcss },
+  { name: "Python", icon: icons.siPython },
+  { name: "Django", icon: icons.siDjango },
+  { name: ".NET", icon: icons.siDotnet },
+  { name: "Swift", icon: icons.siSwift },
+  { name: "PostgreSQL", icon: icons.siPostgresql },
+  { name: "Drizzle", icon: icons.siDrizzle },
+  { name: "Docker", icon: icons.siDocker },
+  { name: "AWS" },
+  { name: "Cloudflare", icon: icons.siCloudflare },
+  { name: "Git", icon: icons.siGit },
+];
+
+/** Brand colour for hover, swapped for white when the brand is too dark to see. */
+function hoverColor(hex: string) {
+  const [r, g, b] = [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16));
+  const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+  return luminance < 0.25 ? "#e8eef0" : `#${hex}`;
+}
+---
+
+<ul class="grid grid-cols-3 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-4 lg:grid-cols-5">
+  {
+    TILES.map(({ name, icon }) => (
+      <li
+        class="tech-tile group flex flex-col items-center justify-center gap-3 bg-bg px-3 py-6 text-faint transition-colors duration-200 hover:bg-surface"
+        style={icon ? `--brand:${hoverColor(icon.hex)}` : "--brand:#e8eef0"}>
+        {icon ? (
+          <svg viewBox="0 0 24 24" class="size-8" fill="currentColor" aria-hidden="true">
+            <path d={icon.path} />
+          </svg>
+        ) : (
+          <span class="flex h-8 items-center font-mono text-lg font-bold tracking-tight" aria-hidden="true">
+            aws
+          </span>
+        )}
+        <span class="text-xs text-muted transition-colors duration-200 group-hover:text-fg">
+          {name}
+        </span>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .tech-tile:hover {
+    color: var(--brand);
+  }
+</style>

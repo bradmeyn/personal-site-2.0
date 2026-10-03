@@ -1,0 +1,89 @@
+---
+import LighthouseScores from "@/components/islands/lighthouse-scores.svelte";
+import DashboardDemo from "@/components/islands/dashboard-demo.svelte";
+
+// This site's own Lighthouse results: mobile, Lighthouse 13, simulated slow 4G, brotli.
+// Re-measure after changes that add weight to the home page.
+const SCORES = [
+  { label: "Performance", value: 100 },
+  { label: "Accessibility", value: 100 },
+  { label: "Best practices", value: 100 },
+  { label: "SEO", value: 100 },
+];
+
+const METRICS = [
+  { label: "Largest paint", value: "1.5 s" },
+  { label: "Blocking time", value: "0 ms" },
+  { label: "Layout shift", value: "0" },
+  { label: "Page weight", value: "73 KB" },
+];
+---
+
+<section id="services" aria-labelledby="services-title" class="scroll-mt-20 border-t border-line">
+  <div class="container py-20 sm:py-28">
+    <h2 id="services-title" class="display text-3xl leading-tight sm:text-4xl">What I do</h2>
+
+    <article
+      aria-labelledby="dashboards-title"
+      class="mt-14 grid items-center gap-12 lg:grid-cols-[2fr_3fr] lg:gap-16">
+      <div class="max-w-md">
+        <h3 id="dashboards-title" class="display text-2xl leading-tight sm:text-3xl">
+          Professional dashboards
+        </h3>
+        <p class="mt-5 text-lg leading-relaxed text-muted">
+          Web apps that sit behind a login: portfolios, client records, pipelines and reports. Charts,
+          filters and live figures that stay quick with years of data behind them.
+        </p>
+        <p class="mt-4 leading-relaxed text-muted">
+          This one is live. Change the range, hover the chart, or focus it and use the arrow keys.
+        </p>
+        <p class="mt-6 text-sm text-muted">
+          In production:{" "}
+          <a href="#sage" class="text-fg underline decoration-line-strong underline-offset-4 transition-colors hover:text-accent hover:decoration-accent">Sage</a>{" "}
+          and{" "}
+          <a href="#costbase" class="text-fg underline decoration-line-strong underline-offset-4 transition-colors hover:text-accent hover:decoration-accent">Costbase</a>.
+        </p>
+      </div>
+      <DashboardDemo client:visible />
+    </article>
+
+    <article
+      aria-labelledby="marketing-title"
+      class="mt-24 grid items-center gap-12 lg:grid-cols-[3fr_2fr] lg:gap-16">
+      <div class="max-w-md lg:order-2">
+        <h3 id="marketing-title" class="display text-2xl leading-tight sm:text-3xl">
+          Fast websites
+        </h3>
+        <p class="mt-5 text-lg leading-relaxed text-muted">
+          Content sites built with Astro and hosted on Cloudflare. Plain HTML first, JavaScript only
+          where it earns its place, and hosting that costs next to nothing.
+        </p>
+        <p class="mt-4 leading-relaxed text-muted">
+          This site is one. These are its own Lighthouse results on a throttled mobile connection.
+        </p>
+        <p class="mt-6 text-sm text-muted">
+          Read how:{" "}
+          <a
+            href="/articles/astro-cloudflare-marketing-site/"
+            class="text-fg underline decoration-line-strong underline-offset-4 transition-colors hover:text-accent hover:decoration-accent">
+            Astro + Cloudflare for your marketing site</a
+          >.
+        </p>
+      </div>
+
+      <div class="rounded-xl border border-line-strong bg-surface p-6 sm:p-8 lg:order-1">
+        <LighthouseScores client:visible scores={SCORES} />
+        <dl class="mx-auto mt-8 grid w-fit grid-cols-2 gap-x-10 gap-y-4 border-t border-line pt-6 sm:grid-cols-4 sm:gap-x-8">
+          {
+            METRICS.map((m) => (
+              <div>
+                <dt class="text-xs text-faint">{m.label}</dt>
+                <dd class="mt-1 font-mono text-sm tabular-nums text-fg">{m.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </article>
+  </div>
+</section>

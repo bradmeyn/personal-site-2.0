@@ -1,0 +1,63 @@
+---
+import type { ProjectId } from "@/constants/projects";
+
+type Props = {
+  id: ProjectId;
+  name: string;
+  /** Rendered size in px. */
+  size?: number;
+  class?: string;
+};
+
+const { id, name, size = 64, class: className = "" } = Astro.props;
+---
+
+<span
+  class:list={[
+    "relative grid shrink-0 place-items-center overflow-hidden rounded-[22%] border border-white/10",
+    "shadow-[inset_0_1px_0_rgb(255_255_255/0.08)]",
+    "bg-[#121a1d]",
+    className,
+  ]}
+  style={`width:${size}px;height:${size}px`}>
+  {
+    id === "sage" && (
+      <svg viewBox="-10 -10 295 315" role="img" aria-label={`${name} logo`} class="w-[54%]">
+        <g fill="var(--color-sage)">
+          <path d="M157 0H272C240 50 190 118 112 125C70 129 40 150 17 182C8 155 10 110 40 70C70 30 110 0 157 0Z" />
+          <path d="M0 295C30 240 80 175 160 165C210 160 240 180 275 182C255 240 200 295 122 295Z" />
+        </g>
+      </svg>
+    )
+  }
+  {
+    id === "costbase" && (
+      <svg viewBox="0 0 24 24" role="img" aria-label={`${name} logo`} class="w-[54%]">
+        <path
+          d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
+          fill="none"
+          stroke="var(--color-costbase)"
+          stroke-width="2.25"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    )
+  }
+  {
+    id === "embark" && (
+      <svg viewBox="0 0 64 64" role="img" aria-label={`${name} logo`} class="w-[64%]">
+        <path d="M31 9 31 40 13 40Z" fill="#f6b56b" />
+        <path d="M35 15 35 40 50 40Z" fill="var(--color-embark)" />
+        <path d="M9 44h46l-6 8H15Z" fill="var(--color-embark)" />
+        <path
+          d="M8 58c4-3 8-3 12 0s8 3 12 0 8-3 12 0 8 3 12 0"
+          fill="none"
+          stroke="var(--color-embark-sea)"
+          stroke-width="3"
+          stroke-linecap="round"
+        />
+      </svg>
+    )
+  }
+</span>

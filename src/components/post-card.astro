@@ -1,58 +1,28 @@
 ---
+import type { CollectionEntry } from "astro:content";
+
 type Props = {
-  post: any;
-  index: number;
+  post: CollectionEntry<"posts">;
+  /** Heading level for the title, so it follows the page's outline. */
+  headingLevel?: 2 | 3;
 };
 
-const { post, index } = Astro.props;
-const num = String(index + 1).padStart(2, "0");
+const { post, headingLevel = 3 } = Astro.props;
+const Heading = `h${headingLevel}` as "h2" | "h3";
+const { title, outline, date } = post.data;
 ---
 
 <a
-  href={`/posts/${post.id}`}
-  class="group grid grid-cols-[2.5rem_1fr_auto] sm:grid-cols-[3rem_1fr_auto] items-center gap-x-4 gap-y-1 border-b border-line py-7">
-  <span class="font-mono text-sm text-ink-400 group-hover:text-accent-500 transition-colors duration-300">
-    {num}
-  </span>
-
+  href={`/articles/${post.id}/`}
+  class="group grid gap-x-10 gap-y-2 border-b border-line py-7 sm:grid-cols-[9rem_1fr]">
+  <time datetime={date.toISOString()} class="pt-1 text-sm text-faint">
+    {date.toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" })}
+  </time>
   <div class="min-w-0">
-    <time
-      datetime={post.data.date.toISOString()}
-      class="font-mono text-xs uppercase tracking-wide text-ink-500">
-      {
-        new Date(post.data.date).toLocaleDateString("en-US", {
-          month: "short",
-          day: "numeric",
-          year: "numeric",
-        })
-      }
-    </time>
-    <h3
-      class="mt-1 font-display font-semibold tracking-tight text-xl sm:text-2xl text-ink-950 line-clamp-2 transition-transform duration-300 group-hover:translate-x-1">
-      {post.data.title}
-    </h3>
-    <p class="mt-1 text-ink-600 leading-relaxed line-clamp-2">
-      {post.data.outline}
-    </p>
-  </div>
-
-  <div
-    class="flex items-center gap-2 text-ink-600 group-hover:text-accent-600 transition-colors duration-300">
-    <span
-      class="hidden sm:inline font-mono text-xs tracking-wide uppercase"
-      >Read</span
-    >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="1.5"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      class="size-5 -rotate-45 transition-transform duration-300 group-hover:rotate-0">
-      <path d="M5 12h14"></path>
-      <path d="m12 5 7 7-7 7"></path>
-    </svg>
+    <Heading
+      class="display text-xl leading-snug text-fg transition-colors duration-200 group-hover:text-accent">
+      {title}
+    </Heading>
+    <p class="mt-2 max-w-[60ch] leading-relaxed text-muted">{outline}</p>
   </div>
 </a>

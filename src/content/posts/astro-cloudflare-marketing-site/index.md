@@ -1,0 +1,114 @@
+---
+title: "Astro + Cloudflare Is the Answer for Your Marketing Site"
+outline: "Fast, findable, cheap to run and hard to break. Why I build content sites with Astro and host them on Cloudflare."
+tags: ["astro", "cloudflare", "performance", "seo"]
+date: 2026-10-03
+---
+
+A marketing site has a simple job. It needs to load fast, rank well, be easy to update, cost little to run, and never get hacked. Yet many end up as a WordPress install with thirty plugins, or a React app shipping a megabyte of JavaScript to render what is mostly text.
+
+My answer for these sites is Astro, hosted on Cloudflare. This site is built that way, so the numbers below are real.
+
+## Astro ships HTML, not an app
+
+Astro renders your pages to plain HTML at build time and sends no JavaScript by default. You add interactivity only where you need it, as an "island" that loads on its own.
+
+The dashboard on [my home page](/) is a Svelte component dropped into an Astro page:
+
+```astro
+---
+import DashboardDemo from "@/components/islands/dashboard-demo.svelte";
+---
+
+<DashboardDemo client:visible />
+```
+
+`client:visible` means its JavaScript doesn't load until you scroll to it. Everything else on the page is HTML and CSS. The result for this site, measured with Lighthouse on a throttled mobile connection:
+
+- **100** for performance, accessibility, best practices and SEO
+- **1.5 s** to the largest paint, with **0 ms** of blocking time
+- **73 KB** for the whole first visit, and **0 KB** of JavaScript until you reach something interactive
+
+You can use React, Svelte, Vue or Solid for the islands, so you're not locked into one UI library either.
+
+## Content is just files
+
+Pages and posts live in your repo as Markdown or MDX, with frontmatter checked against a schema. A missing date or a misspelt field fails the build instead of quietly breaking a page.
+
+```ts
+// src/content.config.ts
+import { defineCollection } from "astro:content";
+import { glob } from "astro/loaders";
+import { z } from "astro/zod";
+
+const posts = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/posts" }),
+  schema: z.object({
+    title: z.string(),
+    outline: z.string(),
+    tags: z.array(z.string()),
+    date: z.date(),
+  }),
+});
+
+export const collections = { posts };
+```
+
+If your marketing team would rather not touch Git, Astro pairs well with a headless CMS, and you keep the same fast output.
+
+## The details that move the score
+
+Most of the gap between a decent site and a perfect score is images and fonts:
+
+- **Images.** Astro's `<Image>` component resizes and converts images to modern formats at build time, with width and height set so nothing shifts as the page loads.
+- **Fonts.** Loading fonts from Google Fonts blocks the first paint while the browser fetches a stylesheet from another domain. On this site I self-host them from the same domain and preload the one the headline uses, so text paints with the rest of the page.
+- **Render-blocking CSS and animation.** Inlining the stylesheet saves a round trip, and the largest element on the page shouldn't fade in, because it doesn't count as painted until it's visible.
+
+Together, those changes took this site's mobile performance score from 85 to 100.
+
+None of it needs a plugin. It's a few lines of config and a decision to care.
+
+## Cloudflare makes hosting a non-issue
+
+Cloudflare Workers serves the built site from its global network, close to wherever your visitors are. What I like about it:
+
+- **It's effectively free.** In Cloudflare's own words, "requests to static assets are free and unlimited". You pay only if you add server-side code, and a marketing site rarely needs much.
+- **Compression and caching are automatic.** Pages go out compressed, and hashed assets are cached at the edge.
+- **Deploys come from Git.** Connect the repository and every push to main goes live, with preview URLs for other branches.
+- **Server code is there when you need it.** A contact form, a redirect or an API proxy runs in the same Worker as on-demand routes. The Astro adapter is one line of config.
+
+```js
+// astro.config.mjs
+import { defineConfig } from "astro/config";
+import cloudflare from "@astrojs/cloudflare";
+import svelte from "@astrojs/svelte";
+import sitemap from "@astrojs/sitemap";
+
+export default defineConfig({
+  site: "https://www.example.com",
+  integrations: [svelte(), sitemap()],
+  adapter: cloudflare({ imageService: "compile" }),
+});
+```
+
+There's no server to patch, no database to attack and no plugin updates to babysit. The site is a folder of files on a CDN.
+
+## A bigger example: Film Junk
+
+This site is small. [Film Junk](https://github.com/bradmeyn/film-junk), an unofficial guide to the Film Junk Podcast, is not. It's the same stack at a much larger scale:
+
+- **1,346 episodes, 7,064 films and 3,699 host ratings**, going back to January 2005, merged from the podcast feed, a fan wiki, Bandcamp and the official episode guides.
+- **8,446 pages**, one for every episode and film plus the year and host pages. A full build regenerates all of them in about six seconds on my laptop.
+- **Search and filters are Svelte islands.** Everything else is plain HTML.
+- **A GitHub Action rebuilds it every day**, pulling in new episodes and deploying to Cloudflare.
+- **Hosting costs nothing.** The Worker only serves static files, which Cloudflare doesn't charge for, no matter how many pages there are.
+
+On Lighthouse it scores 100 for accessibility, best practices and SEO. Mobile performance is 88 to 90, and the reason is the one in the fonts section above: it still loads its fonts from Google Fonts, which holds up the first paint by about two seconds on a slow connection. That's the next fix on my list, and it's the same few lines of config.
+
+## Compared with the usual options
+
+- **WordPress** is easy to start with and expensive to keep healthy. Hosting, plugin updates, security patches and caching layers all become someone's job.
+- **Next.js** can build a fast marketing site, but you're bringing a React application runtime to deliver content, and the best experience is tied to one host.
+- **Site builders** are fine until you need something they don't offer, or care about what's in the HTML.
+
+Astro on Cloudflare gives you the speed of a static site, the flexibility of a framework when you need it, and hosting costs that round to zero. For a site whose whole job is to be found and load fast, that's the right trade.

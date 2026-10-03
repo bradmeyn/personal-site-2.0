@@ -1,70 +1,49 @@
 @import "tailwindcss";
+@import "@fontsource-variable/geist";
+@import "@fontsource-variable/geist-mono";
 
+/*
+  Dark, teal-tinted charcoal borrowed from Sage. Surfaces get lighter as they
+  rise (bg < surface < raised) instead of relying on shadows; borders are white
+  at low alpha so they sit naturally on every surface.
+*/
 @theme {
-  /* Warm ink / paper neutrals — not a pure gray scale on purpose */
-  --color-ink-950: #0e0e0c;
-  --color-ink-900: #17170f;
-  --color-ink-800: #2a2a22;
-  --color-ink-700: #454539;
-  --color-ink-600: #63634f;
-  --color-ink-500: #837f6a;
-  --color-ink-400: #a6a08a;
-  --color-line: #ddd8c8;
-  --color-line-strong: #c7c1ac;
-  --color-paper: #f8f6ef;
-  --color-paper-raised: #fffefb;
+  --color-bg: #0d1315;
+  --color-surface: #131a1d;
+  --color-raised: #192124;
+  --color-overlay: #1f282c;
+  --color-line: rgb(255 255 255 / 0.08);
+  --color-line-strong: rgb(255 255 255 / 0.14);
 
-  /* Single confident accent, plus a secondary pop — deliberately not a
-     Claude-adjacent orange/terracotta. */
-  --color-accent-100: #dbe2ff;
-  --color-accent-300: #93a4ff;
-  --color-accent-500: #2b3df2;
-  --color-accent-600: #1f2ed1;
-  --color-accent-700: #1a26a8;
-  --color-lime: #dcff50;
+  --color-fg: #e8eef0;
+  --color-muted: #a3afb3;
+  --color-faint: #879499;
 
-  /* Bauhaus-inspired primaries — used sparingly, as accents & the hero
-     geometry, not as page-wide color blocking. */
-  --color-bauhaus-red: #d33d2c;
-  --color-bauhaus-blue: #1e3a8f;
-  --color-bauhaus-yellow: #f0b400;
+  /* Soft violet: the site's only UI accent, kept apart from the project colours. */
+  --color-accent: #a59cff;
 
-  --font-display:
-    "Space Grotesk", ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-sans:
-    "Space Grotesk", ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+  /* Project brand colours, used only around each project's own work. */
+  --color-costbase: #3fb4ec;
+  --color-embark: #f0913f;
+  --color-embark-sea: #5fb8b0;
+  --color-sage: #7dd8bc;
 
-  --animate-fade-up: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, "SF Mono", Menlo, monospace;
 
-  @keyframes fadeUp {
-    from {
-      opacity: 0;
-      transform: translateY(14px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @utility container {
   margin-inline: auto;
+  width: 100%;
+  max-width: 1160px;
   padding-inline: 1.25rem;
   @media (width >= 640px) {
     padding-inline: 2rem;
   }
-  @media (width >= 1024px) {
-    max-width: 920px;
-  }
 }
 
-/*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-*/
 @layer base {
   *,
   ::after,
@@ -74,113 +53,143 @@
     border-color: var(--color-line);
   }
 
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
-    background: var(--color-paper);
-    color: var(--color-ink-900);
+    background: var(--color-bg);
+    color: var(--color-fg);
     font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    text-rendering: optimizeLegibility;
   }
 
   ::selection {
-    background: var(--color-lime);
-    color: var(--color-ink-950);
+    background: color-mix(in oklab, var(--color-accent) 35%, transparent);
+    color: var(--color-fg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 6px;
   }
 }
 
-@layer base {
-  .eyebrow {
-    @apply font-mono text-xs tracking-[0.1em] uppercase text-ink-500;
-  }
-
-  .heading--secondary {
-    @apply font-display font-semibold tracking-tight text-3xl lg:text-4xl text-ink-950;
-  }
-
-  .heading--tertiary {
-    @apply text-lg mb-4 font-display font-semibold tracking-tight text-ink-950;
-  }
-
-  .pill-button {
-    @apply inline-flex items-center gap-1.5 rounded-full bg-ink-950 px-4 py-2 text-sm font-medium text-paper transition-colors duration-200 hover:bg-bauhaus-red;
-  }
+@utility display {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: -0.03em;
 }
 
-/* Hero orbit graphic ----------------------------------------------------- */
+@utility button {
+  @apply inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200;
+}
 
-.orbit {
-  transform-box: view-box;
-  transform-origin: 200px 200px;
+@utility button-primary {
+  @apply button bg-fg text-bg hover:bg-accent;
+}
+
+@utility button-ghost {
+  @apply button border border-line-strong text-fg hover:border-white/40 hover:bg-white/[0.04];
+}
+
+@utility link {
+  @apply text-muted transition-colors duration-200 hover:text-fg;
+}
+
+/* Hero backdrop -------------------------------------------------------------
+   A faint grid that fades out from the top, lit by two slow-drifting glows. The
+   glows are the only ambient motion on the site and stop for reduced motion. */
+
+.hero-grid {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: center top;
+  mask-image: radial-gradient(ellipse 75% 70% at 50% 0%, black 10%, transparent 75%);
+}
+
+.hero-glow {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(60px);
+  will-change: transform;
+}
+
+.hero-glow-a {
+  top: -24rem;
+  left: 50%;
+  width: 72rem;
+  height: 44rem;
+  margin-left: -26rem;
+  background: radial-gradient(closest-side, rgb(165 156 255 / 0.6), rgb(165 156 255 / 0.18) 55%, transparent);
+}
+
+.hero-glow-b {
+  top: 4rem;
+  right: -10rem;
+  width: 44rem;
+  height: 34rem;
+  background: radial-gradient(closest-side, rgb(122 108 255 / 0.4), transparent);
+}
+
+.hero-beam {
+  background: linear-gradient(90deg, transparent, rgb(165 156 255 / 0.7) 50%, transparent);
+  opacity: 0.6;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .orbit-outer {
-    animation: orbit-spin 46s linear infinite;
+  .hero-glow-a {
+    animation: hero-drift-a 18s ease-in-out infinite alternate;
   }
-  .orbit-mid {
-    animation: orbit-spin 28s linear infinite reverse;
-  }
-  .orbit-inner {
-    animation: orbit-spin 16s linear infinite;
+  .hero-glow-b {
+    animation: hero-drift-b 24s ease-in-out infinite alternate;
   }
 }
 
-@keyframes orbit-spin {
+@keyframes hero-drift-a {
   to {
-    transform: rotate(360deg);
+    transform: translate3d(-12rem, 4rem, 0) scale(1.1);
+  }
+}
+
+@keyframes hero-drift-b {
+  to {
+    transform: translate3d(-10rem, 6rem, 0) scale(0.9);
   }
 }
 
 /* Article body ---------------------------------------------------------- */
 
-pre,
-pre code {
-  color: #e5e2d6;
-  font-family: var(--font-mono);
-  line-height: 1.7;
-  direction: ltr;
-  white-space: pre;
-  text-align: left;
-  text-shadow: none;
-  word-break: normal;
-  word-spacing: normal;
-  -moz-tab-size: 2;
-  -o-tab-size: 2;
-  tab-size: 2;
-  -webkit-hyphens: none;
-  -moz-hyphens: none;
-  -ms-hyphens: none;
-  hyphens: none;
-  font-size: 14px;
-}
-
-pre {
-  margin: 0;
-  padding: 1rem;
-  overflow: auto;
-  background: var(--color-ink-950);
-  position: relative;
-  border-radius: 0.375rem;
-}
-
-.article-body pre {
-  margin-block: 1.75rem;
-  border: 1px solid var(--color-ink-800);
-  /* Shiki writes its theme background as an inline style, so this has to win */
-  background: var(--color-ink-950) !important;
-}
-
-.article-body p {
-  color: var(--color-ink-700);
+.article-body {
+  color: var(--color-muted);
   font-size: 1.0625rem;
   line-height: 1.8;
+}
+
+.article-body h2 {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--color-fg);
+  font-size: 1.375rem;
+  line-height: 1.25;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
 }
 
 .article-body p + p {
   margin-top: 1.25rem;
 }
 
-.article-body a,
-a.article-link {
-  color: var(--color-ink-900);
+.article-body a {
+  color: var(--color-fg);
   text-decoration: underline;
   text-decoration-color: var(--color-line-strong);
   text-decoration-thickness: 1px;
@@ -190,10 +199,14 @@ a.article-link {
     text-decoration-color 200ms;
 }
 
-.article-body a:hover,
-a.article-link:hover {
-  color: var(--color-accent-600);
-  text-decoration-color: var(--color-accent-500);
+.article-body a:hover {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
+}
+
+.article-body strong {
+  color: var(--color-fg);
+  font-weight: 600;
 }
 
 .article-body ul,
@@ -206,8 +219,6 @@ a.article-link:hover {
 }
 
 .article-body li {
-  color: var(--color-ink-700);
-  line-height: 1.7;
   padding-left: 1.4rem;
   position: relative;
 }
@@ -215,12 +226,12 @@ a.article-link:hover {
 .article-body ul li::before {
   content: "";
   position: absolute;
-  left: 0.25rem;
-  top: 0.7em;
-  width: 6px;
-  height: 6px;
+  left: 0.3rem;
+  top: 0.75em;
+  width: 5px;
+  height: 5px;
   border-radius: 9999px;
-  background: var(--color-accent-500);
+  background: var(--color-accent);
 }
 
 .article-body ol {
@@ -235,44 +246,134 @@ a.article-link:hover {
   content: counter(ol-counter) ".";
   position: absolute;
   left: 0;
-  top: 0;
-  color: var(--color-accent-600);
-  font-weight: 600;
+  color: var(--color-accent);
+  font-weight: 500;
   font-size: 0.9em;
-  line-height: 1.7;
 }
 
-.article-body li > strong:first-child {
-  color: var(--color-ink-950);
-  margin-right: 0.25rem;
+pre,
+pre code {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.7;
+  tab-size: 2;
+  white-space: pre;
+  word-break: normal;
+  hyphens: none;
+}
+
+pre {
+  margin: 0;
+  padding: 1rem 1.125rem;
+  overflow: auto;
+  border-radius: 10px;
+}
+
+.article-body pre {
+  margin-block: 1.75rem;
+  border: 1px solid var(--color-line);
+  /* Shiki writes its theme background inline, so this has to win */
+  background: var(--color-surface) !important;
 }
 
 :not(pre) > code {
   font-family: var(--font-mono);
   font-size: 0.85em;
-  padding: 0.1em 0.35em;
-  border-radius: 0.25rem;
-  background: var(--color-ink-900);
-  color: var(--color-lime);
-  /* Borderless keeps line-height even in prose. nowrap so the chip's background
-     never splits across two lines — long snippets belong in a fenced block. */
+  padding: 0.12em 0.4em;
+  border-radius: 5px;
+  background: var(--color-raised);
+  border: 1px solid var(--color-line);
+  color: var(--color-fg);
   white-space: nowrap;
 }
 
-/* Improve code block scrollbar */
 pre::-webkit-scrollbar {
   height: 8px;
 }
 
-pre::-webkit-scrollbar-track {
-  background: #23231b;
-}
-
 pre::-webkit-scrollbar-thumb {
-  background: #454539;
+  background: var(--color-overlay);
   border-radius: 4px;
 }
 
-pre::-webkit-scrollbar-thumb:hover {
-  background: #63634f;
+/* Projects carousel ----------------------------------------------------------
+   Panels share one grid cell so the section keeps the height of the tallest
+   project and never jumps when it cycles. */
+
+.project-panel {
+  grid-area: 1 / 1;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.45s var(--ease-out-expo),
+    visibility 0s linear 0.45s;
+}
+
+.project-panel[data-active="true"] {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.45s var(--ease-out-expo);
+}
+
+.project-tab {
+  color: var(--color-muted);
+  transition: color 0.2s;
+}
+
+.project-tab .project-tab-glow {
+  opacity: 0.2;
+  transition: opacity 0.3s;
+}
+
+.project-tab .project-tab-logo {
+  opacity: 0.55;
+  transition: opacity 0.2s;
+}
+
+.project-tab:hover,
+.project-tab[aria-selected="true"] {
+  color: var(--color-fg);
+}
+
+.project-tab:hover .project-tab-glow,
+.project-tab[aria-selected="true"] .project-tab-glow {
+  opacity: 0.65;
+}
+
+.project-tab:hover .project-tab-logo,
+.project-tab[aria-selected="true"] .project-tab-logo {
+  opacity: 1;
+}
+
+.progress-bar {
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.progress-bar.is-running {
+  animation: tab-progress 8s linear forwards;
+}
+
+/* Hovering, focus or scrolling away pauses the cycle. */
+[data-projects][data-paused="true"] .progress-bar,
+[data-projects]:not([data-visible="true"]) .progress-bar {
+  animation-play-state: paused;
+}
+
+/* Once someone picks a tab, cycling stops and the bar just marks the selection. */
+[data-projects][data-auto="false"] [aria-selected="true"] .progress-bar {
+  transform: scaleX(1);
+}
+
+@keyframes tab-progress {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-panel,
+  .project-panel[data-active="true"] {
+    transition: none;
+  }
 }

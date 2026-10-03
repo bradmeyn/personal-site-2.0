@@ -1,0 +1,44 @@
+---
+import PageLayout from "@/components/common/page-layout.astro";
+import ProjectRow from "@/components/project-row.astro";
+import { PROJECTS } from "@/constants/projects";
+import { SITE } from "@/constants/site";
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Projects",
+    itemListElement: PROJECTS.map((project, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "SoftwareApplication",
+        name: project.name,
+        description: project.summary,
+        applicationCategory: "WebApplication",
+        operatingSystem: "Web",
+        url: project.url ?? `${SITE.url}/projects/#${project.id}`,
+        ...(project.repository && { codeRepository: project.repository }),
+        author: { "@id": `${SITE.url}/#person` },
+      },
+    })),
+  },
+];
+---
+
+<PageLayout
+  title="Projects"
+  description="Sage, Costbase and Embark: products designed and built by Bradley Meyn with SvelteKit, TanStack Start, Drizzle and PostgreSQL."
+  jsonLd={jsonLd}>
+  <section class="container pt-16 sm:pt-24">
+    <h1 class="display text-4xl leading-tight sm:text-5xl">Projects</h1>
+    <p class="mt-5 max-w-[56ch] text-lg leading-relaxed text-muted">
+      Products I've designed and built, from the data model to the interface.
+    </p>
+  </section>
+
+  <div class="mt-8 border-t border-line">
+    {PROJECTS.map((project, i) => <ProjectRow project={project} flip={i % 2 === 1} />)}
+  </div>
+</PageLayout>

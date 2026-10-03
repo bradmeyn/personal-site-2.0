@@ -1,69 +1,73 @@
 ---
-import PageHead from "./page-head.astro";
+import PageHead, { type HeadProps } from "./page-head.astro";
+import SiteMark from "@/components/site-mark.astro";
+import { SITE } from "@/constants/site";
+
+type Props = HeadProps;
 
 const year = new Date().getFullYear();
-const GITHUB_URL = "https://github.com/bradmeyn";
-// TODO: swap in your real contact email — placeholder for now.
-const EMAIL = "hello@bradmeyn.com";
-
-const { title } = Astro.props || {};
+const path = Astro.url.pathname;
+const NAV = [
+  { href: "/about/", label: "About" },
+  { href: "/projects/", label: "Projects" },
+  { href: "/articles/", label: "Articles" },
+];
+const current = (href: string) => path === href || (href !== "/" && path.startsWith(href));
 ---
 
-<html lang="en">
+<html lang="en-AU">
   <head>
-    <PageHead title={title} />
+    <PageHead {...Astro.props} />
   </head>
 
-  <body class="antialiased bg-paper text-ink-900">
-    <div class="flex flex-col min-h-screen">
-      <header class="border-b border-line">
-        <div class="container flex items-center justify-between py-4">
-          <a href="/" class="flex items-center gap-2.5 group">
-            <span
-              class="flex size-7 shrink-0 items-center justify-center rounded-full bg-ink-950 text-paper text-xs font-bold transition-colors duration-200 group-hover:bg-bauhaus-red">
-              B
-            </span>
-            <span class="font-semibold tracking-tight text-ink-950"
-              >Bradley Meyn</span
-            >
+  <body class="min-h-screen antialiased">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-fg focus:px-4 focus:py-2 focus:text-sm focus:text-bg">
+      Skip to content
+    </a>
+
+    <div class="flex min-h-screen flex-col">
+      <header
+        class="sticky top-0 z-40 border-b border-line bg-bg/75 backdrop-blur-xl backdrop-saturate-150">
+        <div class="container flex h-14 items-center justify-between">
+          <a href="/" class="group flex items-center gap-2.5">
+            <SiteMark size={30} class="transition-transform duration-200 group-hover:-rotate-6" />
+            <span class="hidden font-mono text-sm font-medium tracking-tight sm:inline">{SITE.name}</span>
+            <span class="sr-only sm:hidden">{SITE.name}</span>
           </a>
 
-          <nav class="flex items-center gap-5">
-            <a
-              href="/#projects"
-              class="hidden sm:inline text-sm text-ink-600 hover:text-ink-950 transition-colors duration-200">
-              Projects
+          <nav aria-label="Primary" class="flex items-center gap-4 sm:gap-6">
+            {
+              NAV.map((item) => (
+                <a
+                  href={item.href}
+                  aria-current={current(item.href) ? "page" : undefined}
+                  class="link text-sm aria-[current=page]:text-fg">
+                  {item.label}
+                </a>
+              ))
+            }
+            <a href={`mailto:${SITE.email}`} class="button-ghost hidden !py-1.5 sm:inline-flex">
+              Email me
             </a>
-            <a
-              href="/#writing"
-              class="hidden sm:inline text-sm text-ink-600 hover:text-ink-950 transition-colors duration-200">
-              Writing
-            </a>
-            <a
-              href={GITHUB_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="hidden sm:inline text-sm text-ink-600 hover:text-ink-950 transition-colors duration-200">
-              GitHub
-            </a>
-            <a href={`mailto:${EMAIL}`} class="pill-button">Get in touch</a>
           </nav>
         </div>
       </header>
 
-      <div class="grow opacity-0 animate-fade-up [animation-fill-mode:forwards]">
+      <main id="main" class="grow">
         <slot />
-      </div>
+      </main>
 
       <footer class="border-t border-line">
         <div
-          class="container flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 py-6">
-          <p class="font-mono text-xs tracking-wide text-ink-500">
-            &#x24B8; {year} BRADLEY MEYN — NEWCASTLE, AU
-          </p>
-          <p class="font-mono text-xs tracking-wide text-ink-500">
-            BUILT WITH ASTRO
-          </p>
+          class="container flex flex-col gap-3 py-8 text-sm text-faint sm:flex-row sm:items-center sm:justify-between">
+          <p>© {year} {SITE.name}. Newcastle, Australia.</p>
+          <div class="flex gap-5">
+            <a href={`mailto:${SITE.email}`} class="link">Email</a>
+            <a href={SITE.github} class="link" rel="me noopener">GitHub</a>
+            <a href={SITE.linkedin} class="link" rel="me noopener">LinkedIn</a>
+          </div>
         </div>
       </footer>
     </div>
