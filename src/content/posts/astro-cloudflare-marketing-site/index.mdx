@@ -5,6 +5,8 @@ tags: ["astro", "cloudflare", "performance", "seo"]
 date: 2026-10-03
 ---
 
+import CwvChart from "@/components/posts/cwv-chart.astro";
+
 A marketing site has a simple job. It needs to load fast, rank well, be easy to update, cost little to run, and never get hacked. Yet many end up as a WordPress install with thirty plugins, or a React app shipping a megabyte of JavaScript to render what is mostly text.
 
 My answer for these sites is Astro, hosted on Cloudflare. This site is built that way, so the numbers below are real.
@@ -106,6 +108,10 @@ This site is small. [Film Junk](https://github.com/bradmeyn/film-junk), an unoff
 On Lighthouse it scores 100 for accessibility, best practices and SEO. Mobile performance is 88 to 90, and the reason is the one in the fonts section above: it still loads its fonts from Google Fonts, which holds up the first paint by about two seconds on a slow connection. That's the next fix on my list, and it's the same few lines of config.
 
 ## Compared with the usual options
+
+This isn't only true of my site. Astro publishes real-world data from HTTP Archive and the Chrome UX Report: the share of sites built with each framework that pass Google's Core Web Vitals.
+
+<CwvChart />
 
 - **WordPress** is easy to start with and expensive to keep healthy. Hosting, plugin updates, security patches and caching layers all become someone's job.
 - **Next.js** can build a fast marketing site, but you're bringing a React application runtime to deliver content, and the best experience is tied to one host.

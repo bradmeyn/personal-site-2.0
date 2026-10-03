@@ -1,0 +1,99 @@
+---
+import * as icons from "simple-icons";
+
+type Row = { name: string; value: number; icon: { path: string }; highlight?: boolean };
+
+// Figures as published on astro.build, from HTTP Archive and Chrome UX Report data.
+const ROWS: Row[] = [
+  { name: "Astro", value: 71, icon: icons.siAstro, highlight: true },
+  { name: "WordPress", value: 48, icon: icons.siWordpress },
+  { name: "Next.js", value: 35, icon: icons.siNextdotjs },
+];
+---
+
+<figure class="cwv-chart not-prose my-10 rounded-xl border border-line-strong bg-surface p-5 sm:p-7" data-cwv>
+  <figcaption class="text-sm text-muted">% of real-world sites with good Core Web Vitals</figcaption>
+
+  <dl class="mt-6 space-y-3">
+    {
+      ROWS.map((row) => (
+        <div class="grid grid-cols-[5.5rem_1fr_2.75rem] items-center gap-2.5 sm:grid-cols-[8rem_1fr_3.5rem] sm:gap-3">
+          <dt class="font-mono text-sm font-medium text-fg sm:text-base">{row.name}</dt>
+          <dd class="h-9 overflow-hidden rounded-md bg-white/[0.04] sm:h-10">
+            <span
+              class:list={[
+                "cwv-bar flex h-full items-center rounded-md px-2.5",
+                row.highlight ? "bg-gradient-to-r from-[#4b45c9] to-accent" : "bg-white/[0.12]",
+              ]}
+              style={`--value:${row.value}%`}>
+              <svg
+                viewBox="0 0 24 24"
+                class:list={["size-4", row.highlight ? "text-white" : "text-muted"]}
+                fill="currentColor"
+                aria-hidden="true">
+                <path d={row.icon.path} />
+              </svg>
+            </span>
+          </dd>
+          <dd
+            class:list={[
+              "font-mono text-sm tabular-nums sm:text-base",
+              row.highlight ? "font-semibold text-accent" : "text-muted",
+            ]}>
+            {row.value}%
+          </dd>
+        </div>
+      ))
+    }
+  </dl>
+
+  <p class="mt-6 text-xs text-faint">
+    Source: <a href="https://astro.build/" class="underline decoration-line-strong underline-offset-2 hover:text-fg">astro.build</a>,
+    using real-world data from HTTP Archive and the Chrome UX Report.
+  </p>
+</figure>
+
+<script>
+  // Bars grow to their value the first time the chart scrolls into view.
+  const charts = document.querySelectorAll<HTMLElement>("[data-cwv]");
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          (entry.target as HTMLElement).dataset.shown = "true";
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.4 },
+    );
+    for (const chart of charts) {
+      chart.dataset.animate = "true";
+      observer.observe(chart);
+    }
+  }
+</script>
+
+<style>
+  .cwv-bar {
+    width: var(--value);
+  }
+
+  /* Only start collapsed once the script has confirmed it will animate. */
+  .cwv-chart[data-animate="true"] .cwv-bar {
+    width: 0;
+    transition: width 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .cwv-chart[data-shown="true"] .cwv-bar {
+    width: var(--value);
+  }
+
+  .cwv-chart[data-shown="true"] div:nth-child(2) .cwv-bar {
+    transition-delay: 0.12s;
+  }
+
+  .cwv-chart[data-shown="true"] div:nth-child(3) .cwv-bar {
+    transition-delay: 0.24s;
+  }
+</style>
