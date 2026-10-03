@@ -1,6 +1,7 @@
 ---
 import PageHead, { type HeadProps } from "./page-head.astro";
 import SiteMark from "@/components/site-mark.astro";
+import Newcastle from "@/components/newcastle.astro";
 import { SITE } from "@/constants/site";
 
 type Props = HeadProps;
@@ -62,7 +63,7 @@ const current = (href: string) => path === href || (href !== "/" && path.startsW
       <footer class="border-t border-line">
         <div
           class="container flex flex-col gap-3 py-8 text-sm text-faint sm:flex-row sm:items-center sm:justify-between">
-          <p>© {year} {SITE.name}. Newcastle, Australia.</p>
+          <p>© {year} {SITE.name}. <Newcastle />, Australia.</p>
           <div class="flex gap-5">
             <a href={`mailto:${SITE.email}`} class="link">Email</a>
             <a href={SITE.github} class="link" rel="me noopener">GitHub</a>

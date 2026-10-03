@@ -4,6 +4,7 @@ import PageLayout from "@/components/common/page-layout.astro";
 import { SITE } from "@/constants/site";
 import profile from "@/assets/profile.jpg";
 import TechWall from "@/components/tech-wall.astro";
+import Newcastle from "@/components/newcastle.astro";
 
 const QUALIFICATIONS = [
   {
@@ -60,7 +61,7 @@ const jsonLd = [
         <h1 class="display text-4xl leading-tight sm:text-5xl">About</h1>
         <div class="mt-8 max-w-[60ch] space-y-5 text-lg leading-relaxed text-muted">
           <p>
-            Hi, I'm Brad, a full-stack developer in Newcastle, Australia, and I've been building
+            Hi, I'm Brad, a full-stack developer in <Newcastle />, Australia, and I've been building
             software for more than six years. I build web apps end to end on a modern stack, mostly
             TypeScript with SvelteKit, React and Astro, and I work with AI coding agents to ship
             them faster.
@@ -111,7 +112,15 @@ const jsonLd = [
             <li class="grid gap-1 border-b border-line py-5 sm:grid-cols-[1fr_auto] sm:gap-6">
               <div>
                 <p class="font-medium text-fg">{q.title}</p>
-                <p class="mt-1 text-sm text-muted">{q.institution}</p>
+                <p class="mt-1 text-sm text-muted">
+                  {q.institution === "University of Newcastle" ? (
+                    <>
+                      University of <Newcastle />
+                    </>
+                  ) : (
+                    q.institution
+                  )}
+                </p>
               </div>
               <p class="font-mono text-sm tabular-nums text-faint">{q.year}</p>
             </li>

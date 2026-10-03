@@ -105,7 +105,7 @@ This site is small. [Film Junk](https://github.com/bradmeyn/film-junk), an unoff
 - **A GitHub Action rebuilds it every day**, pulling in new episodes and deploying to Cloudflare.
 - **Hosting costs nothing.** The Worker only serves static files, which Cloudflare doesn't charge for, no matter how many pages there are.
 
-On Lighthouse it scores 100 for accessibility, best practices and SEO. Mobile performance is 88 to 90, and the reason is the one in the fonts section above: it still loads its fonts from Google Fonts, which holds up the first paint by about two seconds on a slow connection. That's the next fix on my list, and it's the same few lines of config.
+On Lighthouse it scores 100 for accessibility, best practices and SEO. Mobile performance was 88 to 90 until I applied the fonts fix above: it loaded its fonts from Google Fonts, which held up the first paint by about two seconds on a slow connection. Self-hosting them and inlining the CSS took the home page to 99. Episode pages sit at 93 to 96, and the gap there is the poster image, which loads from TMDB's servers.
 
 ## Compared with the usual options
 

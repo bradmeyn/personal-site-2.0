@@ -102,6 +102,34 @@
   @apply text-muted transition-colors duration-200 hover:text-fg;
 }
 
+/* Newcastle easter egg: Knights red and blue on hover. Until then the
+   background matches the text, so nothing shows at the letter edges. */
+.newcastle {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 200% 100%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  transition: color 0.35s ease;
+}
+
+.newcastle:hover {
+  color: transparent;
+  background-image: linear-gradient(90deg, #e3262f, #3b7cf0 50%, #e3262f);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .newcastle:hover {
+    animation: newcastle-shimmer 2.4s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes newcastle-shimmer {
+  to {
+    background-position: 100% 50%;
+  }
+}
+
 /* Typed headline cursor: a violet block, like a terminal. */
 .typed-cursor {
   display: inline-block;
