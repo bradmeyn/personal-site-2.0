@@ -130,14 +130,7 @@
   }
 }
 
-/* The hero headline glides to centre each ending before it types. */
-@media (prefers-reduced-motion: no-preference) {
-  .hero-title {
-    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-}
-
-/* Typed headline cursor: a violet block, like a terminal. */
+/* Headline cursor: a blinking violet block, like a terminal. */
 .typed-cursor {
   display: inline-block;
   width: 0.55em;

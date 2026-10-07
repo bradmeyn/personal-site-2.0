@@ -2,13 +2,6 @@
 import HeroCanvas from "@/components/home/hero-canvas.astro";
 import Newcastle from "@/components/newcastle.astro";
 import { SITE } from "@/constants/site";
-
-// The headline types through these endings. The first is what shows before the
-// script runs and for reduced motion.
-const ENDINGS = ["fast.", "right.", "to scale.", "to last."];
-const spoken = `Software, built ${ENDINGS.slice(0, -1)
-  .map((e) => e.replace(".", ""))
-  .join(", ")} and ${ENDINGS.at(-1)}`;
 ---
 
 <section
@@ -21,24 +14,16 @@ const spoken = `Software, built ${ENDINGS.slice(0, -1)
   </div>
 
   <div class="container py-20 sm:text-center">
-    <!-- The headline is centred as a block, but its lines stay left-aligned inside a box
-         sized for the longest ending, so the typing never shifts it sideways. -->
     <h1
       id="hero-title"
-      class="hero-title inline-block whitespace-nowrap sm:mx-auto text-left font-mono text-[2.25rem] font-medium leading-[1.05] tracking-[-0.05em] sm:text-6xl xl:min-w-[25.6ch] xl:text-[4.25rem]">
-      <span class="sr-only">{spoken}</span>
-      <!-- Two lines on smaller screens, one line on wide screens. -->
-      <span aria-hidden="true" class="block xl:inline">Software, </span><span
-        aria-hidden="true"
-        class="inline-block min-w-[15.6ch] xl:min-w-0">
-        built <span data-typed data-words={JSON.stringify(ENDINGS)}>{ENDINGS[0]}</span><span
-          class="typed-cursor"></span>
-      </span>
+      class="font-mono text-[2.5rem] font-medium leading-[1.05] tracking-[-0.05em] sm:text-6xl lg:text-[4.75rem]">
+      <span class="block">Modern software</span>
+      <span class="block">solutions.<span class="typed-cursor" aria-hidden="true"></span></span>
     </h1>
 
-    <p class="mt-8 max-w-[52ch] text-pretty text-lg sm:mx-auto sm:text-balance leading-relaxed text-muted">
-      I'm Brad, a full-stack developer in <Newcastle />, Australia. I build web apps, internal tools and fast
-      websites.
+    <p class="mt-8 max-w-[56ch] text-pretty text-lg leading-relaxed text-muted sm:mx-auto">
+      I'm Brad, a full-stack developer in <Newcastle />, Australia.<br class="hidden sm:inline" />
+      I build applications, internal tools &amp; websites.
     </p>
 
     <div class="mt-10 flex flex-wrap items-center gap-3 sm:justify-center">
@@ -47,65 +32,3 @@ const spoken = `Software, built ${ENDINGS.slice(0, -1)
     </div>
   </div>
 </section>
-
-<script>
-  const el = document.querySelector<HTMLElement>("[data-typed]");
-  const title = document.getElementById("hero-title");
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const oneLine = window.matchMedia("(min-width: 1280px)");
-
-  // On wide screens the headline is one line inside a box sized for the longest
-  // ending. Shift it so the current ending is centred: measured with the full
-  // word in place, then put back before the browser paints.
-  function centreFor(word: string) {
-    if (!el || !title) return;
-    if (!oneLine.matches) {
-      title.style.transform = "";
-      return;
-    }
-    const shown = el.textContent;
-    el.textContent = word;
-    const cursor = el.nextElementSibling as HTMLElement;
-    const box = title.getBoundingClientRect();
-    const contentRight = cursor.getBoundingClientRect().right - box.left;
-    el.textContent = shown;
-    title.style.transform = `translateX(${Math.max(0, (box.width - contentRight) / 2)}px)`;
-  }
-
-  if (el && title) {
-    centreFor(el.textContent ?? "");
-    oneLine.addEventListener("change", () => centreFor(el.textContent ?? ""));
-  }
-
-  if (el && !reduceMotion) {
-    const words: string[] = JSON.parse(el.dataset.words ?? "[]");
-    const TYPE_MS = 85;
-    const DELETE_MS = 45;
-    const HOLD_MS = 2400;
-    let index = 0;
-
-    const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
-    async function cycle() {
-      await wait(HOLD_MS);
-      while (true) {
-        const current = words[index];
-        for (let i = current.length; i >= 0; i--) {
-          el!.textContent = current.slice(0, i);
-          await wait(DELETE_MS);
-        }
-        index = (index + 1) % words.length;
-        const next = words[index];
-        centreFor(next);
-        await wait(450);
-        for (let i = 1; i <= next.length; i++) {
-          el!.textContent = next.slice(0, i);
-          await wait(TYPE_MS);
-        }
-        await wait(HOLD_MS);
-      }
-    }
-
-    cycle();
-  }
-</script>
