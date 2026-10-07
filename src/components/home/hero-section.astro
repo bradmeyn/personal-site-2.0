@@ -16,13 +16,18 @@ import { SITE } from "@/constants/site";
   <div class="container py-20 sm:text-center">
     <h1
       id="hero-title"
-      class="font-mono text-[2.5rem] font-medium leading-[1.05] tracking-[-0.05em] sm:text-6xl lg:text-[4.75rem]">
-      <span class="block">Modern software</span>
-      <span class="block">solutions.<span class="typed-cursor" aria-hidden="true"></span></span>
+      class="font-mono text-[2.125rem] font-medium leading-[1.05] tracking-[-0.05em] sm:text-5xl lg:text-[4.25rem]">
+      <span class="block">Modern software,</span>
+      <!-- Wraps only between the two phrases, never mid-phrase. -->
+      <span class="block"
+        ><span class="inline-block">from plan</span>{" "}<span class="inline-block"
+          >to production.<span class="typed-cursor" aria-hidden="true"></span></span
+        ></span
+      >
     </h1>
 
     <p class="mt-8 max-w-[56ch] text-pretty text-lg leading-relaxed text-muted sm:mx-auto">
-      I'm Brad, a full-stack developer in <Newcastle />, Australia.<br class="hidden sm:inline" />
+      I'm Brad, a full-stack developer in <Newcastle />, Australia.{" "}<br class="hidden sm:inline" />
       I build applications, internal tools &amp; websites.
     </p>
 
