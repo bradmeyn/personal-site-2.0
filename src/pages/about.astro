@@ -25,6 +25,17 @@ const QUALIFICATIONS = [
 ];
 
 
+// What the About page lists up top: experience, then qualifications.
+const HIGHLIGHTS = [
+  { title: "4+ years as a software developer" },
+  { title: "Master of Computer Science", detail: "Monash University, with Distinction" },
+  {
+    title: "Bachelor of Business & Commerce",
+    detail: "University of Newcastle, with Distinction",
+  },
+  { title: "AWS Certified Cloud Practitioner", detail: "Amazon Web Services" },
+];
+
 const jsonLd = [
   {
     "@context": "https://schema.org",
@@ -53,31 +64,45 @@ const jsonLd = [
 
 <PageLayout
   title="About"
-  description="Bradley Meyn is a full-stack developer in Newcastle, Australia, with more than six years of experience and a Master of Computer Science from Monash University."
+  description="Bradley Meyn is a full-stack developer in Newcastle, Australia, with over four years of experience, a Master of Computer Science from Monash University and a Bachelor of Business & Commerce from the University of Newcastle."
   jsonLd={jsonLd}>
   <section class="container pb-20 pt-16 sm:pt-24">
     <div class="grid items-start gap-12 lg:grid-cols-[3fr_2fr] lg:gap-20">
       <div>
         <h1 class="display text-4xl leading-tight sm:text-5xl">About</h1>
-        <div class="mt-8 max-w-[60ch] space-y-5 text-lg leading-relaxed text-muted">
-          <p>
-            Hi, I'm Brad, a full-stack developer in <Newcastle />, Australia, and I've been building
-            software for more than six years. I build web apps end to end on a modern stack, mostly
-            TypeScript with SvelteKit, React and Astro, and I work with AI coding agents to ship
-            them faster.
-          </p>
-          <p>
-            I studied business and commerce before computer science, which is a big part of why so
-            much of what I build deals with money: an adviser platform in{" "}
-            <a href="/projects/#sage" class="text-fg underline decoration-line-strong underline-offset-4 transition-colors hover:text-accent hover:decoration-accent">Sage</a>{" "}
-            and capital gains tax tracking in{" "}
-            <a href="/projects/#costbase" class="text-fg underline decoration-line-strong underline-offset-4 transition-colors hover:text-accent hover:decoration-accent">Costbase</a>.
-          </p>
-          <p>
-            Away from the keyboard I'm a travel enthusiast, coffee snob, wine lover, lucky husband and
-            human/dog father.
-          </p>
-        </div>
+        <p class="mt-8 max-w-[60ch] text-lg leading-relaxed text-muted">
+          Hi, I'm Brad, a full-stack developer in <Newcastle />, Australia. I build applications,
+          internal tools &amp; websites, mostly in TypeScript with SvelteKit, React and Astro.
+        </p>
+
+        <ul class="mt-8 max-w-[60ch] divide-y divide-line border-y border-line">
+          {
+            HIGHLIGHTS.map((h) => (
+              <li class="flex gap-4 py-4">
+                <span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                <span>
+                  <span class="block font-medium text-fg">{h.title}</span>
+                  {h.detail && (
+                    <span class="mt-0.5 block text-sm text-muted">
+                      {h.detail.startsWith("University of Newcastle") ? (
+                        <>
+                          University of <Newcastle />
+                          {h.detail.slice("University of Newcastle".length)}
+                        </>
+                      ) : (
+                        h.detail
+                      )}
+                    </span>
+                  )}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+
+        <p class="mt-8 max-w-[60ch] text-lg leading-relaxed text-muted">
+          Outside of work I play guitar, stay active and spend time with my family.
+        </p>
 
         <div class="mt-10 flex flex-wrap gap-3">
           <a href={`mailto:${SITE.email}`} class="button-primary">Email me</a>
@@ -100,33 +125,6 @@ const jsonLd = [
         />
         <figcaption class="mt-3 text-sm text-faint">Tuscany, Italy.</figcaption>
       </figure>
-    </div>
-  </section>
-
-  <section aria-labelledby="qualifications-title" class="border-t border-line">
-    <div class="container grid gap-10 py-20 lg:grid-cols-[1fr_2fr]">
-      <h2 id="qualifications-title" class="display text-2xl sm:text-3xl">Qualifications</h2>
-      <ul class="border-t border-line">
-        {
-          QUALIFICATIONS.map((q) => (
-            <li class="grid gap-1 border-b border-line py-5 sm:grid-cols-[1fr_auto] sm:gap-6">
-              <div>
-                <p class="font-medium text-fg">{q.title}</p>
-                <p class="mt-1 text-sm text-muted">
-                  {q.institution === "University of Newcastle" ? (
-                    <>
-                      University of <Newcastle />
-                    </>
-                  ) : (
-                    q.institution
-                  )}
-                </p>
-              </div>
-              <p class="font-mono text-sm tabular-nums text-faint">{q.year}</p>
-            </li>
-          ))
-        }
-      </ul>
     </div>
   </section>
 
