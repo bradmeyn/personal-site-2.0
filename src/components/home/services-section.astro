@@ -1,4 +1,5 @@
 ---
+import CrmDemo from "@/components/islands/crm-demo.svelte";
 import DashboardDemo from "@/components/islands/dashboard-demo.svelte";
 import LighthouseCard from "@/components/lighthouse-card.astro";
 ---
@@ -8,33 +9,54 @@ import LighthouseCard from "@/components/lighthouse-card.astro";
     <h2 id="services-title" class="display text-3xl leading-tight sm:text-4xl" data-type-on-scroll>What I do</h2>
 
     <article
-      aria-labelledby="dashboards-title"
+      aria-labelledby="applications-title"
       class="mt-14 grid items-center gap-12 lg:grid-cols-[2fr_3fr] lg:gap-16">
       <div class="max-w-md">
+        <h3 id="applications-title" class="display text-2xl leading-tight sm:text-3xl">
+          Business applications
+        </h3>
+        <p class="mt-5 text-lg leading-relaxed text-muted">
+          CRMs and the tools a team runs its day on: client records, pipelines, file notes and the
+          workflows between them. I've built and worked on CRMs, including Sage, a practice platform
+          for financial advisers.
+        </p>
+        <p class="mt-4 leading-relaxed text-muted">
+          Try it: search, filter, open a client, move them along the pipeline or add a note.
+        </p>
+        <p class="mt-6 text-sm text-muted">
+          In production:{" "}
+          <a href="#sage" class="text-fg underline decoration-line-strong underline-offset-4 transition-colors hover:text-accent hover:decoration-accent">Sage</a>.
+        </p>
+      </div>
+      <CrmDemo client:visible />
+    </article>
+
+    <article
+      aria-labelledby="dashboards-title"
+      class="mt-24 grid items-center gap-12 lg:grid-cols-[3fr_2fr] lg:gap-16">
+      <div class="max-w-md lg:order-2">
         <h3 id="dashboards-title" class="display text-2xl leading-tight sm:text-3xl">
           Professional dashboards
         </h3>
         <p class="mt-5 text-lg leading-relaxed text-muted">
-          Web apps that sit behind a login: portfolios, client records, pipelines and reports. Charts,
-          filters and live figures that stay quick with years of data behind them.
+          Portfolios, reports and the numbers a business watches. Charts, filters and live figures
+          that stay quick with years of data behind them.
         </p>
         <p class="mt-4 leading-relaxed text-muted">
           This one is live. Change the range, hover the chart, or focus it and use the arrow keys.
         </p>
         <p class="mt-6 text-sm text-muted">
           In production:{" "}
-          <a href="#sage" class="text-fg underline decoration-line-strong underline-offset-4 transition-colors hover:text-accent hover:decoration-accent">Sage</a>{" "}
-          and{" "}
           <a href="#costbase" class="text-fg underline decoration-line-strong underline-offset-4 transition-colors hover:text-accent hover:decoration-accent">Costbase</a>.
         </p>
       </div>
-      <DashboardDemo client:visible />
+      <div class="lg:order-1"><DashboardDemo client:visible /></div>
     </article>
 
     <article
       aria-labelledby="marketing-title"
-      class="mt-24 grid items-center gap-12 lg:grid-cols-[3fr_2fr] lg:gap-16">
-      <div class="max-w-md lg:order-2">
+      class="mt-24 grid items-center gap-12 lg:grid-cols-[2fr_3fr] lg:gap-16">
+      <div class="max-w-md">
         <h3 id="marketing-title" class="display text-2xl leading-tight sm:text-3xl">
           Fast, findable websites
         </h3>
@@ -55,7 +77,7 @@ import LighthouseCard from "@/components/lighthouse-card.astro";
         </p>
       </div>
 
-      <LighthouseCard class="lg:order-1" />
+      <LighthouseCard />
     </article>
   </div>
 </section>
