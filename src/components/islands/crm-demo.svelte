@@ -1,9 +1,8 @@
 <script lang="ts">
-  // A working copy of Sage's clients list: search, status / age / retiree
-  // filters and sort by name, inside Sage's app frame. Illustrative clients only.
+  // A working copy of Sage's clients list: search and sort by name, inside
+  // Sage's app frame. Illustrative clients only.
 
   type Status = "PROSPECT" | "ACTIVE" | "INACTIVE" | "FORMER";
-  type AgeBand = "UNDER_50" | "PRE_RETIREE" | "OVER_67";
   type Client = {
     firstName: string;
     lastName: string;
@@ -11,8 +10,6 @@
     phone: string;
     occupation: string;
     status: Status;
-    age: number;
-    retired: boolean;
     since: string;
   };
 
@@ -22,28 +19,23 @@
     { value: "INACTIVE", label: "Inactive" },
     { value: "FORMER", label: "Former" },
   ];
-  const AGE_BANDS: { value: AgeBand; label: string }[] = [
-    { value: "UNDER_50", label: "Under 50" },
-    { value: "PRE_RETIREE", label: "Pre-retirees (55–66)" },
-    { value: "OVER_67", label: "67 and over" },
-  ];
 
   const CLIENTS: Client[] = [
-    { firstName: "Margaret", lastName: "Whitfield", email: "margaret.w@outlook.com", phone: "0412 384 920", occupation: "School principal", status: "ACTIVE", age: 54, retired: false, since: "Mar 2019" },
-    { firstName: "Paul", lastName: "Whitfield", email: "paul.whitfield@gmail.com", phone: "0423 118 457", occupation: "Civil engineer", status: "ACTIVE", age: 54, retired: false, since: "Mar 2019" },
-    { firstName: "Helena", lastName: "Cho", email: "dr.cho@clinic.com.au", phone: "0401 552 309", occupation: "GP", status: "ACTIVE", age: 61, retired: false, since: "Aug 2016" },
-    { firstName: "Raj", lastName: "Patel", email: "raj.patel@icloud.com", phone: "0435 760 214", occupation: "Accountant", status: "ACTIVE", age: 58, retired: false, since: "Nov 2021" },
-    { firstName: "Priya", lastName: "Patel", email: "priya.patel@icloud.com", phone: "0435 760 215", occupation: "Pharmacist", status: "ACTIVE", age: 56, retired: false, since: "Nov 2021" },
-    { firstName: "Sarah", lastName: "Byrne", email: "sarah.byrne@gmail.com", phone: "0418 902 377", occupation: "Nurse unit manager", status: "PROSPECT", age: 63, retired: false, since: "" },
-    { firstName: "Graham", lastName: "Doyle", email: "g.doyle@bigpond.com", phone: "0402 663 158", occupation: "Retired", status: "ACTIVE", age: 71, retired: true, since: "Feb 2014" },
-    { firstName: "Elaine", lastName: "Doyle", email: "elaine.doyle@bigpond.com", phone: "0402 663 159", occupation: "Retired", status: "ACTIVE", age: 69, retired: true, since: "Feb 2014" },
-    { firstName: "Tom", lastName: "Nguyen", email: "tom.nguyen@proton.me", phone: "0447 281 640", occupation: "Software developer", status: "PROSPECT", age: 34, retired: false, since: "" },
-    { firstName: "Amara", lastName: "Okafor", email: "amara@okaforgroup.com.au", phone: "0409 334 812", occupation: "Business owner", status: "INACTIVE", age: 47, retired: false, since: "Jun 2018" },
-    { firstName: "Leon", lastName: "Fischer", email: "leon.fischer@gmail.com", phone: "0451 207 993", occupation: "Electrician", status: "FORMER", age: 52, retired: false, since: "Jan 2015" },
+    { firstName: "Margaret", lastName: "Whitfield", email: "margaret.w@outlook.com", phone: "0412 384 920", occupation: "School principal", status: "ACTIVE", since: "Mar 2019" },
+    { firstName: "Paul", lastName: "Whitfield", email: "paul.whitfield@gmail.com", phone: "0423 118 457", occupation: "Civil engineer", status: "ACTIVE", since: "Mar 2019" },
+    { firstName: "Helena", lastName: "Cho", email: "dr.cho@clinic.com.au", phone: "0401 552 309", occupation: "GP", status: "ACTIVE", since: "Aug 2016" },
+    { firstName: "Raj", lastName: "Patel", email: "raj.patel@icloud.com", phone: "0435 760 214", occupation: "Accountant", status: "ACTIVE", since: "Nov 2021" },
+    { firstName: "Priya", lastName: "Patel", email: "priya.patel@icloud.com", phone: "0435 760 215", occupation: "Pharmacist", status: "ACTIVE", since: "Nov 2021" },
+    { firstName: "Sarah", lastName: "Byrne", email: "sarah.byrne@gmail.com", phone: "0418 902 377", occupation: "Nurse unit manager", status: "PROSPECT", since: "" },
+    { firstName: "Graham", lastName: "Doyle", email: "g.doyle@bigpond.com", phone: "0402 663 158", occupation: "Retired", status: "ACTIVE", since: "Feb 2014" },
+    { firstName: "Elaine", lastName: "Doyle", email: "elaine.doyle@bigpond.com", phone: "0402 663 159", occupation: "Retired", status: "ACTIVE", since: "Feb 2014" },
+    { firstName: "Tom", lastName: "Nguyen", email: "tom.nguyen@proton.me", phone: "0447 281 640", occupation: "Software developer", status: "PROSPECT", since: "" },
+    { firstName: "Amara", lastName: "Okafor", email: "amara@okaforgroup.com.au", phone: "0409 334 812", occupation: "Business owner", status: "INACTIVE", since: "Jun 2018" },
+    { firstName: "Leon", lastName: "Fischer", email: "leon.fischer@gmail.com", phone: "0451 207 993", occupation: "Electrician", status: "FORMER", since: "Jan 2015" },
   ];
 
-  // Sage's sidebar groups. Icon paths are 24×24 strokes.
-  const NAV = [
+  // Sage's sidebar groups; a group without a heading stands alone. Icon paths are 24×24 strokes.
+  const NAV: { group?: string; items: { label: string; icon: string }[] }[] = [
     {
       group: "Work",
       items: [
@@ -54,7 +46,6 @@
       ],
     },
     {
-      group: "Clients",
       items: [
         {
           label: "Clients",
@@ -80,18 +71,7 @@
   const statusLabel = (s: Status) => STATUSES.find((x) => x.value === s)!.label;
 
   let search = $state("");
-  let statuses = $state<Status[]>([]);
-  let age = $state<AgeBand | null>(null);
-  let retirees = $state(false);
   let order = $state<"asc" | "desc">("asc");
-
-  const filtered = $derived(statuses.length > 0 || age !== null || retirees);
-
-  function inBand(years: number, band: AgeBand) {
-    if (band === "UNDER_50") return years < 50;
-    if (band === "PRE_RETIREE") return years >= 55 && years <= 66;
-    return years >= 67;
-  }
 
   function matches(c: Client, q: string) {
     if (!q) return true;
@@ -105,32 +85,12 @@
 
   const rows = $derived.by(() => {
     const q = search.trim().toLowerCase();
-    return CLIENTS.filter(
-      (c) =>
-        matches(c, q) &&
-        (!statuses.length || statuses.includes(c.status)) &&
-        (!age || inBand(c.age, age)) &&
-        (!retirees || c.retired),
-    ).sort((a, b) => {
+    return CLIENTS.filter((c) => matches(c, q)).sort((a, b) => {
       const cmp = a.lastName.localeCompare(b.lastName) || a.firstName.localeCompare(b.firstName);
       return order === "asc" ? cmp : -cmp;
     });
   });
 
-  function toggleStatus(s: Status) {
-    statuses = statuses.includes(s) ? statuses.filter((x) => x !== s) : [...statuses, s];
-  }
-
-  function clearFilters() {
-    statuses = [];
-    age = null;
-    retirees = false;
-  }
-
-  const chip = (on: boolean) => [
-    "whitespace-nowrap rounded-full border px-2.5 py-1 text-[11px] transition-colors",
-    on ? "border-sage/40 bg-sage/10 font-medium text-sage" : "border-line-strong text-muted hover:text-fg",
-  ];
 </script>
 
 <div
@@ -147,9 +107,9 @@
         </svg>
         Sage
       </p>
-      {#each NAV as section (section.group)}
+      {#each NAV as section (section.items[0].label)}
         <div>
-          <p class="px-2 pb-1 text-[10px] text-faint">{section.group}</p>
+          {#if section.group}<p class="px-2 pb-1 text-[10px] text-faint">{section.group}</p>{/if}
           {#each section.items as item (item.label)}
             <span
               class={[
@@ -189,24 +149,6 @@
           class="w-full rounded-md border border-line-strong bg-bg/60 py-1.5 pl-8 pr-2.5 text-[13px] text-fg placeholder:text-faint focus:border-sage/60 focus:outline-none" />
       </label>
 
-      <div class="mt-3 flex flex-wrap items-center gap-1.5" role="group" aria-label="Filter clients">
-        {#each STATUSES as s (s.value)}
-          <button type="button" aria-pressed={statuses.includes(s.value)} onclick={() => toggleStatus(s.value)} class={chip(statuses.includes(s.value))}>
-            {s.label}
-          </button>
-        {/each}
-        <span aria-hidden="true" class="mx-0.5 h-4 w-px bg-line-strong"></span>
-        {#each AGE_BANDS as b (b.value)}
-          <button type="button" aria-pressed={age === b.value} onclick={() => (age = age === b.value ? null : b.value)} class={chip(age === b.value)}>
-            {b.label}
-          </button>
-        {/each}
-        <span aria-hidden="true" class="mx-0.5 h-4 w-px bg-line-strong"></span>
-        <button type="button" aria-pressed={retirees} onclick={() => (retirees = !retirees)} class={chip(retirees)}>Retirees</button>
-        {#if filtered}
-          <button type="button" onclick={clearFilters} class="px-1.5 py-1 text-[11px] text-muted hover:text-fg">Clear filters</button>
-        {/if}
-      </div>
 
       <div class="mt-4 max-h-[19rem] overflow-y-auto rounded-lg border border-line">
         <table class="w-full text-left">
@@ -244,7 +186,7 @@
               </tr>
             {:else}
               <tr>
-                <td colspan="4" class="px-3 py-8 text-center text-xs text-faint">No clients match these filters.</td>
+                <td colspan="4" class="px-3 py-8 text-center text-xs text-faint">No clients match that search.</td>
               </tr>
             {/each}
           </tbody>
