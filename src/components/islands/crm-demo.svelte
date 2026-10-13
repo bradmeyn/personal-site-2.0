@@ -40,17 +40,10 @@
       group: "Work",
       items: [
         { label: "Dashboard", icon: "M3 3h7v9H3zM14 3h7v5h-7zM14 12h7v9h-7zM3 16h7v5H3z" },
+        { label: "Clients", icon: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" },
         { label: "Tasks", icon: "M3 6h.01M3 12h.01M3 18h.01M8 6h13M8 12h13M8 18h13" },
         { label: "Pipeline", icon: "M2 7h20v14H2zM16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" },
         { label: "Modelling", icon: "M3 3v18h18M7 14l4-4 4 4 5-6" },
-      ],
-    },
-    {
-      items: [
-        {
-          label: "Clients",
-          icon: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75",
-        },
       ],
     },
     {
