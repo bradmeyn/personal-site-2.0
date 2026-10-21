@@ -9,7 +9,5 @@ export const SITE = {
   location: { locality: "Newcastle", region: "NSW", country: "AU" },
   github: "https://github.com/bradmeyn",
   linkedin: "https://www.linkedin.com/in/bradmeyn",
-  // TODO: swap in your real contact email — placeholder carried over from the previous design.
-  email: "hello@bradmeyn.com",
   themeColor: "#0d1315",
 } as const;

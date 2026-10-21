@@ -49,8 +49,8 @@ const current = (href: string) => path === href || (href !== "/" && path.startsW
                 </a>
               ))
             }
-            <a href={`mailto:${SITE.email}`} class="button-ghost hidden !py-1.5 sm:inline-flex">
-              Email me
+            <a href={SITE.linkedin} class="button-ghost hidden !py-1.5 sm:inline-flex" rel="me noopener">
+              Contact me
             </a>
           </nav>
         </div>
@@ -65,7 +65,6 @@ const current = (href: string) => path === href || (href !== "/" && path.startsW
           class="container flex flex-col gap-3 py-8 text-sm text-faint sm:flex-row sm:items-center sm:justify-between">
           <p>© {year} {SITE.name}. <Newcastle />, Australia.</p>
           <div class="flex gap-5">
-            <a href={`mailto:${SITE.email}`} class="link">Email</a>
             <a href={SITE.github} class="link" rel="me noopener">GitHub</a>
             <a href={SITE.linkedin} class="link" rel="me noopener">LinkedIn</a>
           </div>
