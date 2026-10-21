@@ -1,0 +1,240 @@
+---
+title: "TanStack Start Is the Future of React"
+outline: "Type-safe routing, server functions with real middleware and plain Vite underneath. Why I built Sage on TanStack Start rather than Next.js."
+tags: ["tanstack start", "react", "next.js", "performance"]
+date: 2026-10-22
+---
+
+import CodeCompare from "@/components/posts/code-compare.astro";
+import FrameworkBench from "@/components/posts/framework-bench.astro";
+
+export const routeNext = `
+// app/clients/page.tsx
+type Search = Record<
+  string,
+  string | string[] | undefined
+>;
+
+export default async function ClientsPage({
+  searchParams,
+}: { searchParams: Promise<Search> }) {
+  const params = await searchParams;
+  // Every value is string | string[] | undefined,
+  // so parse and validate each one by hand.
+  const sort =
+    params.sort === "email" ? "email" : "lastName";
+  const order =
+    params.order === "desc" ? "desc" : "asc";
+  const search =
+    typeof params.search === "string"
+      ? params.search
+      : "";
+
+  const clients = await getClients({
+    sort,
+    order,
+    search,
+  });
+  return <ClientTable clients={clients} />;
+}
+
+// Links are plain strings. A typo still compiles.
+<Link href="/clients?sort=emial&order=desc">
+  Clients
+</Link>
+`;
+
+export const routeStart = `
+const searchSchema = z.object({
+  sort: z
+    .enum(["firstName", "lastName", "email"])
+    .catch("lastName"),
+  order: z.enum(["asc", "desc"]).catch("asc"),
+  search: z.string().catch(""),
+});
+
+export const Route = createFileRoute(
+  "/(app)/_layout/clients/",
+)({
+  validateSearch: searchSchema,
+  loaderDeps: ({ search }) => search,
+  loader: ({ context: { queryClient }, deps }) =>
+    queryClient.ensureQueryData({
+      queryKey: clientKeys.list(deps),
+      queryFn: () => getClients({ data: deps }),
+    }),
+  component: ClientListPage,
+});
+
+// Links are checked against the route.
+// A typo is a type error.
+<Link to="/clients" search={{ sort: "email" }}>
+  Clients
+</Link>
+`;
+
+export const serverNext = `
+// app/clients/actions.ts
+"use server";
+
+export async function getClients(input: unknown) {
+  // Server actions have no middleware, so every
+  // one repeats its own auth check.
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  if (!session?.user) throw new Error("Unauthorized");
+
+  const data = getClientsSchema.parse(input);
+  const orgId = session.session.activeOrganizationId!;
+
+  return db.query.client.findMany({
+    where: eq(client.organizationId, orgId),
+    orderBy: [asc(client.lastName)],
+  });
+}
+`;
+
+export const serverStart = `
+// Written once, reused by every server function
+export const authMiddleware = createMiddleware({
+  type: "function",
+}).server(async ({ next }) => {
+  const session = await auth.api.getSession({
+    headers: getRequest().headers,
+  });
+  if (!session?.user) throw new Error("Unauthorized");
+  return next({ context: { session } });
+});
+
+export const getClients = createServerFn({
+  method: "GET",
+})
+  .middleware([authMiddleware])
+  .validator(getClientsSchema)
+  .handler(async ({ context, data }) => {
+    // context.session is typed; data is validated
+    const orgId =
+      context.session.session.activeOrganizationId!;
+    return db.query.client.findMany({
+      where: eq(client.organizationId, orgId),
+      orderBy: [asc(client.lastName)],
+    });
+  });
+`;
+
+export const cacheNext = `
+// app/clients/actions.ts
+"use server";
+
+export async function updateClient(formData: FormData) {
+  await db.update(client).set(parse(formData));
+
+  // Invalidate by URL, and remember every page
+  // that shows this client.
+  revalidatePath("/clients");
+  revalidatePath(\`/clients/\${formData.get("id")}\`);
+  revalidatePath("/dashboard");
+}
+`;
+
+export const cacheStart = `
+export function useUpdateClient() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data) => updateClient({ data }),
+    onSuccess: (_, variables) => {
+      // Invalidate by data. Every list and every view
+      // of this client refreshes, wherever it's shown.
+      queryClient.invalidateQueries({
+        queryKey: clientKeys.list(),
+      });
+      queryClient.invalidateQueries({
+        queryKey: clientKeys.detail(variables.clientId),
+      });
+    },
+  });
+}
+`;
+
+Next.js is the default React framework. That doesn't make it the best one.
+
+For most of the last few years, "React app" has meant "Next.js app". It's the default in tutorials, job ads and AI coding agents. But on 13 October 2026, [TanStack Start 1.0 went stable](https://tanstack.com/blog/tanstack-start-1-0), and I think it's now the better choice for most React applications.
+
+That isn't a guess. [Sage](/projects/#sage), the practice platform for financial advisers that I've been building, runs on TanStack Start. It has client records, a pipeline board, retirement modelling and advice documents, so it's a real app with real complexity. Every TanStack Start snippet below comes from its codebase.
+
+Here's the short version, from an [independent benchmark](https://dev.to/fabwaseem/tanstack-start-vs-nextjs-in-2026-same-app-real-benchmarks-25a2) that built the same app in both frameworks:
+
+<FrameworkBench />
+
+The speed is nice. But it isn't why I chose it.
+
+## Types that reach the URL
+
+Most of the state in a business app lives in the URL: which client, which tab, the sort order, the search term, the filters. In Next.js, everything in the URL arrives as `string | string[] | undefined`, so you parse it by hand in every page, and links are plain strings that TypeScript can't check.
+
+In TanStack Start, a route declares what its URL looks like with a schema. Sage's client list validates its sort, order and search with Zod, so the component, the loader and every `<Link>` that points at it all share one typed definition.
+
+<CodeCompare
+  next={{ code: routeNext, file: "app/clients/page.tsx" }}
+  start={{ code: routeStart, file: "routes/(app)/_layout/clients/index.tsx" }}
+  caption="The same clients page. Only one of these catches a misspelt sort column at compile time."
+/>
+
+This is the part I'd miss most if I went back. Rename a search param, and every link and loader that uses it lights up red before you've even run the app. It's the same for route paths: there are no stringly-typed URLs anywhere in Sage.
+
+## Server functions with real middleware
+
+Both frameworks let you call server code from the client without writing an API. The difference is what surrounds that call.
+
+In Next.js, server actions have no middleware of their own, so each one repeats its own auth check, or you add a library to wrap them. In TanStack Start, `createServerFn` is a small pipeline: middleware, then validation, then your handler. Sage's `authMiddleware` checks the session once and hands a typed `context.session` to every server function that uses it.
+
+<CodeCompare
+  next={{ code: serverNext, lang: "ts", file: "app/clients/actions.ts" }}
+  start={{ code: serverStart, lang: "ts", file: "server/functions/clients.ts" }}
+  caption="Auth, validation and org scoping. In Sage, every server function starts with the same two lines."
+/>
+
+Every piece of data in Sage belongs to a practice, so every query has to be scoped to the user's organisation. With middleware, that rule lives in one place instead of being copied into dozens of functions and hoping none get missed. I trust that much more than a code review.
+
+## Caching you can actually see
+
+Next.js caching has been rewritten more than once, and it's still the part people most often get wrong. Data is cached by URL and invalidated by path, so after a mutation you have to remember every page that might show the changed data.
+
+TanStack Start builds on TanStack Query, so data is cached by what it is, not where it's shown. Sage keys every query with a small factory, `clientKeys`, and a mutation invalidates the data it changed. Every list, panel and dashboard widget showing that client refreshes, wherever it lives.
+
+<CodeCompare
+  next={{ code: cacheNext, lang: "ts", file: "app/clients/actions.ts" }}
+  start={{ code: cacheStart, lang: "ts", file: "features/clients/hooks.ts" }}
+  caption="Updating a client. One invalidates URLs; the other invalidates data."
+/>
+
+The loader and the component read the same query key, so data loaded on the server arrives in the client cache with no extra request and no flash of a spinner. And the TanStack Query devtools show you exactly what's cached and when it's stale. Nothing is hidden.
+
+## It's just Vite
+
+TanStack Start runs on Vite. That sounds like a detail, but it changes the whole day-to-day experience:
+
+- **The dev server stays fast.** In the benchmark, the first page loaded in 1.5 seconds against Next.js's 3.0 seconds, and the production build took 1.3 seconds against 4.9.
+- **Memory stays flat.** The Start server idled at 60 MB against 94 MB for Next.js, and under load it peaked at about 360 MB against 500 MB.
+- **The ecosystem just works.** Vitest, Tailwind's Vite plugin and any Vite plugin you already use drop straight in, with no special adapter or separate config.
+- **It deploys anywhere.** Start builds with Nitro, so the same app runs on Cloudflare Workers, Netlify, Vercel, Railway, Render or a plain Node server. The benchmark's deploy output was 1.4 MB, against 38 MB for Next.js.
+
+That portability matters for a product like Sage. Advice practices care where their client data lives, and I'm not tied to one host's pricing or features.
+
+## Where Next.js still wins
+
+To be fair, Next.js isn't standing still, and there are cases where I'd still pick it:
+
+- **Mostly static content.** In the same benchmark, Next.js served a prerendered home page faster than Start rendered it, because static HTML beats rendering on request. For a content site, though, I'd reach for [Astro](/articles/astro-cloudflare-marketing-site/) before either.
+- **The ecosystem and hiring pool.** More libraries, tutorials and developers assume Next.js. That gap is closing, but it's real.
+- **React Server Components first.** Next.js is built around them. Start supports them as an option, but its model is a client app that renders on the server, not the other way round.
+- **Vercel-specific features.** If you're all in on Vercel's platform, Next.js is the most integrated way to use it.
+
+And keep the benchmark in perspective. It's one small app on one machine, and as its author says, your database, auth and caching will usually dominate. Treat the numbers as a direction, not a promise.
+
+## Why it's the future
+
+What makes TanStack Start feel like the future isn't one feature. It's that nothing about it is magic. Routes are typed objects, server functions are plain functions with a middleware chain, the cache is a key you can inspect, and the build tool is the same Vite the rest of the ecosystem uses. When something goes wrong, you can see why.
+
+Now that 1.0 has committed to its APIs, the main reason to wait is gone. If you're starting a React application this year, especially one with logins, forms and a lot of data, start with TanStack Start.

@@ -1,0 +1,58 @@
+---
+import { Code } from "astro:components";
+import * as icons from "simple-icons";
+
+type Side = { code: string; lang?: string; file?: string };
+type Props = {
+  /** Next.js version of the snippet. */
+  next: Side;
+  /** TanStack Start version of the snippet. */
+  start: Side;
+  caption?: string;
+};
+
+const { next, start, caption } = Astro.props;
+
+const SIDES = [
+  { key: "next", name: "Next.js", icon: icons.siNextdotjs, side: next, accent: false },
+  { key: "start", name: "TanStack Start", icon: icons.siTanstack, side: start, accent: true },
+];
+---
+
+<figure class="code-compare not-prose my-10 xl:-mx-44">
+  <div class="grid gap-3 xl:grid-cols-2">
+    {
+      SIDES.map(({ name, icon, side, accent }) => (
+        <div
+          class:list={[
+            "min-w-0 overflow-hidden rounded-xl border bg-surface",
+            accent ? "border-accent/40" : "border-line-strong",
+          ]}>
+          <div class="flex items-center gap-2 border-b border-line px-3.5 py-2.5 text-xs">
+            <svg viewBox="0 0 24 24" class:list={["size-3.5", accent ? "text-accent" : "text-muted"]} fill="currentColor" aria-hidden="true">
+              <path d={icon.path} />
+            </svg>
+            <span class:list={["shrink-0 whitespace-nowrap font-medium", accent ? "text-fg" : "text-muted"]}>{name}</span>
+            {side.file && <span class="ml-auto min-w-0 truncate font-mono text-faint" dir="rtl">{side.file}</span>}
+          </div>
+          <Code code={side.code.trim()} lang={(side.lang ?? "tsx") as any} theme="github-dark-dimmed" />
+        </div>
+      ))
+    }
+  </div>
+  {caption && <figcaption class="mt-3 text-center text-sm text-faint">{caption}</figcaption>}
+</figure>
+
+<style>
+  .code-compare :global(pre) {
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent !important;
+    font-size: 12px;
+    line-height: 1.65;
+    padding: 0.9rem 1rem;
+    overflow-x: auto;
+    white-space: pre;
+  }
+</style>

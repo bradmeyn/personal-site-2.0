@@ -1,0 +1,110 @@
+---
+// Next.js 16.4.2 vs TanStack Start 1.169.3 on the same small store app, from
+// "TanStack Start vs Next.js in 2026: Same App, Real Benchmarks" (dev.to/fabwaseem).
+// `better` says which direction wins, so the bars and the multiplier read correctly.
+type Metric = {
+  label: string;
+  unit: string;
+  next: number;
+  start: number;
+  better: "higher" | "lower";
+  format?: (n: number) => string;
+};
+
+const METRICS: Metric[] = [
+  { label: "Product page, requests per second", unit: "req/s", next: 512, start: 2341, better: "higher" },
+  { label: "JSON API, requests per second", unit: "req/s", next: 2165, start: 18515, better: "higher" },
+  { label: "Server memory at idle", unit: "MB", next: 94, start: 60, better: "lower" },
+  { label: "Production build", unit: "s", next: 4.86, start: 1.26, better: "lower" },
+  { label: "Dev server, cold start to first page", unit: "s", next: 2.96, start: 1.52, better: "lower" },
+  { label: "Deploy output", unit: "MB", next: 38, start: 1.4, better: "lower" },
+];
+
+const fmt = (n: number) => (n >= 1000 ? n.toLocaleString("en-AU") : String(n));
+const ratio = (m: Metric) => {
+  const r = m.better === "higher" ? m.start / m.next : m.next / m.start;
+  return `${r >= 10 ? Math.round(r) : r.toFixed(1)}×`;
+};
+---
+
+<figure class="framework-bench not-prose my-10 rounded-xl border border-line-strong bg-surface p-5 sm:p-7" data-bench>
+  <figcaption class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted">
+    Same app, same machine
+    <span class="flex items-center gap-1.5 text-xs"><span class="size-2 rounded-full bg-accent"></span>TanStack Start</span>
+    <span class="flex items-center gap-1.5 text-xs"><span class="size-2 rounded-full bg-white/30"></span>Next.js</span>
+  </figcaption>
+
+  <dl class="mt-6 grid gap-x-10 gap-y-6 sm:grid-cols-2">
+    {
+      METRICS.map((m) => {
+        const max = Math.max(m.next, m.start);
+        return (
+          <div>
+            <dt class="flex items-baseline justify-between gap-3 text-xs text-muted">
+              <span>{m.label}</span>
+              <span class="shrink-0 font-mono text-accent">
+                {ratio(m)} {m.better === "higher" ? "more" : "less"}
+              </span>
+            </dt>
+            <dd class="mt-2 space-y-1.5">
+              <div class="flex items-center gap-2">
+                <span class="h-2 flex-1 overflow-hidden rounded-full bg-white/[0.05]">
+                  <span class="bench-bar block h-full rounded-full bg-gradient-to-r from-[#4b45c9] to-accent" style={`--value:${(m.start / max) * 100}%`} />
+                </span>
+                <span class="w-[5.5rem] text-right font-mono text-xs tabular-nums text-fg">{fmt(m.start)} {m.unit}</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="h-2 flex-1 overflow-hidden rounded-full bg-white/[0.05]">
+                  <span class="bench-bar block h-full rounded-full bg-white/30" style={`--value:${(m.next / max) * 100}%`} />
+                </span>
+                <span class="w-[5.5rem] text-right font-mono text-xs tabular-nums text-faint">{fmt(m.next)} {m.unit}</span>
+              </div>
+            </dd>
+          </div>
+        );
+      })
+    }
+  </dl>
+
+  <p class="mt-7 text-xs leading-relaxed text-faint">
+    Source:{" "}
+    <a href="https://dev.to/fabwaseem/tanstack-start-vs-nextjs-in-2026-same-app-real-benchmarks-25a2" class="underline decoration-line-strong underline-offset-2 hover:text-fg">TanStack Start vs Next.js in 2026: Same App, Real Benchmarks</a>.
+    Next.js 16.4.2 vs TanStack Start 1.169.3, a small store app on Node 24 with two pinned CPU
+    cores. The author's caveat stands: your database, auth and caching will usually dominate.
+  </p>
+</figure>
+
+<script>
+  // Bars grow to their value the first time the chart scrolls into view.
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          (entry.target as HTMLElement).dataset.shown = "true";
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.25 },
+    );
+    for (const chart of document.querySelectorAll<HTMLElement>("[data-bench]")) {
+      chart.dataset.animate = "true";
+      observer.observe(chart);
+    }
+  }
+</script>
+
+<style>
+  .bench-bar {
+    width: var(--value);
+  }
+
+  .framework-bench[data-animate="true"] .bench-bar {
+    width: 0;
+    transition: width 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .framework-bench[data-shown="true"] .bench-bar {
+    width: var(--value);
+  }
+</style>
