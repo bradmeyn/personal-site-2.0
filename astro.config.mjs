@@ -22,6 +22,12 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    // Pre-bundle these with the rest of Svelte. If Vite discovers them later and
+    // re-optimises mid-session, they can end up on a separate copy of Svelte's
+    // runtime, and Tweens (the Lighthouse rings) silently stop updating in dev.
+    optimizeDeps: {
+      include: ["svelte/motion", "svelte/easing"],
+    },
   },
 
   markdown: {
