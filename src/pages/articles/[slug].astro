@@ -2,6 +2,7 @@
 import PageLayout from "@/components/common/page-layout.astro";
 import { getPosts } from "@/lib/posts";
 import { SITE } from "@/constants/site";
+import { PERSON_REF } from "@/lib/person";
 import { render } from "astro:content";
 
 export async function getStaticPaths() {
@@ -29,7 +30,8 @@ const jsonLd = [
     image: new URL("/og.png", SITE.url).href,
     keywords: tags.join(", "),
     inLanguage: "en-AU",
-    author: { "@type": "Person", "@id": `${SITE.url}/#person`, name: SITE.name, url: SITE.url },
+    author: PERSON_REF,
+    publisher: PERSON_REF,
   },
   {
     "@context": "https://schema.org",
@@ -72,7 +74,8 @@ const jsonLd = [
       <h1 class="display text-balance text-3xl leading-[1.15] sm:text-4xl">{title}</h1>
       <p class="mt-5 text-lg leading-relaxed text-muted">{outline}</p>
       <p class="mt-6 text-sm text-faint">
-        By {SITE.name},{" "}
+        By{" "}
+        <a href="/about/" rel="author" class="text-muted underline decoration-line-strong underline-offset-4 transition-colors hover:text-fg">{SITE.name}</a>,{" "}
         <time datetime={date.toISOString()}>
           {date.toLocaleDateString("en-AU", { day: "numeric", month: "long", year: "numeric" })}
         </time>

@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import PageLayout from "@/components/common/page-layout.astro";
 import { SITE } from "@/constants/site";
+import { PERSON } from "@/lib/person";
 import profile from "@/assets/profile-family.jpg";
 import TechWall from "@/components/tech-wall.astro";
 import Newcastle from "@/components/newcastle.astro";
@@ -42,16 +43,7 @@ const jsonLd = [
     "@type": "AboutPage",
     url: `${SITE.url}/about/`,
     mainEntity: {
-      "@type": "Person",
-      "@id": `${SITE.url}/#person`,
-      name: SITE.name,
-      jobTitle: "Full-stack developer",
-      url: SITE.url,
-      sameAs: [SITE.github, SITE.linkedin],
-      alumniOf: [
-        { "@type": "CollegeOrUniversity", name: "Monash University" },
-        { "@type": "CollegeOrUniversity", name: "University of Newcastle" },
-      ],
+      ...PERSON,
       hasCredential: QUALIFICATIONS.map((q) => ({
         "@type": "EducationalOccupationalCredential",
         name: q.title,
@@ -63,8 +55,8 @@ const jsonLd = [
 ---
 
 <PageLayout
-  title="About"
-  description="Bradley Meyn is a full-stack developer in Newcastle, Australia, with over four years of experience, a Master of Computer Science from Monash University and a Bachelor of Business & Commerce from the University of Newcastle."
+  title="About Brad Meyn"
+  description="Bradley (Brad) Meyn is a full-stack developer in Newcastle, Australia, with over four years of experience, a Master of Computer Science from Monash University and a Bachelor of Business & Commerce from the University of Newcastle."
   jsonLd={jsonLd}>
   <section class="container pb-20 pt-16 sm:pt-24">
     <div class="grid items-start gap-12 lg:grid-cols-[3fr_2fr] lg:gap-20">

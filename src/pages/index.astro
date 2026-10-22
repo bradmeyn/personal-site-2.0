@@ -8,8 +8,9 @@ import ServicesSection from "@/components/home/services-section.astro";
 import TypeOnScroll from "@/components/type-on-scroll.astro";
 import { PROJECTS } from "@/constants/projects";
 import { SITE } from "@/constants/site";
+import { PERSON, PERSON_ID } from "@/lib/person";
 
-const personId = `${SITE.url}/#person`;
+const personId = PERSON_ID;
 
 const jsonLd = [
   {
@@ -26,22 +27,7 @@ const jsonLd = [
     "@context": "https://schema.org",
     "@type": "ProfilePage",
     url: SITE.url,
-    mainEntity: {
-      "@type": "Person",
-      "@id": personId,
-      name: SITE.name,
-      alternateName: SITE.shortName,
-      url: SITE.url,
-      jobTitle: "Full-stack developer",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: SITE.location.locality,
-        addressRegion: SITE.location.region,
-        addressCountry: SITE.location.country,
-      },
-      sameAs: [SITE.github, SITE.linkedin],
-      knowsAbout: ["TypeScript", "SvelteKit", "Svelte", "React", "TanStack Start", "Astro", "PostgreSQL"],
-    },
+    mainEntity: PERSON,
   },
   {
     "@context": "https://schema.org",

@@ -3,6 +3,7 @@ import PageLayout from "@/components/common/page-layout.astro";
 import PostCard from "@/components/post-card.astro";
 import { getPosts } from "@/lib/posts";
 import { SITE } from "@/constants/site";
+import { PERSON_REF } from "@/lib/person";
 
 const posts = await getPosts();
 
@@ -12,7 +13,7 @@ const jsonLd = [
     "@type": "Blog",
     name: `${SITE.name}: Articles`,
     url: `${SITE.url}/articles/`,
-    author: { "@type": "Person", "@id": `${SITE.url}/#person`, name: SITE.name },
+    author: PERSON_REF,
     blogPost: posts.map((post) => ({
       "@type": "BlogPosting",
       headline: post.data.title,
@@ -25,7 +26,7 @@ const jsonLd = [
 
 <PageLayout
   title="Articles"
-  description="Articles by Bradley Meyn on SvelteKit, Astro, Cloudflare and building software with AI agents."
+  description="Articles by Bradley (Brad) Meyn on SvelteKit, Astro, Cloudflare and building software with AI agents."
   jsonLd={jsonLd}>
   <section class="container pb-24 pt-16 sm:pt-24">
     <h1 class="display text-4xl leading-tight sm:text-5xl">Articles</h1>
