@@ -1,6 +1,8 @@
 <script lang="ts">
-  // A working copy of Sage's clients list: search and sort by name, inside
-  // Sage's app frame. Illustrative clients only.
+  // A working copy of Sage's clients list inside Sage's app frame: search,
+  // sort, open a client's record, or switch to Modelling in the sidebar.
+  // Illustrative clients only.
+  import SageModellingDemo from "./sage-modelling-demo.svelte";
 
   type Status = "PROSPECT" | "ACTIVE" | "INACTIVE" | "FORMER";
   type Client = {
@@ -63,8 +65,38 @@
   };
   const statusLabel = (s: Status) => STATUSES.find((x) => x.value === s)!.label;
 
+  // Which screen is showing, and which client is open.
+  let view = $state<"clients" | "client" | "modelling">("clients");
+  let openEmail = $state<string | null>(null);
+  const openClient = $derived(CLIENTS.find((c) => c.email === openEmail) ?? null);
+
   let search = $state("");
   let order = $state<"asc" | "desc">("asc");
+
+  // A few believable recent events per status, so each record has something to read.
+  const ACTIVITY: Record<Status, { what: string; when: string }[]> = {
+    ACTIVE: [
+      { what: "Annual review booked", when: "Tue 14 Oct" },
+      { what: "Ongoing fee consent signed online", when: "2 Oct" },
+      { what: "Fact find updated through the client portal", when: "21 Aug" },
+    ],
+    PROSPECT: [
+      { what: "Intro call booked", when: "Thu 16 Oct" },
+      { what: "Fact find link sent", when: "Today" },
+    ],
+    INACTIVE: [
+      { what: "Annual review overdue", when: "3 weeks" },
+      { what: "Reminder email sent", when: "29 Sep" },
+    ],
+    FORMER: [{ what: "Service agreement ended", when: "Jan 2025" }],
+  };
+
+  function open(c: Client) {
+    openEmail = c.email;
+    view = "client";
+  }
+
+  const activeNav = $derived(view === "modelling" ? "Modelling" : "Clients");
 
   function matches(c: Client, q: string) {
     if (!q) return true;
@@ -104,24 +136,78 @@
         <div>
           {#if section.group}<p class="px-2 pb-1 text-[10px] text-faint">{section.group}</p>{/if}
           {#each section.items as item (item.label)}
-            <span
+            {@const clickable = item.label === "Clients" || item.label === "Modelling"}
+            {@const active = item.label === activeNav}
+            <svelte:element
+              this={clickable ? "button" : "span"}
+              type={clickable ? "button" : undefined}
+              onclick={clickable ? () => (view = item.label === "Modelling" ? "modelling" : "clients") : undefined}
               class={[
-                "flex items-center gap-2 rounded-md px-2 py-1.5 text-xs",
-                item.label === "Clients" ? "bg-white/[0.06] text-fg" : "text-muted",
+                "flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-xs transition-colors",
+                active ? "bg-white/[0.06] text-fg" : clickable ? "text-muted hover:bg-white/[0.04] hover:text-fg" : "text-faint",
               ]}
-              aria-current={item.label === "Clients" ? "page" : undefined}>
+              aria-current={active ? "page" : undefined}>
               <svg viewBox="0 0 24 24" class="size-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d={item.icon} />
               </svg>
               {item.label}
-            </span>
+            </svelte:element>
           {/each}
         </div>
       {/each}
     </nav>
 
-    <!-- Clients page -->
+    <!-- Main area: the clients list, one client's record, or modelling -->
     <div class="min-w-0 p-4">
+      {#if view === "modelling"}
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <p class="text-lg font-medium leading-tight text-fg">Modelling</p>
+            <p class="mt-0.5 text-xs text-muted">Retirement, Margaret &amp; Paul Whitfield</p>
+          </div>
+        </div>
+        <div class="-mx-4 -mb-4 mt-2 sm:-mx-5">
+          <SageModellingDemo />
+        </div>
+      {:else if view === "client" && openClient}
+        {@const c = openClient}
+        <button type="button" onclick={() => (view = "clients")} class="inline-flex items-center gap-1.5 text-xs text-muted transition-colors hover:text-fg">
+          <svg viewBox="0 0 24 24" class="size-3.5" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
+          Clients
+        </button>
+        <div class="mt-3 flex items-center gap-3">
+          <span class="grid size-10 shrink-0 place-items-center rounded-full bg-sage/15 text-xs font-semibold text-sage">
+            {c.firstName[0]}{c.lastName[0]}
+          </span>
+          <div class="min-w-0 flex-1">
+            <p class="truncate text-lg font-medium leading-tight text-fg">{c.firstName} {c.lastName}</p>
+            <p class="mt-0.5 truncate text-xs text-muted">{c.occupation}</p>
+          </div>
+          <span class={["whitespace-nowrap rounded-full px-2 py-0.5 text-[11px] font-medium", STATUS_CLASS[c.status]]}>{statusLabel(c.status)}</span>
+        </div>
+
+        <dl class="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 rounded-lg border border-line p-3">
+          <div class="min-w-0"><dt class="text-[11px] text-faint">Email</dt><dd class="mt-0.5 truncate text-fg">{c.email}</dd></div>
+          <div><dt class="text-[11px] text-faint">Phone</dt><dd class="mt-0.5 font-mono tabular-nums text-fg">{c.phone}</dd></div>
+          <div><dt class="text-[11px] text-faint">Occupation</dt><dd class="mt-0.5 text-fg">{c.occupation}</dd></div>
+          <div><dt class="text-[11px] text-faint">Client since</dt><dd class="mt-0.5 text-fg">{c.since || "Not yet a client"}</dd></div>
+        </dl>
+
+        <p class="mt-4 text-xs font-medium text-muted">Recent activity</p>
+        <ol class="mt-2 space-y-2">
+          {#each ACTIVITY[c.status] as a (a.what)}
+            <li class="flex gap-2 text-xs leading-relaxed text-muted">
+              <span class="mt-[5px] size-1.5 shrink-0 rounded-full bg-sage"></span>
+              <span><span class="text-fg">{a.what}</span><span class="text-faint">, {a.when}</span></span>
+            </li>
+          {/each}
+        </ol>
+
+        <button type="button" onclick={() => (view = "modelling")} class="mt-4 inline-flex items-center gap-1.5 rounded-md border border-line-strong px-2.5 py-1.5 text-xs text-fg transition-colors hover:border-sage/50 hover:text-sage">
+          <svg viewBox="0 0 24 24" class="size-3.5" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 3v18h18M7 14l4-4 4 4 5-6" /></svg>
+          Open retirement modelling
+        </button>
+      {:else}
       <div class="flex items-start justify-between gap-3">
         <div>
           <p class="text-lg font-medium leading-tight text-fg">Clients</p>
@@ -159,9 +245,13 @@
           </thead>
           <tbody>
             {#each rows as c (c.email)}
-              <tr class="border-b border-line last:border-0 hover:bg-white/[0.03]">
+              <tr class="relative cursor-pointer border-b border-line last:border-0 hover:bg-white/[0.04]">
                 <td class="px-3 py-2">
-                  <span class="flex min-w-0 items-center gap-2.5">
+                  <button
+                    type="button"
+                    onclick={() => open(c)}
+                    class="flex min-w-0 items-center gap-2.5 text-left after:absolute after:inset-0 after:content-['']"
+                    aria-label={`Open ${c.firstName} ${c.lastName}`}>
                     <span class="grid size-7 shrink-0 place-items-center rounded-full bg-sage/10 text-[10px] font-semibold text-sage">
                       {c.firstName[0]}{c.lastName[0]}
                     </span>
@@ -169,7 +259,7 @@
                       <span class="block truncate font-medium text-fg">{c.firstName} {c.lastName}</span>
                       <span class="block truncate text-[11px] text-faint">{c.email}</span>
                     </span>
-                  </span>
+                  </button>
                 </td>
                 <td class="px-2 py-2">
                   <span class={["whitespace-nowrap rounded-full px-2 py-0.5 text-[11px] font-medium", STATUS_CLASS[c.status]]}>{statusLabel(c.status)}</span>
@@ -185,6 +275,7 @@
           </tbody>
         </table>
       </div>
+      {/if}
     </div>
   </div>
 </div>

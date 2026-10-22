@@ -21,7 +21,7 @@ const current = (href: string) => path === href || (href !== "/" && path.startsW
     <PageHead {...Astro.props} />
   </head>
 
-  <body class="min-h-screen antialiased">
+  <body class="min-h-screen overflow-x-clip antialiased">
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-fg focus:px-4 focus:py-2 focus:text-sm focus:text-bg">

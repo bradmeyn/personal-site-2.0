@@ -39,6 +39,9 @@
   const money = (n: number) =>
     n >= 1_000_000 ? `$${(n / 1_000_000).toFixed(2)}M` : `$${Math.round(n / 1000)}K`;
 
+  // Unique per instance: the demo can appear more than once on a page.
+  const uid = $props.id();
+
   let extra = $state(12_000);
   const current = project(0);
   const proposed = $derived(project(extra));
@@ -48,11 +51,11 @@
 
 <div class="p-4 sm:p-5">
   <div class="flex items-baseline justify-between gap-3 text-[13px]">
-    <label for="sage-sacrifice" class="text-muted">Extra salary sacrifice until 62</label>
+    <label for={`${uid}-sacrifice`} class="text-muted">Extra salary sacrifice until 62</label>
     <span class="font-mono tabular-nums text-fg">${extra.toLocaleString("en-AU")} a year</span>
   </div>
   <input
-    id="sage-sacrifice"
+    id={`${uid}-sacrifice`}
     type="range"
     min="0"
     max="30000"
@@ -66,7 +69,7 @@
     role="img"
     aria-label={`Projected super balance. Current lasts to age ${current.lastsTo}, proposed to ${proposed.lastsTo >= END_AGE ? "beyond 100" : `age ${proposed.lastsTo}`}.`}>
     <defs>
-      <linearGradient id="sage-model-fill" x1="0" x2="0" y1="0" y2="1">
+      <linearGradient id={`${uid}-fill`} x1="0" x2="0" y1="0" y2="1">
         <stop offset="0%" stop-color="var(--color-sage)" stop-opacity="0.22" />
         <stop offset="100%" stop-color="var(--color-sage)" stop-opacity="0" />
       </linearGradient>
@@ -75,7 +78,7 @@
       <line x1="0" x2={W} y1={H * f} y2={H * f} stroke="rgb(255 255 255 / 0.06)" />
     {/each}
     <line x1={x(RETIRE_AGE)} x2={x(RETIRE_AGE)} y1="0" y2={H} stroke="#879499" stroke-opacity="0.5" stroke-dasharray="3 4" />
-    <path d={`${proposedLine} L${W},${H} L0,${H} Z`} fill="url(#sage-model-fill)" />
+    <path d={`${proposedLine} L${W},${H} L0,${H} Z`} fill={`url(#${uid}-fill)`} />
     <path d={currentLine} fill="none" stroke="#879499" stroke-width="2" stroke-dasharray="5 5" />
     <path d={proposedLine} fill="none" stroke="var(--color-sage)" stroke-width="2.5" />
     <line x1="0" x2={W} y1={H} y2={H} stroke="rgb(255 255 255 / 0.1)" />
