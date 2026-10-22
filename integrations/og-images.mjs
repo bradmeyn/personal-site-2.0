@@ -41,6 +41,14 @@ function titleSize(title) {
   return 56;
 }
 
+/** Splits a title into words, with the last one's end punctuation pulled out to colour separately. */
+function titleWords(title) {
+  const words = title.trim().split(/\s+/);
+  const last = words.pop();
+  const match = last.match(/^(.*?)([.?!]?)$/);
+  return [...words, { text: match[1], mark: match[2] || "." }];
+}
+
 export async function renderArticleImage({ title, date }) {
   const dateLabel = date.toLocaleDateString("en-AU", { day: "numeric", month: "long", year: "numeric" });
 
@@ -85,7 +93,8 @@ export async function renderArticleImage({ title, date }) {
       ),
       h("div", { fontFamily: "Geist Mono", fontWeight: 500, fontSize: "28px", color: COLORS.fg, letterSpacing: "-0.5px" }, "Brad Meyn"),
     ),
-    // Title, one span per word so the violet cursor flows after the last one
+    // Title, one span per word so it wraps naturally, ending in a violet full stop
+    // (or the title's own ? or !, in violet).
     h(
       "div",
       {
@@ -100,13 +109,11 @@ export async function renderArticleImage({ title, date }) {
         color: COLORS.fg,
         maxWidth: "1040px",
       },
-      ...title.split(" ").map((word) => h("span", { marginRight: `${Math.round(titleSize(title) * 0.42)}px` }, word)),
-      h("span", {
-        width: `${Math.round(titleSize(title) * 0.5)}px`,
-        height: `${Math.round(titleSize(title) * 0.8)}px`,
-        backgroundColor: COLORS.accent,
-        marginLeft: `-${Math.round(titleSize(title) * 0.3)}px`,
-      }),
+      ...titleWords(title).map((word, i, words) =>
+        i < words.length - 1
+          ? h("span", { marginRight: `${Math.round(titleSize(title) * 0.42)}px` }, word)
+          : h("span", { display: "flex" }, word.text, h("span", { color: COLORS.accent, marginLeft: `-${Math.round(titleSize(title) * 0.1)}px` }, word.mark)),
+      ),
     ),
     // Footer
     h(
