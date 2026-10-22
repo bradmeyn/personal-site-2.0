@@ -4,18 +4,29 @@ import * as icons from "simple-icons";
 
 type Side = { code: string; lang?: string; file?: string };
 type Props = {
-  /** Next.js version of the snippet. */
+  /** Left-hand snippet (the one being compared against). */
   next: Side;
-  /** TanStack Start version of the snippet. */
+  /** Right-hand snippet, highlighted. */
   start: Side;
+  /** Panel names; defaults to Next.js and TanStack Start. */
+  labels?: [string, string];
+  /** simple-icons export names for each panel. */
+  icons?: [string, string];
   caption?: string;
 };
 
-const { next, start, caption } = Astro.props;
+const {
+  next,
+  start,
+  labels = ["Next.js", "TanStack Start"],
+  icons: iconNames = ["siNextdotjs", "siTanstack"],
+  caption,
+} = Astro.props;
 
+const icon = (name: string) => (icons as Record<string, { path: string }>)[name];
 const SIDES = [
-  { key: "next", name: "Next.js", icon: icons.siNextdotjs, side: next, accent: false },
-  { key: "start", name: "TanStack Start", icon: icons.siTanstack, side: start, accent: true },
+  { key: "left", name: labels[0], icon: icon(iconNames[0]), side: next, accent: false },
+  { key: "right", name: labels[1], icon: icon(iconNames[1]), side: start, accent: true },
 ];
 ---
 
