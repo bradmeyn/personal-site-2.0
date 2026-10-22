@@ -1,0 +1,109 @@
+---
+import * as icons from "simple-icons";
+
+type Row = {
+  name: string;
+  value: number;
+  /** Text shown at the end of the bar; defaults to the value. */
+  label?: string;
+  /** simple-icons export name, e.g. "siSvelte". */
+  icon?: string;
+  highlight?: boolean;
+};
+
+type Props = {
+  title: string;
+  rows: Row[];
+  /** Source line under the chart; may contain a link. */
+  source?: string;
+  sourceUrl?: string;
+  note?: string;
+};
+
+const { title, rows, source, sourceUrl, note } = Astro.props;
+const max = Math.max(...rows.map((r) => r.value));
+const iconPath = (name?: string) => (name ? (icons as Record<string, { path: string }>)[name]?.path : undefined);
+---
+
+<figure class="bar-chart not-prose my-10 rounded-xl border border-line-strong bg-surface p-5 sm:p-7" data-bars>
+  <figcaption class="text-sm text-muted">{title}</figcaption>
+
+  <dl class="mt-6 space-y-3">
+    {
+      rows.map((row) => {
+        const path = iconPath(row.icon);
+        return (
+          <div class="grid grid-cols-[5.5rem_1fr_4.5rem] items-center gap-2.5 sm:grid-cols-[7rem_1fr_5.5rem] sm:gap-3">
+            <dt class:list={["font-mono text-sm", row.highlight ? "font-medium text-fg" : "text-muted"]}>{row.name}</dt>
+            <dd class="h-8 overflow-hidden rounded-md bg-white/[0.04] sm:h-9">
+              <span
+                class:list={[
+                  "bar flex h-full items-center rounded-md px-2.5",
+                  row.highlight ? "bg-gradient-to-r from-[#4b45c9] to-accent" : "bg-white/[0.12]",
+                ]}
+                style={`--value:${(row.value / max) * 100}%`}>
+                {path && (
+                  <svg viewBox="0 0 24 24" class:list={["size-3.5 shrink-0", row.highlight ? "text-white" : "text-muted"]} fill="currentColor" aria-hidden="true">
+                    <path d={path} />
+                  </svg>
+                )}
+              </span>
+            </dd>
+            <dd class:list={["text-right font-mono text-sm tabular-nums", row.highlight ? "font-semibold text-accent" : "text-muted"]}>
+              {row.label ?? row.value}
+            </dd>
+          </div>
+        );
+      })
+    }
+  </dl>
+
+  {note && <p class="mt-5 text-sm text-muted">{note}</p>}
+  {
+    source && (
+      <p class="mt-5 text-xs leading-relaxed text-faint">
+        Source:{" "}
+        {sourceUrl ? (
+          <a href={sourceUrl} class="underline decoration-line-strong underline-offset-2 hover:text-fg">{source}</a>
+        ) : (
+          source
+        )}
+      </p>
+    )
+  }
+</figure>
+
+<script>
+  // Bars grow to their value the first time a chart scrolls into view.
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          (entry.target as HTMLElement).dataset.shown = "true";
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.4 },
+    );
+    for (const chart of document.querySelectorAll<HTMLElement>("[data-bars]")) {
+      chart.dataset.animate = "true";
+      observer.observe(chart);
+    }
+  }
+</script>
+
+<style>
+  .bar {
+    width: var(--value);
+  }
+
+  .bar-chart[data-animate="true"] .bar {
+    width: 0;
+    transition: width 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .bar-chart[data-shown="true"] .bar {
+    width: var(--value);
+  }
+</style>

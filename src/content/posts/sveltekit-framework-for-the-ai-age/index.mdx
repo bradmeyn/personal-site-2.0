@@ -1,0 +1,160 @@
+---
+title: "Why SvelteKit Is the Framework for the AI Age"
+outline: "When agents write most of the code, the best framework is the one they write well, you can review quickly, and ships the least to the browser."
+tags: ["sveltekit", "svelte", "ai", "agentic development"]
+date: 2026-10-03
+---
+
+import BarChart from "@/components/posts/bar-chart.astro";
+
+Most of the code in my projects is now written by AI coding agents. I design the product, decide the architecture and data model, and review what comes back. That changes the question I ask about frameworks. It's no longer "which one do I enjoy typing?" It's "which one does an agent write well, and which one can I review quickly when it doesn't?"
+
+For me, that's SvelteKit. Version 3 shipped this week, and I've just upgraded [Costbase](/projects/#costbase) and [Embark](/projects/#embark) to it. Here's why I think it suits agentic development better than anything else I've used.
+
+## Less code is less to review
+
+Svelte components are close to plain HTML, CSS and JavaScript. State is a variable, updating it is an assignment, and there's no hooks layer to get wrong.
+
+```svelte
+<script lang="ts">
+  let count = $state(0);
+  const doubled = $derived(count * 2);
+</script>
+
+<button onclick={() => count++}>{count} doubled is {doubled}</button>
+```
+
+When an agent writes that, there's very little to check. There's no dependency array to audit and no stale closure waiting to happen. Smaller components also mean smaller diffs, fewer tokens in the agent's context, and fewer places for it to wander off.
+
+That last point is measurable. Andrey Kucherenko wrote the same five components (a greeting, a counter, a todo list, a data fetch and a filterable table) in each major framework and counted the tokens:
+
+<BarChart
+  title="Tokens to write the same five components (fewer is better)"
+  rows={[
+    { name: "Svelte", value: 598, label: "598", icon: "siSvelte", highlight: true },
+    { name: "Vue", value: 667, label: "+11.5%", icon: "siVuedotjs" },
+    { name: "Solid", value: 715, label: "+19.6%", icon: "siSolid" },
+    { name: "React", value: 750, label: "+25.4%", icon: "siReact" },
+    { name: "Angular", value: 826, label: "+38.1%", icon: "siAngular" },
+  ]}
+  source="We Measured the LLM Token Cost of 5 Frontend Frameworks (HackerNoon, June 2026), counted with tiktoken's cl100k_base."
+  sourceUrl="https://hackernoon.com/we-measured-the-llm-token-cost-of-5-frontend-frameworks-angular-costs-38percent-more-than-svelte"
+/>
+
+A quarter fewer tokens than React adds up across a codebase. The agent fits more of your app into its context, each request costs less, and there's less output for you to read. As Kucherenko puts it, anything you state in code costs tokens, and anything the compiler infers is free.
+
+The bottleneck in agentic development isn't how fast code gets written. It's how fast a person can confirm the code is right. A framework that needs less code to say the same thing speeds up the part that's actually slow.
+
+## Small and fast by default
+
+Svelte is a compiler, not a runtime. Your components compile to plain JavaScript that updates the DOM directly, so there's no virtual DOM and no framework runtime to download before anything works. To see the difference, I built the official Vite starter app, the same small counter page, with each framework:
+
+<BarChart
+  title="JavaScript shipped by the Vite starter app (gzipped)"
+  rows={[
+    { name: "Svelte", value: 12.3, label: "12.3 KB", icon: "siSvelte", highlight: true },
+    { name: "React", value: 68.4, label: "68.4 KB", icon: "siReact" },
+  ]}
+  note="About 5.6× less JavaScript for the same page."
+  source="My own build of create-vite's svelte-ts and react-ts templates: Svelte 5.57, React 19.3, Vite 8.3."
+/>
+
+That gap matters most on phones and slow connections, where every kilobyte of JavaScript has to be downloaded, parsed and run before the page responds. With SvelteKit handling server rendering, routing and data on top, it's a full-stack option that starts lighter and stays lighter.
+
+## One obvious way to do things
+
+Agents do their best work when there's a clear pattern to follow. SvelteKit's remote functions give data loading and mutations a single shape: a schema-validated function in a `.remote.ts` file, called directly from a component.
+
+```ts
+// src/lib/remotes/trip.remote.ts
+import { form, query } from "$app/server";
+import { z } from "zod";
+import { eq } from "drizzle-orm";
+import { db } from "#lib/server/db/index.js";
+import { tripTable } from "#lib/server/db/schema.js";
+
+export const getTrip = query(z.string(), async (id) => {
+  return db.query.tripTable.findFirst({ where: eq(tripTable.id, id) });
+});
+
+export const renameTrip = form(
+  z.object({ id: z.string(), name: z.string().min(1, "Name is required") }),
+  async ({ id, name }) => {
+    await db.update(tripTable).set({ name }).where(eq(tripTable.id, id));
+    await getTrip(id).refresh();
+  },
+);
+```
+
+```svelte
+<script lang="ts">
+  import { getTrip, renameTrip } from "#lib/remotes/trip.remote.js";
+
+  let { id }: { id: string } = $props();
+  const trip = $derived(await getTrip(id));
+</script>
+
+<h1>{trip?.name}</h1>
+
+<form {...renameTrip}>
+  <input {...renameTrip.fields.id.as("hidden", id)} />
+  <input {...renameTrip.fields.name.as("text")} />
+  <button>Save</button>
+</form>
+```
+
+That's the whole round trip. There's no API route to invent, no fetch wrapper and no client cache keys to keep in sync, and types flow from the schema to the form fields.
+
+It also means **no form library**. In React you'd typically reach for React Hook Form or Formik, plus a resolver to connect it to your schema. Here the `form` function validates against the same Zod schema on the server, gives each field its error message, and works as a plain HTML form even before JavaScript loads.
+
+Once an agent has seen one remote file in a project, it writes the next one the same way. Embark has more than 50 remote functions and they all look alike, which is exactly what you want from code you didn't type yourself.
+
+## Guardrails the compiler enforces
+
+An agent will happily do the wrong thing if nothing stops it. SvelteKit stops a lot of it:
+
+- **Server code stays on the server.** Modules in `server` directories can't be imported into client code, and SvelteKit 3 now enforces this everywhere in the project. An agent can't accidentally ship a database client or a secret to the browser.
+- **Templates are type-checked.** `svelte-check` checks `.svelte` files, not just `.ts`, so a renamed prop or a wrong field fails the check instead of failing in production.
+- **The compiler explains itself.** When I upgraded to SvelteKit 3, `svelte-check` flagged three components that copied a prop into local state. That's a subtle bug: the component shows stale data after the prop changes. The warning says what's wrong and links to the fix, which is exactly the kind of feedback an agent can act on without me.
+
+Fast, specific feedback is what turns an agent from a guesser into something closer to a careful junior developer. Svelte's compiler gives you a lot of it for free.
+
+## Switching is no longer a rewrite
+
+The biggest reason teams stayed on React used to be the cost of leaving. Rewriting a working app by hand could take months. With coding agents, that's changed.
+
+In March, Strawberry Browser [moved its entire UI from React to Svelte](https://strawberrybrowser.com/blog/react-to-svelte), and the numbers are hard to ignore:
+
+- **130,000 lines of code, in two weeks, by one engineer.** He used swarms of coding agents, with the original React code kept alongside as the reference to port from.
+- **2× faster in production**, with first contentful paint dropping from 300 ms to 124 ms.
+- **10× fewer re-renders** on streaming responses, and **56 unused dependencies** removed along the way.
+
+Their one warning is worth repeating: "LLMs write much worse Svelte than you think." What made it work was a strict Svelte ruleset for the agents to follow. Which brings me to the weak spot.
+
+## The training data gap is closing
+
+The honest weakness: models have seen far more React than Svelte, and Svelte 5's runes are newer than a lot of their training data. Early on, agents kept writing Svelte 4 syntax like `export let` and `$:` statements.
+
+The Svelte team has done more about this than any other framework team I know of:
+
+- **LLM-ready docs.** [svelte.dev/llms.txt](https://svelte.dev/llms.txt) publishes the full Svelte and SvelteKit documentation in formats built for models, including abridged and compressed versions.
+- **An official MCP server.** It lets an agent look up current documentation, and its `svelte-autofixer` tool runs static analysis on generated code before you ever see it.
+- **Official skills and plugins** for Claude Code, Cursor, Codex and others, including a subagent dedicated to editing Svelte files.
+
+With those in place, the old-syntax problem has mostly gone away for me. The agent checks the docs instead of guessing from memory.
+
+## "But the React ecosystem"
+
+It's the first objection everyone raises, and in 2026 it mostly doesn't hold. Everything a full-stack app needs is there, and I use all of it in production:
+
+- **UI components:** [shadcn-svelte](https://shadcn-svelte.com/), a port of shadcn/ui built on the Bits UI primitives. Costbase and Embark both use it.
+- **Charts:** [LayerChart](https://layerchart.com/), a Svelte-native charting library, which draws Costbase's portfolio charts.
+- **Any plain JavaScript library:** because Svelte has no virtual DOM to fight, libraries like Chart.js, D3 and Leaflet work directly, with no React wrapper package. Embark's trip maps are plain Leaflet.
+- **Auth:** [Better Auth](https://www.better-auth.com/), with first-class SvelteKit support.
+- **Database:** [Drizzle ORM](https://orm.drizzle.team/), which doesn't care what your front end is.
+- **Validation:** Zod, Valibot or any Standard Schema library, plugged straight into remote functions.
+- **Forms:** built in, as above.
+
+There are still more React libraries in total, and more React developers to hire. But the gap that matters, the libraries you actually reach for in a real app, has closed. If you're on a React team, I'd look at [TanStack Start](/articles/tanstack-start-future-of-react/) before Next.js.
+
+For a solo developer or a small team building app-shaped products with agents, the maths is different. Less code means less to review, a small runtime means faster apps, one pattern means less drift between files, and good compiler feedback means fewer bugs reach you. That's why SvelteKit is my default for everything behind a login.
