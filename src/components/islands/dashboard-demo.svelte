@@ -175,7 +175,7 @@
     <!-- A slider over the days in range: arrow keys move the crosshair, and screen
          readers announce the date and value at each step. -->
     <div
-      class="relative mt-3 h-48 cursor-crosshair touch-pan-y rounded-sm sm:h-56"
+      class="relative mt-3 h-40 cursor-crosshair touch-pan-y rounded-sm sm:h-36"
       role="slider"
       tabindex="0"
       aria-label={`Portfolio value over ${range}`}
@@ -229,7 +229,7 @@
     </div>
   </div>
 
-  <div class="mt-4 border-t border-line px-4 py-4">
+  <div class="mt-4 border-t border-line px-4 py-3">
     <p class="text-xs text-muted">Allocation</p>
     <div class="mt-3 flex h-2 gap-0.5 overflow-hidden rounded-full">
       {#each ALLOCATION as a (a.label)}
@@ -241,7 +241,7 @@
         </span>
       {/each}
     </div>
-    <ul class="mt-3 grid grid-cols-1 gap-x-4 gap-y-1.5 sm:grid-cols-2">
+    <ul class="mt-2.5 grid grid-cols-1 gap-x-4 gap-y-1 sm:flex sm:flex-wrap sm:justify-between">
       {#each ALLOCATION as a (a.label)}
         <li>
           <button
@@ -253,7 +253,7 @@
             onblur={() => (highlighted = null)}>
             <span class="size-2 shrink-0 rounded-full" style:background={a.color}></span>
             <span class="truncate">{a.label}</span>
-            <span class="ml-auto font-mono tabular-nums text-faint">{a.weight}%</span>
+            <span class="ml-auto font-mono tabular-nums text-faint sm:ml-0">{a.weight}%</span>
           </button>
         </li>
       {/each}

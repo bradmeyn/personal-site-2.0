@@ -16,12 +16,9 @@ import LighthouseCard from "@/components/lighthouse-card.astro";
           Business applications
         </h3>
         <p class="mt-5 text-lg leading-relaxed text-muted">
-          CRMs and the tools a team runs its day on: client records, pipelines, file notes and the
-          workflows between them. I've built and worked on CRMs, including Sage, a practice platform
-          for financial advisers.
-        </p>
-        <p class="mt-4 leading-relaxed text-muted">
-          This is Sage's client list. Try it: search, open a client, or switch to Modelling in the sidebar.
+          The complex software a business depends on every day: client records, compliance, pipelines
+          and the workflows that tie them together. Built to be fast, reliable and simple for the
+          people who use it all day.
         </p>
         <p class="mt-6 text-sm text-muted">
           In production:{" "}
@@ -33,17 +30,14 @@ import LighthouseCard from "@/components/lighthouse-card.astro";
 
     <article
       aria-labelledby="dashboards-title"
-      class="mt-24 grid items-center gap-12 lg:grid-cols-[3fr_2fr] lg:gap-16">
+      class="mt-32 grid items-center gap-12 lg:grid-cols-[3fr_2fr] lg:gap-16">
       <div class="max-w-md lg:order-2">
         <h3 id="dashboards-title" class="display text-2xl leading-tight sm:text-3xl">
           Professional dashboards
         </h3>
         <p class="mt-5 text-lg leading-relaxed text-muted">
-          Portfolios, reports and the numbers a business watches. Charts, filters and live figures
-          that stay quick with years of data behind them.
-        </p>
-        <p class="mt-4 leading-relaxed text-muted">
-          This one is live. Change the range, hover the chart, or focus it and use the arrow keys.
+          The numbers a business is run by, made clear: portfolios, reporting and live figures that
+          stay fast with years of data behind them, so decisions don't wait on a spreadsheet.
         </p>
         <p class="mt-6 text-sm text-muted">
           In production:{" "}
@@ -55,17 +49,15 @@ import LighthouseCard from "@/components/lighthouse-card.astro";
 
     <article
       aria-labelledby="marketing-title"
-      class="mt-24 grid items-center gap-12 lg:grid-cols-[2fr_3fr] lg:gap-16">
+      class="mt-32 grid items-center gap-12 lg:grid-cols-[2fr_3fr] lg:gap-16">
       <div class="max-w-md">
         <h3 id="marketing-title" class="display text-2xl leading-tight sm:text-3xl">
           Fast, findable websites
         </h3>
         <p class="mt-5 text-lg leading-relaxed text-muted">
-          Content sites built with Astro and hosted on Cloudflare. Plain HTML first, JavaScript only
-          where it earns its place, and hosting that costs next to nothing.
-        </p>
-        <p class="mt-4 leading-relaxed text-muted">
-          This site is one. These are its own Lighthouse results on a throttled mobile connection.
+          Websites that load instantly, show up in search and cost next to nothing to host. Built
+          with modern technology instead of WordPress, so there are no plugins to patch and nothing
+          slowing it down. These scores are this site's own.
         </p>
         <p class="mt-6 text-sm text-muted">
           Read how:{" "}
@@ -77,7 +69,7 @@ import LighthouseCard from "@/components/lighthouse-card.astro";
         </p>
       </div>
 
-      <LighthouseCard />
+      <LighthouseCard class="lg:[&>div]:aspect-[7/5]" />
     </article>
   </div>
 </section>
