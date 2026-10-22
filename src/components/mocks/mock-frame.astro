@@ -5,12 +5,14 @@ type Props = {
   /** Brand colour for the light spilling behind the window. */
   color: string;
   class?: string;
+  /** Set when the preview contains real controls, so it isn't hidden from screen readers. */
+  interactive?: boolean;
 };
 
-const { title, color, class: className = "" } = Astro.props;
+const { title, color, class: className = "", interactive = false } = Astro.props;
 ---
 
-<figure class:list={["relative isolate", className]} aria-hidden="true">
+<figure class:list={["relative isolate", className]} aria-hidden={interactive ? undefined : "true"}>
   <div
     class="pointer-events-none absolute -inset-x-10 -top-10 bottom-0 -z-10 opacity-[0.18] blur-3xl"
     style={`background: radial-gradient(60% 55% at 50% 35%, ${color}, transparent 70%)`}>
