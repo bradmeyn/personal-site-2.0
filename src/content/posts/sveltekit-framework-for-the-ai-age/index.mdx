@@ -59,6 +59,23 @@ Svelte is a compiler, not a runtime. Your components compile to plain JavaScript
   source="My own build of create-vite's svelte-ts and react-ts templates: Svelte 5.57, React 19.3, Vite 8.3."
 />
 
+A starter page is a toy, though. Loren Stewart built [the same kanban app in ten frameworks](https://www.lorenstew.art/blog/10-kanban-boards), each with drag and drop, comments, optimistic updates and the same Drizzle database, and measured what the board page ships:
+
+<BarChart
+  title="JavaScript shipped by the same kanban board (compressed)"
+  rows={[
+    { name: "SvelteKit", value: 54.1, label: "54.1 kB", icon: "siSvelte", highlight: true },
+    { name: "Nuxt", value: 74.7, label: "74.7 kB", icon: "siNuxt" },
+    { name: "TanStack", value: 118.2, label: "118.2 kB", icon: "siTanstack" },
+    { name: "Next.js", value: 176.1, label: "176.1 kB", icon: "siNextdotjs" },
+  ]}
+  note="All four scored 100 on Lighthouse. The difference is what a phone on a slow connection has to download, parse and run."
+  source="I Built the Same App 10 Times (Loren Stewart): Svelte 5, Nuxt 4, TanStack Start with React 19 and Next.js 16, Lighthouse mobile emulation, median of 10 runs."
+  sourceUrl="https://www.lorenstew.art/blog/10-kanban-boards"
+/>
+
+Stewart's own caveat makes the gap more important, not less: real apps typically ship five to ten times more JavaScript once analytics, auth and third-party libraries arrive, so a heavier starting point compounds.
+
 That gap matters most on phones and slow connections, where every kilobyte of JavaScript has to be downloaded, parsed and run before the page responds. With SvelteKit handling server rendering, routing and data on top, it's a full-stack option that starts lighter and stays lighter.
 
 ## One obvious way to do things

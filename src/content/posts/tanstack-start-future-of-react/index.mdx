@@ -7,6 +7,7 @@ date: 2026-10-22
 
 import CodeCompare from "@/components/posts/code-compare.astro";
 import FrameworkBench from "@/components/posts/framework-bench.astro";
+import BarChart from "@/components/posts/bar-chart.astro";
 
 export const fullNext = `
 // app/clients/[id]/page.tsx — a server component
@@ -167,6 +168,21 @@ For most of the last few years, "React app" has meant "Next.js app". It's the de
 Here's the short version, from an [independent benchmark](https://dev.to/fabwaseem/tanstack-start-vs-nextjs-in-2026-same-app-real-benchmarks-25a2) that built the same app in both frameworks:
 
 <FrameworkBench />
+
+That's a small synthetic store. A [second study by Loren Stewart](https://www.lorenstew.art/blog/10-kanban-boards) built a full kanban app, with drag and drop, comments and optimistic updates, in ten frameworks, and measured what each one ships:
+
+<BarChart
+  title="JavaScript shipped by the same kanban board (compressed)"
+  rows={[
+    { name: "TanStack", value: 118.2, label: "118.2 kB", icon: "siTanstack", highlight: true },
+    { name: "Next.js", value: 176.1, label: "176.1 kB", icon: "siNextdotjs" },
+  ]}
+  note="About a third less JavaScript for the same app, on the same React 19."
+  source="I Built the Same App 10 Times (Loren Stewart): TanStack Start vs Next.js 16, Lighthouse mobile emulation, median of 10 runs."
+  sourceUrl="https://www.lorenstew.art/blog/10-kanban-boards"
+/>
+
+Stewart's study also makes an honest point: React itself sets a floor. Frameworks without React's runtime shipped less again, with [SvelteKit](/articles/sveltekit-framework-for-the-ai-age/) at 54.1 kB for the same board. If you can leave React, that's worth knowing. If you're staying, Start is the lighter way to do it.
 
 The speed is nice. But it isn't why I chose it.
 
