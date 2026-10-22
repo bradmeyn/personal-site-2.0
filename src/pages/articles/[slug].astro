@@ -17,6 +17,7 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 const { title, outline, date, tags } = entry.data;
 const url = new URL(`/articles/${entry.id}/`, SITE.url).href;
+const image = `/articles/${entry.id}/og.png`;
 
 const jsonLd = [
   {
@@ -27,7 +28,7 @@ const jsonLd = [
     datePublished: date.toISOString(),
     url,
     mainEntityOfPage: url,
-    image: new URL("/og.png", SITE.url).href,
+    image: new URL(image, SITE.url).href,
     keywords: tags.join(", "),
     inLanguage: "en-AU",
     author: PERSON_REF,
@@ -49,6 +50,8 @@ const jsonLd = [
   title={title}
   description={outline}
   type="article"
+  image={image}
+  imageAlt={title}
   article={{ publishedTime: date, tags }}
   jsonLd={jsonLd}>
   <article class="container max-w-[46rem] pb-24 pt-12 sm:pt-16">

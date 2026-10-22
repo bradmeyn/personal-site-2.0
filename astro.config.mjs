@@ -5,6 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 import cloudflare from "@astrojs/cloudflare";
 import svelte from "@astrojs/svelte";
+import { articleImages } from "./integrations/og-images.mjs";
 
 // https://astro.build/config
 export default defineConfig({
@@ -33,6 +34,7 @@ export default defineConfig({
   integrations: [
     mdx(),
     svelte(),
+    articleImages(),
     sitemap({
       filter: (page) => !page.includes("/404"),
     }),

@@ -14,6 +14,10 @@ export const SITE = {
    * structured data, which helps search engines tie them all to one person.
    * Add new ones here as you create them (X, Bluesky, dev.to, YouTube...).
    */
-  profiles: ["https://github.com/bradmeyn", "https://www.linkedin.com/in/bradmeyn"],
+  profiles: [
+    "https://github.com/bradmeyn",
+    "https://www.linkedin.com/in/bradmeyn",
+    "https://bsky.app/profile/brad-meyn.bsky.social",
+  ],
   themeColor: "#0d1315",
 } as const;
