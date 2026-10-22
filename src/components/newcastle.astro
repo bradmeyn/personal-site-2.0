@@ -1,5 +1,10 @@
 ---
-/** "Newcastle", with a hidden Newcastle Knights red-and-blue gradient on hover. */
+/**
+ * "Newcastle", with a hidden Newcastle Knights easter egg: on hover the letters
+ * alternate red and blue. The letters are split for styling only, so screen
+ * readers get the plain word.
+ */
+const letters = [..."Newcastle"];
 ---
 
-<span class="newcastle">Newcastle</span>
+<span class="newcastle"><span class="sr-only">Newcastle</span><span aria-hidden="true">{letters.map((l, i) => <span style={`--i:${i}`}>{l}</span>)}</span></span>
