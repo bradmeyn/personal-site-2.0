@@ -22,7 +22,7 @@
   /* Soft violet: the site's only UI accent, kept apart from the project colours. */
   --color-accent: #a59cff;
 
-  /* Project brand colours, used only around each project's own work. */
+  /* Project brand colours: around each project's own work, and as the hero chart's three series. */
   --color-costbase: #3fb4ec;
   --color-embark: #f0913f;
   --color-embark-sea: #5fb8b0;
@@ -145,16 +145,11 @@
 }
 
 /* Hero backdrop (phones) -----------------------------------------------------
-   Phones skip the WebGL circuit, so they get a still grid around the edges,
-   clear behind the centred text. */
-
+   Phones skip the WebGL chart, so they get a still SVG of it. On a narrow
+   screen the text covers most of the hero, so the lines are dimmed behind it
+   rather than cleared. */
 .hero-grid {
-  background-image:
-    linear-gradient(to right, rgb(165 156 255 / 0.1) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(165 156 255 / 0.1) 1px, transparent 1px);
-  background-size: 40px 40px;
-  background-position: center;
-  mask-image: radial-gradient(ellipse 85% 60% at 50% 50%, transparent 35%, black 90%);
+  mask-image: radial-gradient(ellipse 90% 55% at 50% 45%, rgb(0 0 0 / 0.3) 30%, black 85%);
 }
 
 /* Article body ---------------------------------------------------------- */

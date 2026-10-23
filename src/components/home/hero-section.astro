@@ -7,33 +7,68 @@ import { SITE } from "@/constants/site";
 <section
   class="relative isolate flex items-center overflow-hidden sm:min-h-[calc(100svh-3.5rem)]"
   aria-labelledby="hero-title">
-  <!-- Backdrop: the animated circuit grid, or a static CSS grid on phones. -->
+  <!-- Backdrop: the animated line chart, or a still SVG of it on phones. -->
   <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-    <div class="hero-grid absolute inset-0 sm:hidden"></div>
+    <!-- A still frame of the hero chart, for phones and machines without a GPU. -->
+    <svg
+      class="hero-grid absolute inset-0 size-full sm:hidden"
+      viewBox="0 0 100 100"
+      preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="hero-fill-sage" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="var(--color-sage)" stop-opacity="0.08" />
+          <stop offset="0.35" stop-color="var(--color-sage)" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="hero-fill-costbase" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="var(--color-costbase)" stop-opacity="0.08" />
+          <stop offset="0.35" stop-color="var(--color-costbase)" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="hero-fill-embark" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="var(--color-embark)" stop-opacity="0.08" />
+          <stop offset="0.35" stop-color="var(--color-embark)" stop-opacity="0" />
+        </linearGradient>
+      </defs>
+      <g stroke="white" stroke-opacity="0.035" stroke-width="1">
+        <line x1="0" x2="100" y1="12.5" y2="12.5" vector-effect="non-scaling-stroke" />
+        <line x1="0" x2="100" y1="25" y2="25" vector-effect="non-scaling-stroke" />
+        <line x1="0" x2="100" y1="37.5" y2="37.5" vector-effect="non-scaling-stroke" />
+        <line x1="0" x2="100" y1="50" y2="50" vector-effect="non-scaling-stroke" />
+        <line x1="0" x2="100" y1="62.5" y2="62.5" vector-effect="non-scaling-stroke" />
+        <line x1="0" x2="100" y1="75" y2="75" vector-effect="non-scaling-stroke" />
+        <line x1="0" x2="100" y1="87.5" y2="87.5" vector-effect="non-scaling-stroke" />
+      </g>
+      <path d="M0.0 63.8 C1.4 63.5 5.6 62.7 8.3 61.9 C11.1 61.0 13.9 59.0 16.7 58.6 C19.4 58.2 22.2 58.6 25.0 59.3 C27.8 60.1 30.6 62.6 33.3 63.3 C36.1 63.9 38.9 64.3 41.7 63.5 C44.4 62.7 47.2 59.9 50.0 58.5 C52.8 57.2 55.6 55.3 58.3 55.2 C61.1 55.0 63.9 56.5 66.7 57.5 C69.4 58.5 72.2 60.5 75.0 61.3 C77.8 62.2 80.6 62.0 83.3 62.5 C86.1 63.0 88.9 63.0 91.7 64.4 C94.4 65.9 98.6 69.9 100.0 71.0 L100 100 L0 100 Z" fill="url(#hero-fill-sage)" />
+      <path d="M0.0 63.8 C1.4 63.5 5.6 62.7 8.3 61.9 C11.1 61.0 13.9 59.0 16.7 58.6 C19.4 58.2 22.2 58.6 25.0 59.3 C27.8 60.1 30.6 62.6 33.3 63.3 C36.1 63.9 38.9 64.3 41.7 63.5 C44.4 62.7 47.2 59.9 50.0 58.5 C52.8 57.2 55.6 55.3 58.3 55.2 C61.1 55.0 63.9 56.5 66.7 57.5 C69.4 58.5 72.2 60.5 75.0 61.3 C77.8 62.2 80.6 62.0 83.3 62.5 C86.1 63.0 88.9 63.0 91.7 64.4 C94.4 65.9 98.6 69.9 100.0 71.0" fill="none" stroke="var(--color-sage)" stroke-opacity="0.75" stroke-width="1.5" vector-effect="non-scaling-stroke" />
+      <path d="M0.0 44.9 C1.4 45.1 5.6 44.9 8.3 45.8 C11.1 46.6 13.9 48.7 16.7 49.8 C19.4 51.0 22.2 52.6 25.0 52.7 C27.8 52.8 30.6 51.3 33.3 50.5 C36.1 49.6 38.9 47.6 41.7 47.5 C44.4 47.5 47.2 48.7 50.0 50.2 C52.8 51.7 55.6 54.9 58.3 56.3 C61.1 57.7 63.9 58.6 66.7 58.8 C69.4 58.9 72.2 57.5 75.0 57.1 C77.8 56.8 80.6 56.5 83.3 56.6 C86.1 56.7 88.9 57.9 91.7 57.5 C94.4 57.2 98.6 54.9 100.0 54.3 L100 100 L0 100 Z" fill="url(#hero-fill-costbase)" />
+      <path d="M0.0 44.9 C1.4 45.1 5.6 44.9 8.3 45.8 C11.1 46.6 13.9 48.7 16.7 49.8 C19.4 51.0 22.2 52.6 25.0 52.7 C27.8 52.8 30.6 51.3 33.3 50.5 C36.1 49.6 38.9 47.6 41.7 47.5 C44.4 47.5 47.2 48.7 50.0 50.2 C52.8 51.7 55.6 54.9 58.3 56.3 C61.1 57.7 63.9 58.6 66.7 58.8 C69.4 58.9 72.2 57.5 75.0 57.1 C77.8 56.8 80.6 56.5 83.3 56.6 C86.1 56.7 88.9 57.9 91.7 57.5 C94.4 57.2 98.6 54.9 100.0 54.3" fill="none" stroke="var(--color-costbase)" stroke-opacity="0.75" stroke-width="1.5" vector-effect="non-scaling-stroke" />
+      <path d="M0.0 37.9 C1.4 38.1 5.6 39.0 8.3 38.8 C11.1 38.6 13.9 37.8 16.7 36.6 C19.4 35.5 22.2 32.9 25.0 32.0 C27.8 31.1 30.6 30.7 33.3 31.1 C36.1 31.6 38.9 34.0 41.7 34.8 C44.4 35.7 47.2 36.7 50.0 36.2 C52.8 35.6 55.6 33.2 58.3 31.4 C61.1 29.7 63.9 27.0 66.7 25.8 C69.4 24.6 72.2 24.5 75.0 24.2 C77.8 23.8 80.6 24.3 83.3 23.7 C86.1 23.1 88.9 21.4 91.7 20.5 C94.4 19.6 98.6 18.6 100.0 18.2 L100 100 L0 100 Z" fill="url(#hero-fill-embark)" />
+      <path d="M0.0 37.9 C1.4 38.1 5.6 39.0 8.3 38.8 C11.1 38.6 13.9 37.8 16.7 36.6 C19.4 35.5 22.2 32.9 25.0 32.0 C27.8 31.1 30.6 30.7 33.3 31.1 C36.1 31.6 38.9 34.0 41.7 34.8 C44.4 35.7 47.2 36.7 50.0 36.2 C52.8 35.6 55.6 33.2 58.3 31.4 C61.1 29.7 63.9 27.0 66.7 25.8 C69.4 24.6 72.2 24.5 75.0 24.2 C77.8 23.8 80.6 24.3 83.3 23.7 C86.1 23.1 88.9 21.4 91.7 20.5 C94.4 19.6 98.6 18.6 100.0 18.2" fill="none" stroke="var(--color-embark)" stroke-opacity="0.75" stroke-width="1.5" vector-effect="non-scaling-stroke" />
+    </svg>
     <HeroCanvas />
   </div>
 
   <div class="container py-20 sm:text-center">
-    <h1
-      id="hero-title"
-      class="font-mono text-[2.125rem] font-medium leading-[1.05] tracking-[-0.05em] sm:text-5xl lg:text-[4.25rem]">
-      <span class="block">Modern software,</span>
-      <!-- Wraps only between the two phrases, never mid-phrase. -->
-      <span class="block"
-        ><span class="inline-block">from plan</span>{" "}<span class="inline-block"
-          >to production.<span class="typed-cursor" aria-hidden="true"></span></span
-        ></span
-      >
+    <h1 id="hero-title">
+      <span class="block font-mono text-sm font-medium uppercase tracking-[0.2em] text-accent sm:text-base">
+        {SITE.name}
+      </span>
+      <span
+        class="mt-6 block font-mono text-[2.125rem] font-medium leading-[1.05] tracking-[-0.05em] sm:text-5xl lg:text-[4.25rem]">
+        <!-- From sm up, wraps only between the two phrases; phones wrap naturally. -->
+        <span class="sm:inline-block">I build the software</span>{" "}<span class="sm:inline-block"
+          >your business runs on.<span class="typed-cursor" aria-hidden="true"></span></span
+        >
+      </span>
     </h1>
 
     <p class="mt-8 max-w-[56ch] text-pretty text-lg leading-relaxed text-muted sm:mx-auto">
-      I'm Brad, a full-stack developer in <Newcastle />, Australia.{" "}<br class="hidden sm:inline" />
-      I build applications, internal tools &amp; websites.
+      Full-stack developer in <Newcastle />, Australia.{" "}<br class="hidden sm:inline" />
+      Client apps, internal tools and fast websites.
     </p>
 
     <div class="mt-10 flex flex-wrap items-center gap-3 sm:justify-center">
-      <a href="#services" class="button-primary">See what I do</a>
-      <a href={SITE.github} class="button-ghost" rel="me noopener">GitHub profile</a>
+      <a href="#contact" class="button-primary">Start a project</a>
+      <a href="#projects" class="button-ghost">View projects</a>
     </div>
   </div>
 </section>
