@@ -1,7 +1,6 @@
 <script lang="ts">
   import { Tween } from "svelte/motion";
   import { cubicOut } from "svelte/easing";
-  import { burst } from "@/lib/confetti";
 
   type Score = { label: string; value: number };
   let { scores }: { scores: Score[] } = $props();
@@ -16,18 +15,10 @@
 
   let root: HTMLButtonElement;
 
-  const perfect = $derived(scores.every((s) => s.value === 100));
-
-  // Replays can overlap; only the latest one gets to fire confetti.
-  let run = 0;
-
-  async function play() {
-    const id = ++run;
+  function play() {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     progress.set(0, { duration: 0 });
-    await progress.set(1, reduce ? { duration: 0 } : undefined);
-    // Celebrate a clean sweep the way Lighthouse does, once the rings have filled.
-    if (perfect && id === run) burst(root.getBoundingClientRect());
+    progress.set(1, reduce ? { duration: 0 } : undefined);
   }
 
   $effect(() => {
