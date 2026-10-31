@@ -1,0 +1,18 @@
+---
+import { Image } from "astro:assets";
+import MockFrame from "./mock-frame.astro";
+import screenshot from "@/assets/projects/filmjunk-home.jpg";
+
+// Film Junk is a public site, so it gets a real screenshot of its home page
+// rather than an illustrative mock like the private apps.
+---
+
+<MockFrame title="filmjunkpodcast.com" color="var(--color-filmjunk)">
+  <Image
+    src={screenshot}
+    alt=""
+    widths={[640, 1208]}
+    sizes="(min-width: 1024px) 600px, 100vw"
+    class="block h-auto w-full"
+  />
+</MockFrame>

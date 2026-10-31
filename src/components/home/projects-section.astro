@@ -2,14 +2,19 @@
 import ProjectLogo from "@/components/project-logo.astro";
 import CostbaseMock from "@/components/mocks/costbase-mock.astro";
 import EmbarkMock from "@/components/mocks/embark-mock.astro";
+import FilmJunkMock from "@/components/mocks/filmjunk-mock.astro";
 import SageMock from "@/components/mocks/sage-mock.astro";
 import { PROJECTS } from "@/constants/projects";
 
 const MOCKS = {
   costbase: CostbaseMock,
   embark: EmbarkMock,
+  filmjunk: FilmJunkMock,
   sage: SageMock,
 } as const;
+
+// The tabs fit three, so some projects only appear on /projects/.
+const HOME_PROJECTS = PROJECTS.filter((project) => project.homepage !== false);
 ---
 
 <!--
@@ -32,7 +37,7 @@ const MOCKS = {
 
     <div role="tablist" aria-label="Projects" class="mt-10 grid grid-cols-3 gap-3 sm:gap-6">
       {
-        PROJECTS.map((project, i) => (
+        HOME_PROJECTS.map((project, i) => (
           <button
             type="button"
             role="tab"
@@ -64,7 +69,7 @@ const MOCKS = {
 
     <div class="mt-12 grid sm:mt-16">
       {
-        PROJECTS.map((project, i) => {
+        HOME_PROJECTS.map((project, i) => {
           const Mock = MOCKS[project.id];
           return (
             <div
@@ -105,7 +110,7 @@ const MOCKS = {
                 <div class="mt-8">
                   {project.url && (
                     <a href={project.url} class="button-primary mr-3">
-                      Open {project.name}
+                      View site
                     </a>
                   )}
                   {project.repository ? (

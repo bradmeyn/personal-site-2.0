@@ -2,6 +2,7 @@
 import ProjectLogo from "@/components/project-logo.astro";
 import CostbaseMock from "@/components/mocks/costbase-mock.astro";
 import EmbarkMock from "@/components/mocks/embark-mock.astro";
+import FilmJunkMock from "@/components/mocks/filmjunk-mock.astro";
 import SageMock from "@/components/mocks/sage-mock.astro";
 import type { Project } from "@/constants/projects";
 
@@ -14,6 +15,7 @@ type Props = {
 const MOCKS = {
   costbase: CostbaseMock,
   embark: EmbarkMock,
+  filmjunk: FilmJunkMock,
   sage: SageMock,
 } as const;
 
@@ -69,7 +71,7 @@ const Mock = MOCKS[project.id];
         {
           project.url && (
             <a href={project.url} class="button-primary mr-3">
-              Open {project.name}
+              View site
             </a>
           )
         }

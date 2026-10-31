@@ -1,4 +1,4 @@
-export type ProjectId = "costbase" | "embark" | "sage";
+export type ProjectId = "costbase" | "embark" | "sage" | "filmjunk";
 
 export type Project = {
   id: ProjectId;
@@ -15,6 +15,8 @@ export type Project = {
   url?: string;
   /** Brand colour token name from global.css, used for the logo glow. */
   color: string;
+  /** Leave out of the home page's project tabs, which fit three. Defaults to shown. */
+  homepage?: false;
 };
 
 export const PROJECTS: Project[] = [
@@ -61,5 +63,22 @@ export const PROJECTS: Project[] = [
     stack: ["SvelteKit", "Drizzle", "PostgreSQL", "Better Auth", "Leaflet"],
     repository: "https://github.com/bradmeyn/embark",
     color: "var(--color-embark)",
+  },
+  {
+    id: "filmjunk",
+    name: "Film Junk",
+    summary: "An unofficial guide to every episode of the Film Junk Podcast.",
+    description:
+      "A fan-made, searchable archive of one of the longest-running movie podcasts: every episode, every film reviewed and how each host rated it.",
+    highlights: [
+      "Over 1,000 episodes since 2005, searchable by film, director and host",
+      "Host star ratings for every reviewed film, with posters from TMDB",
+      "Built from the show's RSS feed, official episode guides and the fan wiki",
+    ],
+    stack: ["Astro", "Svelte", "TypeScript", "TMDB API", "Cloudflare"],
+    url: "https://filmjunkpodcast.com",
+    repository: "https://github.com/bradmeyn/film-junk",
+    color: "var(--color-filmjunk)",
+    homepage: false,
   },
 ];

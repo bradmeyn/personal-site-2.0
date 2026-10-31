@@ -60,4 +60,18 @@ const { id, name, size = 64, class: className = "" } = Astro.props;
       </svg>
     )
   }
+  {
+    id === "filmjunk" && (
+      <svg viewBox="0 0 24 24" role="img" aria-label={`${name} logo`} class="w-[58%]">
+        <g fill="none" stroke="var(--color-filmjunk)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="16" rx="2" />
+          <path d="M7 4v16M17 4v16M3 8h4M3 12h4M3 16h4M17 8h4M17 12h4M17 16h4" />
+        </g>
+        <path
+          d="M12.00 8.60 L12.85 10.83 L15.23 10.95 L13.38 12.45 L14.00 14.75 L12.00 13.45 L10.00 14.75 L10.62 12.45 L8.77 10.95 L11.15 10.83Z"
+          fill="var(--color-filmjunk)"
+        />
+      </svg>
+    )
+  }
 </span>
