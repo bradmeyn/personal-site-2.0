@@ -1,0 +1,78 @@
+---
+import { Image } from "astro:assets";
+
+/**
+ * A book's section heading: its cover beside the heading and author line.
+ * The cover and title both link to the book's page (Goodreads); the cover is
+ * skipped by keyboard focus so each book is a single tab stop.
+ */
+type Props = {
+  /** Shown before the title, e.g. "Why" or "Bonus". */
+  label: string;
+  title: string;
+  author: string;
+  /** e.g. "first published 1973" */
+  published: string;
+  cover: ImageMetadata;
+  href: string;
+};
+
+const { label, title, author, published, cover, href } = Astro.props;
+---
+
+<header class="book">
+  <a href={href} class="book-cover" rel="noopener" tabindex="-1">
+    <Image src={cover} alt={`Cover of ${title} by ${author}`} width={96} densities={[1, 2]} />
+  </a>
+  <div>
+    <h2>{label}: <a href={href} rel="noopener">{title}</a></h2>
+    <p class="book-meta">{author}, {published}</p>
+  </div>
+</header>
+
+<style>
+  .book {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 3.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .book {
+      flex-direction: row;
+      align-items: flex-end;
+      gap: 1.5rem;
+    }
+  }
+
+  .book-cover {
+    flex-shrink: 0;
+    width: 96px;
+  }
+
+  .book-cover img {
+    display: block;
+    width: 96px;
+    height: auto;
+    border-radius: 3px;
+    box-shadow: 0 6px 20px rgb(0 0 0 / 0.45);
+    transition: transform 200ms;
+  }
+
+  .book-cover:hover img {
+    transform: translateY(-2px);
+  }
+
+  /* Beats the article's own h2 spacing, which assumes the heading stands alone. */
+  :global(.article-body) .book h2 {
+    margin: 0;
+  }
+
+  .book-meta {
+    margin-top: 0.375rem;
+    font-size: 0.9375rem;
+    color: var(--color-faint);
+  }
+</style>

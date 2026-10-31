@@ -1,39 +1,36 @@
 ---
 title: "The Only Three Finance Books You Need to Read"
-outline: "Why you can't beat the market, what to do instead, and how to stick with it. Three books that take the complexity out of investing."
+outline: "What to do with your money, why it works, and how to stick with it. Three books that take the complexity out of investing."
 tags: ["investing", "finance", "books"]
 date: 2026-01-18
 ---
 
+import Book from "@/components/posts/book.astro";
+import randomWalk from "./random-walk.jpg";
+import commonSense from "./common-sense-investing.jpg";
+import psychology from "./psychology-of-money.jpg";
+import behavioral from "./behavioral-investing.jpg";
+
 I studied finance at university because I thought it would teach me how to invest my money. I graduated knowing very little about how to actually do it. Was I supposed to read financial statements? Follow the charts? Buy companies whose names I recognised?
 
-I tried the last one. After a few disappointing purchases of "blue chip" shares, I went looking for books on how to invest instead. That's how I stumbled on _The Little Book of Common Sense Investing_, and on John "Jack" Bogle. It was the first thing I'd read that made investing simple, and it led me to the two books on either side of it.
+I tried the last one. After a few disappointing purchases of "blue chip" shares, I went looking for books on how to invest instead. That's how I stumbled on _The Little Book of Common Sense Investing_, and on John "Jack" Bogle. It was the first thing I'd read that made investing simple, and it led me to the other two.
 
 Most books about money make it sound harder than it is. They promise an edge: a stock-picking system, a chart pattern, a way to time the market. These three do the opposite. Read together, they answer the only three questions most people need answered about investing:
 
-- **Why** can't most people beat the market?
-- **What** should you do instead?
+- **What** should you do with your money?
+- **Why** does it work, when most professionals can't beat the market?
 - **How** do you stick with it when it gets hard?
 
-## Why: A Random Walk Down Wall Street
+<Book
+  label="What"
+  title="The Little Book of Common Sense Investing"
+  author="John C. Bogle"
+  published="first published 2007"
+  cover={commonSense}
+  href="https://www.goodreads.com/book/show/171127"
+/>
 
-**Burton Malkiel, first published 1973**
-
-Malkiel is a Princeton economist, and this is the book that made the case for index investing to a general audience. Its argument is simple: share prices already reflect what's publicly known, and new information arrives at random, so price movements are close to unpredictable. That's the "random walk".
-
-If prices are unpredictable, then picking winners is mostly luck, and paying someone to do it for you is mostly cost. Malkiel's famous line is that a blindfolded monkey throwing darts at the stock pages could pick a portfolio that does about as well as the experts.
-
-The book has been updated many times over fifty years, and the evidence has only grown. Year after year, most professionally managed funds trail the index they're measured against, and the longer the period, the bigger that majority gets.
-
-**Who it's for:** anyone who still suspects there's a trick to beating the market. It's the longest of the three, but it's the one that changes your mind.
-
-**The takeaway:** stop trying to outsmart the market. It's a game most professionals lose.
-
-## What: The Little Book of Common Sense Investing
-
-**John C. Bogle, first published 2007**
-
-If Malkiel explains why, Bogle tells you what to do about it. Bogle founded Vanguard and launched the first index fund for ordinary investors in 1976, an idea Wall Street mocked at the time. This short book is his whole philosophy in one sitting.
+This is where I'd start. Bogle founded Vanguard and launched the first index fund for ordinary investors in 1976, an idea Wall Street mocked at the time. This short book is his whole philosophy in one sitting.
 
 His advice fits in one sentence: "Don't look for the needle in the haystack. Just buy the haystack!" Own the whole market through a low-cost index fund, and you're guaranteed the market's return, less a tiny fee.
 
@@ -43,9 +40,33 @@ The part that sticks is his maths on costs. Fees look small as percentages, but 
 
 **The takeaway:** buy the whole market, keep costs as low as you can, and hold for a long time.
 
-## How: The Psychology of Money
+<Book
+  label="Why"
+  title="A Random Walk Down Wall Street"
+  author="Burton Malkiel"
+  published="first published 1973"
+  cover={randomWalk}
+  href="https://www.goodreads.com/book/show/26076"
+/>
 
-**Morgan Housel, 2020**
+Bogle tells you what to do. Malkiel explains why it works. He's a Princeton economist, and this is the book that made the case for index investing to a general audience. Its argument is simple: share prices already reflect what's publicly known, and new information arrives at random, so price movements are close to unpredictable. That's the "random walk".
+
+If prices are unpredictable, then picking winners is mostly luck, and paying someone to do it for you is mostly cost. Malkiel's famous line is that a blindfolded monkey throwing darts at the stock pages could pick a portfolio that does about as well as the experts.
+
+The book has been updated many times over fifty years, and the evidence has only grown. Year after year, most professionally managed funds trail the index they're measured against, and the longer the period, the bigger that majority gets.
+
+**Who it's for:** anyone who still suspects there's a trick to beating the market. It's the longest of the three, but it's the one that changes your mind.
+
+**The takeaway:** stop trying to outsmart the market. It's a game most professionals lose.
+
+<Book
+  label="How"
+  title="The Psychology of Money"
+  author="Morgan Housel"
+  published="2020"
+  cover={psychology}
+  href="https://www.goodreads.com/book/show/41881472"
+/>
 
 The first two books tell you what to do. This one explains why so few people manage to do it. Housel's point is that doing well with money depends less on how smart you are than on how you behave, and behaviour is hard to teach in a spreadsheet.
 
@@ -60,9 +81,14 @@ It's a collection of short chapters, each built around a story, and it's the mos
 
 **The takeaway:** the plan only works if you can live with it. Build one you won't abandon in a bad year.
 
-## Bonus: The Little Book of Behavioral Investing
-
-**James Montier, 2010**
+<Book
+  label="Bonus"
+  title="The Little Book of Behavioral Investing"
+  author="James Montier"
+  published="2010"
+  cover={behavioral}
+  href="https://www.goodreads.com/book/show/6922765"
+/>
 
 If _The Psychology of Money_ convinces you that behaviour is the hard part, Montier's book shows you exactly how your brain gets in the way. It sits in the same "Little Book" series as Bogle's, and it's a tour of the mental shortcuts that cost investors money:
 
@@ -79,7 +105,7 @@ Montier's fix is mostly about process: decide your rules in advance, while you'r
 
 ## Putting it together
 
-Read in that order, the three books give you a complete plan, and it's a surprisingly short one:
+Read together, the three books give you a complete plan, and it's a surprisingly short one:
 
 1. **Accept that you won't beat the market.** Neither will most of the people charging to try.
 2. **Own the market cheaply.** Broad, low-cost index funds, with fees as close to zero as you can find.
