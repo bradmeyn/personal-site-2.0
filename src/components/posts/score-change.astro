@@ -1,0 +1,77 @@
+---
+// Before and after scores: a faint bar for before, the accent bar for after.
+type Row = { name: string; before: number; after: number; beforeLabel?: string };
+type Props = { title: string; rows: Row[]; note?: string };
+
+const { title, rows, note } = Astro.props;
+---
+
+<figure class="score-change not-prose my-10 rounded-xl border border-line-strong bg-surface p-5 sm:p-7" data-scores>
+  <figcaption class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted">
+    {title}
+    <span class="flex items-center gap-1.5 text-xs"><span class="size-2 rounded-full bg-white/25"></span>Before</span>
+    <span class="flex items-center gap-1.5 text-xs"><span class="size-2 rounded-full bg-accent"></span>After</span>
+  </figcaption>
+
+  <dl class="mt-6 space-y-5">
+    {
+      rows.map((row) => (
+        <div>
+          <dt class="flex items-baseline justify-between gap-3 text-sm">
+            <span class="text-fg">{row.name}</span>
+            <span class="font-mono tabular-nums">
+              <span class="text-faint">{row.beforeLabel ?? row.before}</span>
+              <span class="text-faint"> → </span>
+              <span class="font-semibold text-accent">{row.after}</span>
+            </span>
+          </dt>
+          <dd class="mt-2 space-y-1.5">
+            <span class="block h-2 overflow-hidden rounded-full bg-white/[0.05]">
+              <span class="block h-full rounded-full bg-white/25" style={`width:${row.before}%`} />
+            </span>
+            <span class="block h-2 overflow-hidden rounded-full bg-white/[0.05]">
+              <span class="score-bar block h-full rounded-full bg-gradient-to-r from-[#4b45c9] to-accent" style={`--value:${row.after}%`} />
+            </span>
+          </dd>
+        </div>
+      ))
+    }
+  </dl>
+
+  {note && <p class="mt-6 text-xs leading-relaxed text-faint">{note}</p>}
+</figure>
+
+<script>
+  // The after bar grows past the before bar the first time the chart scrolls into view.
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          (entry.target as HTMLElement).dataset.shown = "true";
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.4 },
+    );
+    for (const chart of document.querySelectorAll<HTMLElement>("[data-scores]")) {
+      chart.dataset.animate = "true";
+      observer.observe(chart);
+    }
+  }
+</script>
+
+<style>
+  .score-bar {
+    width: var(--value);
+  }
+
+  .score-change[data-animate="true"] .score-bar {
+    width: 0;
+    transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+  }
+
+  .score-change[data-shown="true"] .score-bar {
+    width: var(--value);
+  }
+</style>

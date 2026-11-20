@@ -7,6 +7,9 @@ date: 2026-09-12
 
 import CwvChart from "@/components/posts/cwv-chart.astro";
 import LighthouseCard from "@/components/lighthouse-card.astro";
+import IslandsDiagram from "@/components/posts/islands-diagram.astro";
+import CmsCompare from "@/components/posts/cms-compare.astro";
+import ScoreChange from "@/components/posts/score-change.astro";
 
 <LighthouseCard class="mb-12" caption="This site's own Lighthouse results, on a throttled mobile connection." />
 
@@ -17,6 +20,8 @@ My answer for these sites is Astro, hosted on Cloudflare. This site is built tha
 ## Astro ships HTML, not an app
 
 Astro renders your pages to plain HTML at build time and sends no JavaScript by default. You add interactivity only where you need it, as an "island" that loads on its own.
+
+<IslandsDiagram />
 
 The dashboard on [my home page](/) is a Svelte component dropped into an Astro page:
 
@@ -55,7 +60,36 @@ const posts = defineCollection({
 export const collections = { posts };
 ```
 
-If your marketing team would rather not touch Git, Astro pairs well with a headless CMS, and you keep the same fast output.
+## Need content management?
+
+Files in a repo work well for a developer. Whether they work for the people writing the content depends on who they are and how often they publish. There are three levels, and the site is just as fast at each one.
+
+### 1. Developer-managed Markdown, with AI help
+
+Content stays as Markdown in the repo, and changes come to the developer. With an AI coding assistant, "add a new team member page" or "update the pricing table" takes minutes: the assistant writes the change, the schema catches mistakes, and the developer reviews it before it goes live.
+
+This site works this way. Each article is an MDX file, so it can use components built just for it: the Lighthouse card and Core Web Vitals chart in this article are Astro components dropped into the text. A CMS editor can only use the blocks its content model offers.
+
+- **Pros:** nothing extra to run or pay for. Any article can have its own custom components. Every change is reviewed and versioned, and you can roll any of them back.
+- **Cons:** editors can't publish on their own, so every change waits on someone else. That's fine for a site that changes monthly, and frustrating for one that changes daily.
+
+### 2. A Git-based CMS
+
+Tools like [Keystatic](https://keystatic.com/), [Decap CMS](https://decapcms.org/) and [TinaCMS](https://tina.io/) give editors a web interface on top of the same Markdown files. Saving a page commits it to the repo, and Cloudflare deploys it like any other change.
+
+- **Pros:** editors work on their own, and the content still lives in your repo, with its history and schema checks. Most of these tools are free or cheap, and there's no database.
+- **Cons:** each edit triggers a build, so changes take a minute or two to appear. Editors need a GitHub account, or a service that signs them in for you. Scheduling, approval workflows and translations are basic or missing.
+
+### 3. A fully headless CMS
+
+[Sanity](https://www.sanity.io/), [Contentful](https://www.contentful.com/) and [Storyblok](https://www.storyblok.com/) store content in their own database. Astro fetches it at build time, and the CMS calls a webhook to rebuild the site when something is published.
+
+- **Pros:** a polished editor with live previews, roles, scheduled publishing and translations. The same content can feed an app or another site, and editors never think about Git.
+- **Cons:** it's another service to pay for, usually per seat, and the content lives outside your repo, in a vendor's format. The integration takes more work, and pages can only use what the content model allows.
+
+<CmsCompare />
+
+Start at the lowest level that fits how the team works. Most marketing sites change less often than people expect, and moving up a level later only changes where the content comes from, not the pages that display it.
 
 ## The details that move the score
 
@@ -66,6 +100,15 @@ Most of the gap between a decent site and a perfect score is images and fonts:
 - **Render-blocking CSS and animation.** Inlining the stylesheet saves a round trip, and the largest element on the page shouldn't fade in, because it doesn't count as painted until it's visible.
 
 Together, those changes took this site's mobile performance score from 85 to 100.
+
+<ScoreChange
+  title="Lighthouse mobile performance"
+  rows={[
+    { name: "This site", before: 85, after: 100 },
+    { name: "Film Junk, home page", before: 89, beforeLabel: "88–90", after: 99 },
+  ]}
+  note="Throttled mobile connection. Film Junk got the same fonts and CSS fixes later; more on it below."
+/>
 
 None of it needs a plugin. It's a few lines of config and a decision to care.
 

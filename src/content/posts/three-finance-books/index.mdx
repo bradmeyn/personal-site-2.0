@@ -6,6 +6,8 @@ date: 2026-01-18
 ---
 
 import Book from "@/components/posts/book.astro";
+import ThreeSteps from "@/components/posts/three-steps.astro";
+import FeeCalculator from "@/components/islands/fee-calculator.svelte";
 import randomWalk from "./random-walk.jpg";
 import commonSense from "./common-sense-investing.jpg";
 import psychology from "./psychology-of-money.jpg";
@@ -35,6 +37,10 @@ This is where I'd start. Bogle founded Vanguard and launched the first index fun
 His advice fits in one sentence: "Don't look for the needle in the haystack. Just buy the haystack!" Own the whole market through a low-cost index fund, and you're guaranteed the market's return, less a tiny fee.
 
 The part that sticks is his maths on costs. Fees look small as percentages, but they compound against you just as returns compound for you. Over a working lifetime, a fund charging 1.5% a year can quietly take a large share of your final balance compared with one charging 0.1%. Investors as a group earn the market's return minus their costs, so the only reliable way to come out ahead is to pay less.
+
+Drag the fee and watch what it does over a working lifetime:
+
+<FeeCalculator client:visible />
 
 **Who it's for:** everyone. It's short enough to read in a weekend.
 
@@ -107,9 +113,13 @@ Montier's fix is mostly about process: decide your rules in advance, while you'r
 
 Read together, the three books give you a complete plan, and it's a surprisingly short one:
 
-1. **Accept that you won't beat the market.** Neither will most of the people charging to try.
-2. **Own the market cheaply.** Broad, low-cost index funds, with fees as close to zero as you can find.
-3. **Leave it alone.** Keep adding, ignore the headlines, and let time do the work.
+<ThreeSteps
+  steps={[
+    { title: "Accept that you won’t beat the market", body: "Neither will most of the people charging to try." },
+    { title: "Own the market cheaply", body: "Broad, low-cost index funds, with fees as close to zero as you can find." },
+    { title: "Leave it alone", body: "Keep adding, ignore the headlines, and let time do the work." },
+  ]}
+/>
 
 None of this is specific to the US, even though all three authors are American. In Australia the same ideas apply to low-cost index funds on the ASX, and to the investment option you choose inside your super, where fees compound for even longer.
 

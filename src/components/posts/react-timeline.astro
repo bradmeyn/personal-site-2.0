@@ -1,0 +1,49 @@
+---
+// Two routes to a full-stack React framework: Next.js from a hosting company,
+// TanStack Start from a data-fetching library.
+type Event = { year: string; text: string; track: "next" | "tanstack"; highlight?: boolean };
+
+const EVENTS: Event[] = [
+  { year: "2016", text: "Zeit releases Next.js", track: "next" },
+  { year: "2019", text: "Tanner Linsley releases React Query", track: "tanstack" },
+  { year: "2020", text: "Zeit renames itself Vercel", track: "next" },
+  { year: "2022", text: "React Query becomes TanStack Query", track: "tanstack" },
+  { year: "2023", text: "Next.js App Router, built on Server Components", track: "next" },
+  { year: "2025", text: "TanStack Start release candidate", track: "tanstack" },
+  { year: "2026", text: "TanStack Start 1.0 goes stable", track: "tanstack", highlight: true },
+];
+---
+
+<figure class="not-prose my-10 rounded-xl border border-line-strong bg-surface p-5 sm:p-7">
+  <figcaption class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted">
+    Two routes to full-stack React
+    <span class="flex items-center gap-1.5 text-xs"><span class="size-2 rounded-full bg-white/40"></span>Next.js</span>
+    <span class="flex items-center gap-1.5 text-xs"><span class="size-2 rounded-full bg-accent"></span>TanStack</span>
+  </figcaption>
+
+  <div class="relative mt-6">
+    <span class="absolute bottom-4 left-[calc(4.125rem-0.5px)] top-4 w-px bg-line-strong" aria-hidden="true"></span>
+  <ol>
+    {
+      EVENTS.map((event) => (
+        <li class="relative grid grid-cols-[3rem_1.5rem_1fr] items-center gap-x-1.5 py-2">
+          <span class:list={["font-mono text-sm tabular-nums", event.highlight ? "text-accent" : "text-faint"]}>{event.year}</span>
+          <span class="grid place-items-center" aria-hidden="true">
+            <span
+              class:list={[
+                "rounded-full ring-4 ring-surface",
+                event.track === "tanstack" ? "bg-accent" : "bg-white/40",
+                event.highlight ? "size-3.5 shadow-[0_0_16px_rgb(165_156_255/0.7)]" : "size-2.5",
+              ]}
+            />
+          </span>
+          <span class:list={["text-sm", event.highlight ? "font-medium text-fg" : "text-muted"]}>
+            <span class="sr-only">{event.track === "next" ? "Next.js: " : "TanStack: "}</span>
+            {event.text}
+          </span>
+        </li>
+      ))
+    }
+  </ol>
+  </div>
+</figure>

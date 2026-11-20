@@ -1,0 +1,60 @@
+---
+// The three content management levels from the Astro + Cloudflare article, side by side.
+type Level = {
+  name: string;
+  examples: string;
+  highlight?: boolean;
+  values: string[];
+};
+
+const ROWS = ["Who publishes", "Cost", "Change goes live", "Custom components", "Content lives in"];
+
+const LEVELS: Level[] = [
+  {
+    name: "Markdown + AI",
+    examples: "This site",
+    highlight: true,
+    values: ["The developer", "Free", "Once it’s reviewed", "Anything, per article", "Your repo"],
+  },
+  {
+    name: "Git-based CMS",
+    examples: "Keystatic, Decap, TinaCMS",
+    values: ["Editors", "Free to low", "After a 1–2 minute build", "Blocks you set up", "Your repo"],
+  },
+  {
+    name: "Headless CMS",
+    examples: "Sanity, Contentful, Storyblok",
+    values: ["Editors", "Monthly, per seat", "After a 1–2 minute build", "Blocks in the content model", "The vendor’s database"],
+  },
+];
+---
+
+<figure class="not-prose my-10">
+  <div class="grid gap-3 sm:grid-cols-3">
+    {
+      LEVELS.map((level, i) => (
+        <section
+          class:list={[
+            "rounded-xl border bg-surface p-5",
+            level.highlight ? "border-accent/50 shadow-[0_0_0_1px_rgb(165_156_255/0.15)]" : "border-line-strong",
+          ]}
+          aria-label={level.name}>
+          <p class="font-mono text-xs text-faint">Level {i + 1}</p>
+          <p class="mt-1 text-base font-medium text-fg">{level.name}</p>
+          <p class:list={["mt-0.5 text-xs", level.highlight ? "text-accent" : "text-faint"]}>{level.examples}</p>
+          <dl class="mt-4 space-y-3 border-t border-line pt-4">
+            {ROWS.map((row, r) => (
+              <div>
+                <dt class="text-[11px] uppercase tracking-wide text-faint">{row}</dt>
+                <dd class="mt-0.5 text-sm text-muted">{level.values[r]}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      ))
+    }
+  </div>
+  <figcaption class="mt-3 text-center text-xs text-faint">
+    The site itself is equally fast at every level: it’s still static HTML on Cloudflare.
+  </figcaption>
+</figure>

@@ -172,7 +172,7 @@
   margin-bottom: 1rem;
 }
 
-.article-body p + p {
+.article-body p + p:not(.not-prose *) {
   margin-top: 1.25rem;
 }
 
@@ -197,8 +197,8 @@
   font-weight: 600;
 }
 
-.article-body ul,
-.article-body ol {
+.article-body ul:not(.not-prose *),
+.article-body ol:not(.not-prose *) {
   list-style: none;
   padding-left: 0;
   margin-block: 1.25rem 1.75rem;
@@ -206,12 +206,12 @@
   gap: 0.6rem;
 }
 
-.article-body li {
+.article-body li:not(.not-prose *) {
   padding-left: 1.4rem;
   position: relative;
 }
 
-.article-body ul li::before {
+.article-body ul li:not(.not-prose *)::before {
   content: "";
   position: absolute;
   left: 0.3rem;
@@ -222,15 +222,15 @@
   background: var(--color-accent);
 }
 
-.article-body ol {
+.article-body ol:not(.not-prose *) {
   counter-reset: ol-counter;
 }
 
-.article-body ol li {
+.article-body ol li:not(.not-prose *) {
   counter-increment: ol-counter;
 }
 
-.article-body ol li::before {
+.article-body ol li:not(.not-prose *)::before {
   content: counter(ol-counter) ".";
   position: absolute;
   left: 0;

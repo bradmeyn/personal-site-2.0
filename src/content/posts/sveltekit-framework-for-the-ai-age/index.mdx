@@ -207,6 +207,17 @@ In March, Strawberry Browser [moved its entire UI from React to Svelte](https://
 - **2× faster in production**, with first contentful paint dropping from 300 ms to 124 ms.
 - **10× fewer re-renders** on streaming responses, and **56 unused dependencies** removed along the way.
 
+<BarChart
+  title="Strawberry Browser, first contentful paint in production"
+  rows={[
+    { name: "Svelte", value: 124, label: "124 ms", icon: "siSvelte", highlight: true },
+    { name: "React", value: 300, label: "300 ms", icon: "siReact" },
+  ]}
+  note="The same app, ported by one engineer in two weeks."
+  source="From React to Svelte (Strawberry Browser)"
+  sourceUrl="https://strawberrybrowser.com/blog/react-to-svelte"
+/>
+
 Their one warning is worth repeating: "LLMs write much worse Svelte than you think." What made it work was a strict Svelte ruleset for the agents to follow. Which brings me to the weak spot.
 
 ## The training data gap is closing

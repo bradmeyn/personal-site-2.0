@@ -8,6 +8,7 @@ date: 2026-10-22
 import CodeCompare from "@/components/posts/code-compare.astro";
 import FrameworkBench from "@/components/posts/framework-bench.astro";
 import BarChart from "@/components/posts/bar-chart.astro";
+import ReactTimeline from "@/components/posts/react-timeline.astro";
 
 export const fullNext = `
 // app/clients/[id]/page.tsx — a server component
@@ -163,7 +164,9 @@ For most of the last few years, "React app" has meant "Next.js app". It's the de
 
 **TanStack Start** puts those pieces together into a full-stack framework: TanStack Router for routes, server functions for the backend, TanStack Query for data, and Vite underneath. It's a client-first React app that renders on the server, rather than a server framework that ships some React.
 
-[Sage](/projects/#sage), the practice platform for financial advisers that I've been building, runs on it. It has client records, a pipeline board, retirement modelling and advice documents, so it's a real app with real complexity. Every TanStack Start snippet below comes from its codebase.
+<ReactTimeline />
+
+[Sage](/projects/#sage), the financial planning CRM I've been building, runs on it. It has client records, a pipeline board, retirement modelling and advice documents, so it's a real app with real complexity. Every TanStack Start snippet below comes from its codebase.
 
 Here's the short version, from an [independent benchmark](https://dev.to/fabwaseem/tanstack-start-vs-nextjs-in-2026-same-app-real-benchmarks-25a2) that built the same app in both frameworks:
 

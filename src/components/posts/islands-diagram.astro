@@ -1,0 +1,66 @@
+---
+// A page drawn as Astro sends it: almost all plain HTML, with one island that
+// brings its own JavaScript, loaded only when it scrolls into view.
+const line = "h-2 rounded-full bg-white/[0.09]";
+---
+
+<figure class="not-prose my-10 rounded-xl border border-line-strong bg-surface p-5 sm:p-7">
+  <div class="grid items-center gap-6 sm:grid-cols-[minmax(0,1fr)_12rem] sm:gap-8">
+    <!-- The page -->
+    <div class="overflow-hidden rounded-lg border border-line bg-bg" aria-hidden="true">
+      <div class="flex h-7 items-center gap-1.5 border-b border-line px-3">
+        <span class="size-1.5 rounded-full bg-white/10"></span>
+        <span class="size-1.5 rounded-full bg-white/10"></span>
+        <span class="size-1.5 rounded-full bg-white/10"></span>
+      </div>
+      <div class="space-y-4 p-4">
+        <div class="flex items-center justify-between">
+          <span class="h-2.5 w-14 rounded-full bg-white/[0.14]"></span>
+          <span class="flex gap-2"><span class={`${line} w-8`}></span><span class={`${line} w-8`}></span><span class={`${line} w-8`}></span></span>
+        </div>
+        <div class="space-y-2 pt-2">
+          <span class="block h-3.5 w-3/4 rounded-full bg-white/[0.16]"></span>
+          <span class={`block ${line} w-full`}></span>
+          <span class={`block ${line} w-5/6`}></span>
+        </div>
+        <div class="relative rounded-md border border-dashed border-accent/70 bg-accent/[0.08] p-3">
+          <span class="absolute -top-2.5 right-3 rounded bg-accent px-1.5 py-px font-mono text-[10px] font-medium text-bg">client:visible</span>
+          <div class="flex h-14 items-end gap-1.5">
+            {[40, 65, 50, 80, 60, 95, 75].map((h) => (
+              <span class="flex-1 rounded-sm bg-accent/60" style={`height:${h}%`}></span>
+            ))}
+          </div>
+        </div>
+        <div class="space-y-2">
+          <span class={`block ${line} w-full`}></span>
+          <span class={`block ${line} w-11/12`}></span>
+          <span class={`block ${line} w-2/3`}></span>
+        </div>
+        <div class="flex gap-2 border-t border-line pt-3">
+          <span class={`${line} w-12`}></span><span class={`${line} w-10`}></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- The key -->
+    <dl class="space-y-5 text-sm">
+      <div>
+        <dt class="flex items-center gap-2 text-fg">
+          <span class="size-3 rounded-sm bg-white/[0.14]"></span>
+          HTML and CSS
+        </dt>
+        <dd class="mt-1 text-muted">Header, text, footer. Rendered at build time, <span class="font-mono text-fg">0 KB</span> of JavaScript.</dd>
+      </div>
+      <div>
+        <dt class="flex items-center gap-2 text-fg">
+          <span class="size-3 rounded-sm border border-dashed border-accent bg-accent/20"></span>
+          An island
+        </dt>
+        <dd class="mt-1 text-muted">One interactive component. Its JavaScript loads on its own, when you scroll to it.</dd>
+      </div>
+    </dl>
+  </div>
+  <figcaption class="sr-only">
+    A page in Astro is plain HTML and CSS, except for one interactive island whose JavaScript loads only when it scrolls into view.
+  </figcaption>
+</figure>
