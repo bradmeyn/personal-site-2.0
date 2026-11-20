@@ -1,9 +1,15 @@
 ---
-import MockFrame from "./mock-frame.astro";
-import SageModellingDemo from "@/components/islands/sage-modelling-demo.svelte";
+import CrmDemo from "@/components/islands/crm-demo.svelte";
 ---
 
-<!-- Sage's retirement modelling, live: drag the slider to change the strategy. -->
-<MockFrame title="Retirement, Whitfield" color="var(--color-sage)" interactive>
-  <SageModellingDemo client:visible />
-</MockFrame>
+<!--
+  Sage's client list, live: search, sort, open a client, or switch to Modelling in
+  the sidebar. The demo brings its own app frame, so only the glow comes from here.
+-->
+<figure class="relative isolate">
+  <div
+    class="pointer-events-none absolute -inset-x-10 -top-10 bottom-0 -z-10 opacity-[0.18] blur-3xl"
+    style="background: radial-gradient(60% 55% at 50% 35%, var(--color-sage), transparent 70%)">
+  </div>
+  <CrmDemo client:visible />
+</figure>
