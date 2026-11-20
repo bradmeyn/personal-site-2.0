@@ -6,7 +6,6 @@ date: 2026-01-18
 ---
 
 import Book from "@/components/posts/book.astro";
-import ThreeSteps from "@/components/posts/three-steps.astro";
 import FeeCalculator from "@/components/islands/fee-calculator.svelte";
 import randomWalk from "./random-walk.jpg";
 import commonSense from "./common-sense-investing.jpg";
@@ -55,13 +54,17 @@ Drag the fee and watch what it does over a working lifetime:
   href="https://www.goodreads.com/book/show/26076"
 />
 
-Bogle tells you what to do. Malkiel explains why it works. He's a Princeton economist, and this is the book that made the case for index investing to a general audience. Its argument is simple: share prices already reflect what's publicly known, and new information arrives at random, so price movements are close to unpredictable. That's the "random walk".
+Bogle tells you what to do. Malkiel explains why it works. He's a Princeton economist, and this is the book that made the case for index investing to a general audience.
 
-If prices are unpredictable, then picking winners is mostly luck, and paying someone to do it for you is mostly cost. Malkiel's famous line is that a blindfolded monkey throwing darts at the stock pages could pick a portfolio that does about as well as the experts.
+Much of it is a history of investing manias. Malkiel starts with Dutch tulip bulbs in the 1630s and the South Sea Bubble of 1720, then works through the twentieth century: the "tronics" boom of the 1960s, the Nifty Fifty stocks that were supposed to be safe at any price, and the dot-com bubble. Later editions add the US housing crash and, more recently, crypto. The assets change, but the story is the same each time. A new idea, a rising price, a crowd convinced that this time is different, then a crash that wipes out the people who came in last.
+
+He's just as hard on the methods people use to get ahead. Charting past prices to predict future ones doesn't reliably work. Careful analysis of companies does better, but whatever it finds is quickly built into the price, and the professionals doing it mostly cancel each other out. Share prices already reflect what's publicly known, and new information arrives at random, so price movements are close to unpredictable. That's the "random walk".
+
+If prices are unpredictable, then picking winners is mostly luck, and paying someone to do it for you is mostly cost. Malkiel's famous line is that a blindfolded monkey throwing darts at the stock pages could pick a portfolio that does about as well as the experts. His answer is to stop playing: own the whole market through an index fund, and you'll never have everything riding on the next bubble.
 
 The book has been updated many times over fifty years, and the evidence has only grown. Year after year, most professionally managed funds trail the index they're measured against, and the longer the period, the bigger that majority gets.
 
-**Who it's for:** anyone who still suspects there's a trick to beating the market. It's the longest of the three, but it's the one that changes your mind.
+**Who it's for:** anyone who still suspects there's a trick to beating the market, or who feels the pull of the latest hot investment. It's the longest of the three, but it's the one that changes your mind.
 
 **The takeaway:** stop trying to outsmart the market. It's a game most professionals lose.
 
@@ -108,25 +111,3 @@ Montier's fix is mostly about process: decide your rules in advance, while you'r
 **Who it's for:** anyone who has read the other three and wants to understand why sticking to a simple plan is still so hard.
 
 **The takeaway:** you can't switch off your biases, but you can set up rules that stop them making the decisions.
-
-## Putting it together
-
-Read together, the three books give you a complete plan, and it's a surprisingly short one:
-
-<ThreeSteps
-  steps={[
-    { title: "Accept that you won’t beat the market", body: "Neither will most of the people charging to try." },
-    { title: "Own the market cheaply", body: "Broad, low-cost index funds, with fees as close to zero as you can find." },
-    { title: "Leave it alone", body: "Keep adding, ignore the headlines, and let time do the work." },
-  ]}
-/>
-
-None of this is specific to the US, even though all three authors are American. In Australia the same ideas apply to low-cost index funds on the ASX, and to the investment option you choose inside your super, where fees compound for even longer.
-
-If you only read one, read Bogle. If you read all three, you'll know more about investing than most people who talk about it for a living.
-
-## The boring part
-
-There's one thing none of these books spend much time on: tax. Buy-and-hold investing means decades of parcels bought at different prices, distributions that adjust your cost base, and capital gains to work out whenever you sell. That's the problem I built [Costbase](/projects/#costbase) to solve.
-
-_This article is general information about books and investing ideas, not financial advice. Consider your own circumstances, or speak to a licensed professional, before making investment decisions._
